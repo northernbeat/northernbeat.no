@@ -134,6 +134,7 @@ get_header(); ?>
 			$args = array(
 				'paged'=>$paged,
 				'post_type' => 'referanse',
+                'posts_per_page' => 3,
 				'orderby' => 'date',
 				      );
 
@@ -156,11 +157,8 @@ get_header(); ?>
             <?php endif; 
 
 				/* Include the post format-specific template for the content. If you want to
-
 				 * this in a child theme then include a file called called content-___.php
-
 				 * (where ___ is the post format) and that will be used instead.
-
 				 */ ?>
 
 				<div class="textbox third">
@@ -178,12 +176,12 @@ get_header(); ?>
 			endwhile;
 
 			//northernbeat_content_nav( 'nav-below' );
-            if ( function_exists( 'wp_paginate' ) ) {
-			wp_paginate();
-    		}
-    		else{
-	           northernbeat_content_nav( 'nav-below' );
-	         }
+            /* if ( function_exists( 'wp_paginate' ) ) { */
+			/* wp_paginate(); */
+    		/* } */
+    		/* else{ */
+	        /*    northernbeat_content_nav( 'nav-below' ); */
+	        /*  } */
 
         ?>
 
