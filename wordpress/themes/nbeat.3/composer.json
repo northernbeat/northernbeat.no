@@ -1,0 +1,19 @@
+{
+    "minimum-stability": "dev",
+
+    "autoload": {
+        "psr-0": {
+            "NorthernBeat\\": "lib"
+        }
+    },
+
+    "require": {
+        "jarednova/timber": "dev-master"
+    },
+
+    "extra": {
+        "installer-paths": {
+            "vendor/{$vendor}/{$name}": ["type:wordpress-plugin"]
+        }
+    }
+}
