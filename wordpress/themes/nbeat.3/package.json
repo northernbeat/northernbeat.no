@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": "true",
   "description": "The default WordPress theme for the third version of the Northern Beat web site",
+  "keywords": [
+    "theme",
+    "blue"
+  ],
+  "homepage": "http://www.northernbeat.no/",
   "author": {
     "name": "Northern Beat",
-    "uri": "http://www.northernbeat.no/"
+    "url": "http://www.northernbeat.no/"
   },
   "contributors": [
     {
@@ -22,6 +27,8 @@
     "url": "https://github.com/northernbeat/northernbeat.no"
   },
   "devDependencies": {
+    "compass": "^0.1.1",
+    "compass-mixins": "^0.12.7",
     "del": "^1.2.0",
     "event-stream": "^3.3.1",
     "gulp": "^3.9.0",
@@ -29,6 +36,6 @@
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-sass": "^2.0.1",
     "gulp-wpstylecss": "0.0.1",
-    "normalize.css": "^3.0.3"
+    "normalize-scss": "^3.0.1-a"
   }
 }
