@@ -7,7 +7,7 @@ class Site extends \TimberSite
 
     public function __construct()
     {
-        echo "In site";
+        parent::__construct();
     }
 
 }

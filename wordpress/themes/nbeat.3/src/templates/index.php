@@ -1,13 +1,14 @@
 <?php
 
-$context = Timber::get_context();
-$context['posts'] = Timber::get_posts();
-$templates = ['index.twig'];
+$data = Timber::get_context();
+$tpl  = ['index.twig'];
 
-if (is_home()) {
-    array_unshift($templates, 'home.twig');
-}
+$data['posts'] = Timber::get_posts();
 
-Timber::render($templates, $context);
+// if (is_home()) {
+//     array_unshift($tpl, 'home.twig');
+// }
+
+Timber::render($tpl, $data);
 
 ?>
