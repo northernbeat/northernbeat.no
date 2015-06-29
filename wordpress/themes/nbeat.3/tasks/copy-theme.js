@@ -16,5 +16,8 @@ module.exports = function(gulp, plugins)
 
         gulp.src("vendor/**/*")
             .pipe(gulp.dest("build/NorthernBeat3/vendor"));
+
+        gulp.src("src/assets/**/*")
+            .pipe(gulp.dest("build/NorthernBeat3"));
     };
 };
