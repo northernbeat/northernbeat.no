@@ -1,0 +1,44 @@
+.profile {
+    width: 100%;
+    color: #0000ff;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    padding-bottom: 140%;
+    > * {}
+    .profilepicture {
+        width: 100%;
+    }
+    .shortinfo {}
+    .details {
+        display: none;
+    }
+    &.active {
+        position: absolute;
+        z-index: 98;
+        display: block;
+        left: 0;
+        height: auto;
+        background: #FFFFFF;
+        border: 1px solid #0000FF;
+        padding: 20px;
+        > * {
+            display: table-cell;
+            vertical-align: top;
+        }
+        .profilepicture {
+            width: 33%;
+        }
+        .content {
+            padding: 40px;
+        }
+        .details {
+            display: block;
+        }
+    }
+    h3 {
+        font-family: "nationale_demibold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 1.8em;
+    }
+}

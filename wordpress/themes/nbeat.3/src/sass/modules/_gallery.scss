@@ -1,0 +1,19 @@
+.gallery {
+    text-align: justify;
+    font-size: 0.1px;
+    /* IE 9/10 don't like font-size: 0; */
+    img {
+        height: auto;
+        display: inline-block;
+        background: red;
+    }
+    &.twopics img {
+        width: 50%;
+    }
+    &:after {
+        content: '';
+        width: 100%;
+        /* Ensures there are at least 2 lines of text, so justification works */
+        display: inline-block;
+    }
+}

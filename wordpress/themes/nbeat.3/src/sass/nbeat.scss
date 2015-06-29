@@ -1,5 +1,32 @@
+@import "config";
 @import "normalize-scss/normalize";
 
-body {
-    color: blue;
-}    
+// Mixins
+@import "mixins/media-queries";
+@import "mixins/transitions";
+
+// Base
+@import "base/base";
+@import "base/fonts";
+
+// Layout
+@import "layout/grid";
+@import "layout/header";
+@import "layout/footer";
+
+// Modules
+@import "modules/article";
+@import "modules/case";
+@import "modules/color-section";
+@import "modules/container-big";
+@import "modules/container-content";
+@import "modules/gallery";
+@import "modules/hamburger";
+@import "modules/menu";
+@import "modules/page-illustration";
+@import "modules/profile";
+@import "modules/slogan";
+
+// Misc
+@import "misc";
+

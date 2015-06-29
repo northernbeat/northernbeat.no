@@ -1,0 +1,89 @@
+#header {
+    display: block;
+    background-color: #fff;
+    color: #0000ff;
+    border-top: 5px solid #0000ff;
+
+    #masthead {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        -webkit-align-items: center;
+        align-items: center;
+        width: 100%;
+
+        .logo {
+            img {
+                height: 70px;
+            }
+            /*fill: #0000ff;
+
+            #Layer_1 {
+                width: 120px;
+            }
+*/
+        }
+    }
+}
+
+
+
+
+
+
+
+/*
+.frontpage header .NBeatlogo {
+    fill: #ffffff;
+}
+    }
+.frontpage header {
+    border: none;
+    padding-top: 5px;
+    margin-bottom: 60px;
+}
+
+header 
+
+.frontpage header {
+    background: linear-gradient(rgba(0, 0, 255, 0.78), rgba(0, 0, 255, 0.78)), url(../images/toppbilde-fade.jpg) no-repeat center top;
+    background-size: cover;
+    color: #fff;
+}
+
+
+header .NBeatlogo {
+    #Layer_1 {
+        width: 120px;
+    }
+    fill: #0000ff;
+}
+
+.frontpage header .NBeatlogo {
+    fill: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.closebutton {
+    text-align: right;
+    height: 74px;
+    path {
+        fill: #ffffff;
+    }
+}
+
+*/
