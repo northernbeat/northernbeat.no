@@ -1,0 +1,14 @@
+<article class="tease tease-{{ post.post_type|e('html_attr') }}" id="tease-{{ post.ID|e('html_attr') }}">
+
+	{% block content %}
+		<h2><a href="{{ post.link|e('html_attr') }}">{{ post.title }}</a></h2>
+
+		<p>{{ post.get_preview }}</p>
+
+		{% if post.get_thumbnail %}
+			<img src="{{ post.thumbnail.src|e('html_attr') }}" />
+		{% endif %}
+
+	{% endblock %}
+
+</article>

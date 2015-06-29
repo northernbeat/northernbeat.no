@@ -1,1 +1,9 @@
-Index
+{% extends "layout/default.twig" %}
+
+{% block content %}
+
+	{% for post in posts %}
+		{% include "tease.twig" %}
+	{% endfor %}
+
+{% endblock %}
