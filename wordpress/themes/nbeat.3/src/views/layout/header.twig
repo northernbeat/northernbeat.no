@@ -1,0 +1,17 @@
+<header id="header" class="{{header.classes}}">
+  {% include "layout/mainmenu.twig" %}
+
+  <section class="container">
+	<div class="no-nbeat-menubar">
+	  <a href="/" class="no-nbeat-logo">
+        <img src="{{site.theme.link}}/img/{{header.logo|default("logo")}}.svg" />
+        <canvas id="no-nbeat-logo-canvas"></canvas>
+      </a>
+	  <button class="no-nbeat-hamburger" data-toggle="header">
+		<span></span>
+	  </button>
+	</div>
+
+    {{header.slogan}}
+  </section>
+</header>

@@ -1,0 +1,21 @@
+{% extends "no-nbeat/layout/page-wordpress.twig" %}
+
+{% block header %}
+  {% include "layout/header.twig" %}
+{% endblock %}
+
+{% block body %}
+  <div id="bd">
+    {% block content %}
+    {% endblock %}
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {% include "layout/footer.twig" %}
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ site.theme.link }}/js/jquery.min.js"></script>
+  <script src="{{ site.theme.link }}/js/nbeat.js"></script>
+{% endblock %}
