@@ -1,8 +1,49 @@
-$blue: "#0000ff";
-$theme-path: "/wp-content/themes/NorthernBeat3";
+// Color palette
+$_blue: rgb(0, 0, 255);
+$_orange: rgb(255, 102, 0);
+$_green: rgb(72, 127, 69);
+$_gray-light: rgb(221, 221, 221);
+$_gray-dark: rgb(86, 86, 86);
+$_gray-darker: rgb(60, 60, 60);
 
-// Media query breakpoints
-$screen-xs: 480px !default;
-$screen-sm: 768px !default;
-$screen-md: 992px !default;
-$screen-lg: 1200px !default;
+// Switches
+$debug: false;
+$enable-flex: true;
+
+// General settings
+$theme-path: "/wp-content/themes/NorthernBeat3";
+$_padding: 3rem !default;
+$padding-vertical: 0.75rem;
+$padding-horizontal: 1rem;
+
+// Grid and container widths
+// $ring-0: 1200px !default;
+// $ring-1: 1440px !default;
+// $ring-2: 100% !default;
+
+// Fonts
+$font-family-sans-serif: "Nationale", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+// Header and footer
+$header-padding: $_padding !default;
+$footer-padding: $_padding !default;
+$header-border-top: 0.3rem solid $_blue !default;
+$no-nbeat-menubar-zindex: 960 !default;
+$no-nbeat-footer-bg: $_gray-light !default;
+$no-nbeat-footer-color: $_gray-dark !default;
+
+// Main menu
+$no-nbeat-mainmenu-background: $_blue !default;
+$no-nbeat-mainmenu-offset: $header-padding + 4rem !default;
+$no-nbeat-mainmenu-zindex: 950 !default;
+$no-nbeat-mainmenu-padding: round(0.5 * $_padding) !default;
+
+// Slogan
+$slogan-font-size-xs: 2.2rem !default;
+$slogan-font-size-sm: 5.7vw !default;
+$slogan-font-size-xl: 4rem !default;
+$slogan-font-weight: 800 !default;
+$slogan-padding-top: round(3 * $_padding);
+$slogan-padding-bottom: round(6 * $_padding);
+$slogan-letter-spacing: 0.04em !default;
+$slogan-line-height: 1.25 !default;

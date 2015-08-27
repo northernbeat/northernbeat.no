@@ -1,0 +1,5 @@
+.container, .container-fluid {
+    @if $debug == true {
+        background: transparent url($theme-path + "/img/diagonal.png") repeat;
+    }
+}

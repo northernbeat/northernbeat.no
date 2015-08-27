@@ -1,8 +1,17 @@
-p.slogan {
-    font-size: 2.2em;
-    text-align: left;
-    font-family: "nationale_demibold", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 100;
-    letter-spacing: 0.04em;
-    margin: 30px 0 40px;
+.slogan {
+    @include responsive-padding-vertical($slogan-padding-top, $slogan-padding-bottom);
+    
+    font-size: $slogan-font-size-xs;
+    font-weight: $slogan-font-weight;
+    letter-spacing: $slogan-letter-spacing;
+    line-height: $slogan-line-height;
+    margin: 0;
+    
+    @include media-breakpoint-up(sm) {
+        font-size: $slogan-font-size-sm;
+    }
+
+    @include media-breakpoint-up(xl) {
+        font-size: $slogan-font-size-xl;
+    }
 }

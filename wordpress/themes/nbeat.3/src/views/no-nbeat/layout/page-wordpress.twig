@@ -15,21 +15,25 @@
 
   <body class="{{ body_class|e('html_attr') }}">
     {% block header %}
-      {% include "layout/header.twig" %}
+      Header
     {% endblock %}
       
-    <div class="pagecontent">
-      {% block content %}
+    {% block body %}
+      <div class="bd">
         Sorry, no content.
-      {% endblock %}
-    </div>
+      </div>
+    {% endblock %}
     
-    {% include "layout/footer.twig" %}
-
+    {% block footer %}
+      Footer
+    {% endblock %}
+    
     <div id="wpfooter">
     {{wp_footer}}
     </div>
-    <script src="{{ site.theme.link }}/js/scripts.js"></script>
 
+    {% block scripts %}
+    {% endblock %}
+    
   </body>
 </html>

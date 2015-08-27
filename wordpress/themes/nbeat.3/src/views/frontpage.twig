@@ -1,0 +1,21 @@
+{% extends "layout/default.twig" %}
+
+{% block content %}
+
+  <section class="container">
+    {% include "modules/list-cases.twig" with {"posts": cases} %}
+  </section>
+  
+  <section class="container">
+    {% include "modules/list-services.twig" with {"posts": services, "listClasses": services.listClasses } %}
+  </section>
+  
+  <section class="no-nbeat-bg-blue">
+    <div class="container">
+      {% include "modules/quote.twig" with {"quote": quote} %}
+    </div>
+  </section>
+
+{% endblock %}
+
+

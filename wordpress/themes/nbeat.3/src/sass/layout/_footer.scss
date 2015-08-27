@@ -1,31 +1,57 @@
-#footer[role="pagefooter"] {
-    display: block;
-    background-color: #343434;
-    color: rgba(255, 255, 255, 0.8);
-    padding: 0;
+ #footer[role="pagefooter"] {
+    background-color: $no-nbeat-footer-bg;
+    color: $no-nbeat-footer-color;
+    padding: $footer-padding 0;
+
+    .flexgrid {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .col {
+        // position: relative;
+        // padding-top: 0;
+        // padding-bottom: 0;
+        &:nth-child(n+2) {
+            // padding-left: 25px;
+        }
+    }
+
+    .logo {
+        fill: #ffffff;
+    }
+
     p {
-        font-size: 1.15em;
-        letter-spacing: 0.04em;
-        margin: 0.5em;
-        font-family: "nationale_light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        margin: 0;
     }
-    a {
-        color: inherit;
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    strong {
-        font-family: "nationale_regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
-    .NBeatlogo {
-        min-width: 40%;
-        #Layer_1 {
-            width: 165px;
-            fill: rgba(255, 255, 255, 0.8);
-        }
-    }
+
+    /* p { */
+    /*     font-size: 1.15em; */
+    /*     letter-spacing: 0.04em; */
+    /*     margin: 0.5em; */
+    /*     font-family: "nationale_light", "Helvetica Neue", Helvetica, Arial, sans-serif; */
+    /* } */
+    /* a { */
+    /*     color: inherit; */
+    /*     text-decoration: none; */
+    /*     &:hover { */
+    /*         text-decoration: underline; */
+    /*     } */
+    /* } */
+    /* strong { */
+    /*     font-family: "nationale_regular", "Helvetica Neue", Helvetica, Arial, sans-serif; */
+    /* } */
+    /* .NBeatlogo { */
+    /*     min-width: 40%; */
+    /*     #Layer_1 { */
+    /*         width: 165px; */
+    /*         fill: rgba(255, 255, 255, 0.8); */
+    /*     } */
+    /* } */
 }
 
 .footericon {
@@ -34,24 +60,5 @@
     top: 1.6em;
     path {
         fill: #c0c0c0;
-    }
-}
-
-#footer {
-    .flexgrid {
-        justify-content: space-between;
-    }
-
-    .col {
-        position: relative;
-        padding-top: 0;
-        padding-bottom: 0;
-        &:nth-child(n+2) {
-            padding-left: 25px;
-        }
-    }
-
-    .logo {
-        fill: #ffffff;
     }
 }

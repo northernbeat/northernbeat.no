@@ -1,0 +1,35 @@
+@mixin responsive-padding-vertical($top, $bottom: "null")
+{
+    $_xs: 0.33;
+    $_sm: 0.5;
+    $_md: 0.67;
+    $_lg: 0.75;
+    $_xl: 1;
+
+    @if $bottom == "null" {
+        $bottom: $top;
+    }
+
+    padding-top: $top * $_xs;
+    padding-bottom: $bottom * $_xs;
+    
+    @include media-breakpoint-up(sm) {
+        padding-top: $top * $_sm;
+        padding-bottom: $bottom * $_sm;
+    }
+
+    @include media-breakpoint-up(md) {
+        padding-top: $top * $_md;
+        padding-bottom: $bottom * $_md;
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding-top: $top * $_lg;
+        padding-bottom: $bottom * $_lg;
+    }
+
+    @include media-breakpoint-up(xl) {
+        padding-top: $top * $_xl;
+        padding-bottom: $bottom * $_xl;
+    }
+}

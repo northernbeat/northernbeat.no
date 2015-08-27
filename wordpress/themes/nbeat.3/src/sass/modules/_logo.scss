@@ -1,0 +1,17 @@
+.no-nbeat-logo {
+    height: 70px;
+    width: 186px;
+
+    img {
+        // background-image: url(#{$theme-path}/img/logo.svg);
+        // background-repeat: no-repeat;
+        transition: 0.2s linear;
+    }
+    &.no-nbeat-logo-white {
+        // background-image: url(#{$theme-path}/img/logo-white.svg);
+    }
+
+    canvas {
+        display: none;
+    }
+}

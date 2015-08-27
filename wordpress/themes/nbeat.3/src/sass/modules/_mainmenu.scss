@@ -1,26 +1,21 @@
-#mainmenu {
+.no-nbeat-mainmenu {
     display: block;
-    background: rgba(0, 0, 255, 1);
+    background: $no-nbeat-mainmenu-background;
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    transition: opacity 0.4s ease;
-    opacity: 1;
-    visibility: visible;
+    transition: top 0.4s ease-in-out;
+    top: -600px;
+    padding-top: $no-nbeat-mainmenu-offset + $no-nbeat-mainmenu-padding;
+    padding-bottom: $no-nbeat-mainmenu-padding;
+    z-index: $no-nbeat-mainmenu-zindex;
     
-    &.hidden {
-        visibility: hidden;
-        opacity: 0;
-    }
-
     .menu {
         list-style-type: none;
-        margin: 100px 0 80px 0;
         padding: 0;
         
         li {
-            font-family: "nationale_light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            // font-family: "nationale_light", "Helvetica Neue", Helvetica, Arial, sans-serif;
             letter-spacing: 0.02em;
             margin: 1.4em 0;
             
@@ -33,5 +28,11 @@
                 line-height: 1.5em;
             }
         }
+    }
+}
+
+#header.is-active {
+    .no-nbeat-mainmenu {
+        top: 0;
     }
 }

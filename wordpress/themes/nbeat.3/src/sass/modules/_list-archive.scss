@@ -1,0 +1,9 @@
+.list-archive {
+    .list-item {
+        margin-bottom: $_padding;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}

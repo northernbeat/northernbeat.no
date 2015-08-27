@@ -1,0 +1,7 @@
+<ul class="list list-archive list-service {{servicesListClasses}}">
+  {% for post in posts %}
+    {{ include("modules/list-item-service.twig") }}
+  {% else %}
+    <li>Sorry, no posts matched your criteria</li>
+  {% endfor %}
+</ul>

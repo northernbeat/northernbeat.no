@@ -1,5 +1,9 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
-This page should never be rendered.
+  Single post
+
+  {% for p in post.people %}
+    Person
+  {% endfor %}
 {% endblock %}

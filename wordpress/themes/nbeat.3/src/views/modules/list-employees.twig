@@ -1,0 +1,7 @@
+<ul class="list list-archive list-case">
+  {% for post in posts %}
+    {{ include("modules/list-item-case.twig") }}
+  {% else %}
+    <li>Sorry, no posts matched your criteria</li>
+  {% endfor %}
+</ul>

@@ -1,6 +1,5 @@
 /******* DANCING HAMBURGER! ********/
-
-.hamburger {
+.no-nbeat-hamburger {
     z-index: 99;
     display: block;
     position: relative;
@@ -21,9 +20,11 @@
     background-color: transparent;
     -webkit-transition: background 0.2s;
     transition: background 0.2s;
+
     &:focus {
         outline: none;
     }
+    
     span {
         display: block;
         position: absolute;
@@ -32,7 +33,8 @@
         right: 10px;
         height: 2px;
         background: #0000ff;
-        &::before, &::after {
+        
+        &:before, &:after {
             position: absolute;
             display: block;
             left: 0;
@@ -42,65 +44,79 @@
             content: "";
         }
     }
-}
-
-.frontpage .hamburger span {
-    background: #fff;
-    &::before, &::after {
-        background: #fff;
-    }
-}
-
-.hamburger {
+    
     span {
-        &::before {
-            top: -9px;
-        }
-        &::after {
-            bottom: -9px;
-        }
         -webkit-transition: background 0 0.2s;
         transition: background 0 0.2s;
-        &::before, &::after {
+        &:before {
+            top: -9px;
+        }
+        &:after {
+            bottom: -9px;
+        }
+
+        &:before, &:after {
             -webkit-transition-duration: 0.2s, 0.2s;
             transition-duration: 0.2s, 0.2s;
             -webkit-transition-delay: 0.2s, 0;
             transition-delay: 0.2s, 0;
         }
-        &::before {
+
+        &:before {
             -webkit-transition-property: top, -webkit-transform;
             transition-property: top, transform;
         }
-        &::after {
+        &:after {
             -webkit-transition-property: bottom, -webkit-transform;
             transition-property: bottom, transform;
         }
     }
-    &.active span {
+
+    &.is-active span {
         background: none;
-        &::before, &::after {
+
+        &:before, &:after {
             background-color: #fff;
         }
-        &::before {
+
+        &:before {
             top: 0;
             -webkit-transform: rotate(45deg);
             -ms-transform: rotate(45deg);
             transform: rotate(45deg);
         }
-        &::after {
+
+        &:after {
             bottom: 0;
             -webkit-transform: rotate(-45deg);
             -ms-transform: rotate(-45deg);
             transform: rotate(-45deg);
         }
-        &::before, &::after {
+
+        &:before, &:after {
             -webkit-transition-delay: 0, 0.2s;
             transition-delay: 0, 0.2s;
         }
     }
+
 }
 
-/**
- * Hamburger to "x" (htx). Takes on a hamburger shape, bars slide
- * down to center and transform into an "x".
- */
+.no-nbeat-bg-blue .no-nbeat-hamburger {
+    span {
+        background: #fff;
+        
+        &:before, &:after {
+            background: #fff;
+        }
+    }
+
+    &.is-active {
+        span {
+            background: none;
+            
+            &:before, &:after {
+                background-color: #fff;
+            }
+        }
+    }
+}

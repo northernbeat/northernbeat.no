@@ -1,32 +1,45 @@
 @import "config";
-@import "normalize-scss/normalize";
+@import "bootstrap";
 
 // Mixins
-@import "mixins/media-queries";
+// @import "mixins/media-queries";
 @import "mixins/transitions";
+@import "mixins/padding";
 
 // Base
 @import "base/base";
 @import "base/fonts";
 
 // Layout
-@import "layout/grid";
+// @import "layout/grid";
 @import "layout/header";
 @import "layout/footer";
+@import "layout/container";
+@import "layout/content";
 
 // Modules
-@import "modules/article";
-@import "modules/case";
-@import "modules/color-section";
-@import "modules/container-big";
-@import "modules/container-content";
-@import "modules/gallery";
-@import "modules/hamburger";
-@import "modules/menu";
-@import "modules/page-illustration";
-@import "modules/profile";
+@import "modules/bg";
 @import "modules/slogan";
+@import "modules/hamburger";
+@import "modules/list";
+@import "modules/list-archive";
+@import "modules/list-case";
+@import "modules/logo";
+@import "modules/mainmenu";
+@import "modules/quote";
+
+// @import "modules/article";
+// @import "modules/case";
+// @import "modules/color-section";
+// @import "modules/container-big";
+// @import "modules/container-content";
+// @import "modules/gallery";
+// @import "modules/page-illustration";
+// @import "modules/profile";
+
+// // Misc
+// @import "misc";
 
 // Misc
-@import "misc";
-
+@import "state/header";
+@import "state/logo";
