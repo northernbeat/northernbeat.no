@@ -26,17 +26,57 @@ class NorthernBeat
 
     function registerPostTypes()
     {
-        register_post_type("cases",
-                            array(
-                                "labels" => array(
-                                    "name" => __("Case"),
-                                    "singular_name" => __("Case")
-                                ),
-                                "public" => true,
-                                "has_archive" => true,
-                                "rewrite" => array("slug" => "case")
-                            )
+        register_post_type("case",
+                           array(
+                               "labels" => array(
+                                   "name" => __("Case"),
+                                   "singular_name" => __("Case")
+                               ),
+                               "public" => true,
+                               "has_archive" => true,
+                               "rewrite" => array("slug" => "case"),
+                               "menu_icon" => "dashicons-format-gallery"
+                           )
         );
+
+        register_post_type("employee",
+                           array(
+                               "labels" => array(
+                                   "name" => __("Menneskene"),
+                                   "singular_name" => __("Menneske")
+                               ),
+                               "public" => true,
+                               "has_archive" => true,
+                               "rewrite" => array("slug" => "menneskene"),
+                               "menu_icon" => "dashicons-groups"
+
+                           )
+        );
+
+        register_post_type("service",
+                           array(
+                               "labels" => array(
+                                   "name" => __("Tjenester"),
+                                   "singular_name" => __("Tjeneste")
+                               ),
+                               "public" => true,
+                               "has_archive" => true,
+                               "rewrite" => array("slug" => "tjenester"),
+                               "menu_icon" => "dashicons-screenoptions"
+                           )
+        );
+
+        register_post_type("quote",
+                           array(
+                               "labels" => array(
+                                   "name" => __("Sitater"),
+                                   "singular_name" => __("Sitat")
+                               ),
+                               "public" => true,
+                               "menu_icon" => "dashicons-format-quote"
+                           )
+        );
+        
         
     }
 }
