@@ -27,7 +27,6 @@
     "url": "https://github.com/northernbeat/northernbeat.no"
   },
   "devDependencies": {
-    "compass-mixins": "^0.12.7",
     "del": "^1.2.0",
     "event-stream": "^3.3.1",
     "gulp": "^3.9.0",
@@ -36,6 +35,8 @@
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-sass": "^2.0.1",
     "gulp-wpstylecss": "0.0.1",
-    "normalize-scss": "^3.0.1-a"
+    "jquery": "^2.1.4",
+    "node-sass": "^3.2.0",
+    "run-sequence": "^1.1.2"
   }
 }

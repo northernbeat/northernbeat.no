@@ -4,6 +4,6 @@ module.exports = function(gulp, plugins)
     
     return function()
     {
-        del(["build/**/*"]);
+        del(["./build/**/*"]);
     };
 };
