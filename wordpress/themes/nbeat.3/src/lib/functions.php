@@ -6,4 +6,11 @@ if (!class_exists("Timber")) {
     require_once("vendor/jarednova/timber/timber.php");
 }
 
+function print_pre_r($in)
+{
+    print "<pre>";
+    print_r($in);
+    print "</pre>";
+}
+
 new NorthernBeat\Site();
