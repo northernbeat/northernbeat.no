@@ -11,10 +11,11 @@ $debug: false;
 $enable-flex: true;
 
 // General settings
-$theme-path: "/wp-content/themes/NorthernBeat3";
+$theme-path: "/wp-content/themes/NorthernBeat3" !default;
 $_padding: 3rem !default;
-$padding-vertical: 0.75rem;
-$padding-horizontal: 1rem;
+$padding-vertical: 0.75rem !default;
+$padding-horizontal: 1rem !default;
+$link-color: $_blue !default;
 
 // Grid and container widths
 // $ring-0: 1200px !default;
