@@ -1,0 +1,7 @@
+{% extends "layout/default.twig" %}
+
+{% block content %}
+  <div class="container">
+    {% include "modules/list-employees.twig" with {"listClasses": "list-of-three"} %}
+  </div>
+{% endblock %}

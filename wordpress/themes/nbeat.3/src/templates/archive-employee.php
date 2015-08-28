@@ -1,9 +1,10 @@
 <?php
 
-$args          = array("post_type" => "employee");
-$data          = Timber::get_context();
-$data["posts"] = Timber::get_posts($args);
+$args            = array("post_type" => "employee");
+$data            = Timber::get_context();
+$data["posts"]   = Timber::get_posts($args);
+$data["classes"] = "list-of-three";
 
-Timber::render("employee/archive.twig", $data);
+Timber::render("pages/employees.twig", $data);
 
 ?>

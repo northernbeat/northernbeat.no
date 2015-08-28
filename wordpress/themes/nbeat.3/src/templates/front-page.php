@@ -1,12 +1,5 @@
 <?php
 
-function print_pre_r($in)
-{
-    echo "<pre>";
-    print_r($in);
-    echo "</pre>";
-}
-
 $data = Timber::get_context();
 
 // Set data related to header and UI
@@ -34,6 +27,6 @@ $args = array("post_type" => "quote",
 $data["quote"] = Timber::get_post($args);
 
 // Render page
-Timber::render("frontpage.twig", $data);
+Timber::render("pages/frontpage.twig", $data);
 
 ?>

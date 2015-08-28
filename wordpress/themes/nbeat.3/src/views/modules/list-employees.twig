@@ -1,6 +1,6 @@
-<ul class="list list-archive list-case">
+<ul class="list list-archive list-employees {{classes}}">
   {% for post in posts %}
-    {{ include("modules/list-item-case.twig") }}
+    {{ include("modules/list-item-employee.twig") }}
   {% else %}
     <li>Sorry, no posts matched your criteria</li>
   {% endfor %}
