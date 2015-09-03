@@ -12,7 +12,7 @@ $args = array("post_type" => "case",
               "numberposts" => 3,
               "orderby" => "id",
               "order" => "asc");
-$data["cases"] = Timber::get_posts($args);
+$data["cases"] = Timber::get_posts($args, "\\NorthernBeat\\Theme\\Showcase");
 
 // Fetch serivces
 $args = array("post_type" => "service",
