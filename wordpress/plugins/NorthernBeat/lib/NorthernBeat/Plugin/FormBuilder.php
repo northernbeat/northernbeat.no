@@ -168,7 +168,8 @@ class FormBuilder
                 $opts = array_merge($this->simple[$name], $opts);
                 $field = new \NorthernBeat\Plugin\FormField($opts, $this);
             } else {
-                die(sprintf("Invalid custom post field configuration. Post type: %s, Group: %s, Field: %s",
+                die(sprintf("Invalid custom post field configuration. " .
+                            "Post type: %s, Group: %s, Field: %s",
                             $this->postType, $key, $name));
             }
 
