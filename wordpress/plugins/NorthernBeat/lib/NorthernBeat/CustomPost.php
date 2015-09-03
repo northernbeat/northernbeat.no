@@ -41,7 +41,7 @@ class CustomPost
 
     public function buildForm()
     {
-        $form = new \NorthernBeat\FormBuilder($this->form);
+        $form = new \NorthernBeat\FormBuilder($this->form, $this->id, $this->prefix);
         $form->parse();
         // acf_add_local_field_group($data);
     }
