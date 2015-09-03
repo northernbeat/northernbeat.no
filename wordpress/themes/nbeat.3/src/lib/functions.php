@@ -13,4 +13,4 @@ function print_pre_r($in)
     print "</pre>";
 }
 
-new NorthernBeat\Site();
+new NorthernBeat\Theme\Site();

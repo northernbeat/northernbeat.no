@@ -1,6 +1,6 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Theme;
 
 class Post extends \TimberPost
 {
@@ -13,7 +13,7 @@ class Post extends \TimberPost
     {
         if (isset($this->people) && is_array($this->people)) {
             foreach ($this->people as $id) {
-                $this->peoplelist[] = new \NorthernBeat\Post($id);
+                $this->peoplelist[] = new \NorthernBeat\Theme\Post($id);
             }
         }
     }
