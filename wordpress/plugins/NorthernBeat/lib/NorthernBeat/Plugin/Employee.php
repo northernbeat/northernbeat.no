@@ -16,13 +16,16 @@ class Employee extends \NorthernBeat\Plugin\CustomPost
 
         $this->form = array(
             array("details", "Detaljer",
-                  array("tab", ["key" => "tab-about", "label" => "Personlig informasjon"],
+                  array("tab", ["key" => "emp-tab-about",
+                                "label" => "Personlig informasjon"],
                         "firstname", "lastname", "email", "phone", "description",
 
-                        "tab", ["key" => "tab-photo", "label" => "Foto"],
+                        "tab", ["key" => "emp-tab-photo",
+                                "label" => "Foto"],
                         "photo",
 
-                        "tab", ["key" => "tab-social", "label" => "Sosiale medier"],
+                        "tab", ["key" => "emp-tab-social",
+                                "label" => "Sosiale medier"],
                         "facebook", "twitter", "instagram", "snapchat"
                   ),
             ),
