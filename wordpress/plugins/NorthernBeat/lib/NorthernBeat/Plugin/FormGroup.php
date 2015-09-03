@@ -1,6 +1,6 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Plugin;
 
 class FormGroup
 {

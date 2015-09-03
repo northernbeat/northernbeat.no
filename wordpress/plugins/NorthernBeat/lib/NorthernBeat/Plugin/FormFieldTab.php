@@ -1,8 +1,8 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Plugin;
 
-class FormFieldTab extends \NorthernBeat\FormField
+class FormFieldTab extends \NorthernBeat\Plugin\FormField
 {
     protected $placement = "top";
     protected $endpoint = 0;

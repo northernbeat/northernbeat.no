@@ -1,8 +1,8 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Plugin;
 
-class FormFieldPost extends \NorthernBeat\FormField
+class FormFieldPost extends \NorthernBeat\Plugin\FormField
 {
     protected $postType = array();
     protected $taxonomy = array();

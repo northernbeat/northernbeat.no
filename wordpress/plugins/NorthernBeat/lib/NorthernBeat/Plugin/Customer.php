@@ -1,8 +1,8 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Plugin;
 
-class Customer extends \NorthernBeat\CustomPost
+class Customer extends \NorthernBeat\Plugin\CustomPost
 {
 
     public function __construct()

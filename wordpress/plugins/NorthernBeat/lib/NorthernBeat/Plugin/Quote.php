@@ -1,8 +1,8 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Plugin;
 
-class Quote extends \NorthernBeat\CustomPost
+class Quote extends \NorthernBeat\Plugin\CustomPost
 {
 
     public function __construct()

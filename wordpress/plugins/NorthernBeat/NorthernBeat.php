@@ -26,7 +26,7 @@ class NorthernBeat
     function registerPostTypes()
     {
         foreach ($this->postTypes as $p) {
-            $class = "\\NorthernBeat\\" . ucfirst($p);
+            $class = "\\NorthernBeat\\Plugin\\" . ucfirst($p);
             $post  = new $class();
 
             $post->register();

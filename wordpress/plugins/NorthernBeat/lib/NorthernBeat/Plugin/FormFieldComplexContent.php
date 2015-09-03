@@ -1,8 +1,8 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Plugin;
 
-class FormFieldComplexContent extends \NorthernBeat\FormField
+class FormFieldComplexContent extends \NorthernBeat\Plugin\FormField
 {
     protected $buttonLabel = "Legg til innhold";
     protected $min = 0;

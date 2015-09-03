@@ -1,6 +1,6 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Plugin;
 
 class CustomPost
 {
@@ -41,7 +41,7 @@ class CustomPost
 
     public function buildForm()
     {
-        $form = new \NorthernBeat\FormBuilder($this->form, $this->id, $this->prefix);
+        $form = new \NorthernBeat\Plugin\FormBuilder($this->form, $this->id, $this->prefix);
         $form->parse();
     }
             

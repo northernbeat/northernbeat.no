@@ -1,6 +1,6 @@
 <?php
 
-namespace NorthernBeat;
+namespace NorthernBeat\Plugin;
 
 class FormBuilder
 {
@@ -125,7 +125,7 @@ class FormBuilder
             $groupOpts = $g[3];
         }
 
-        $group = new \NorthernBeat\FormGroup($key, $label, $this->postType, $this->prefix, $groupOpts);
+        $group = new \NorthernBeat\Plugin\FormGroup($key, $label, $this->postType, $this->prefix, $groupOpts);
         $list = $this->parseFields($fields);
         $group->setFields($list);
         
@@ -154,18 +154,19 @@ class FormBuilder
 
             if (!isset($opts["key"])) {
                 $opts["key"] = $this->prefix . $name;
+                // $opts["key"] = $name;
             }
 
             // If target is one of the predefined classes, ie. tab
             if (isset($this->advanced[$name])) {
-                $class = "\\NorthernBeat\\" . $this->advanced[$name]["class"];
+                $class = "\\NorthernBeat\\Plugin\\" . $this->advanced[$name]["class"];
                 $opts  = array_merge($this->advanced[$name], $opts);
                 $field = new $class($opts, $this);
 
             // If target is a predefined simple field, ie. firstname
             } elseif (isset($this->simple[$name])) {
                 $opts = array_merge($this->simple[$name], $opts);
-                $field = new \NorthernBeat\FormField($opts, $this);
+                $field = new \NorthernBeat\Plugin\FormField($opts, $this);
             } else {
                 die(sprintf("Invalid custom post field configuration. Post type: %s, Group: %s, Field: %s",
                             $this->postType, $key, $name));
@@ -190,7 +191,7 @@ class FormBuilder
         
         $fields = $opts["fields"];
         unset($opts["fields"]);
-        $layout = new \NorthernBeat\FormLayout($opts);
+        $layout = new \NorthernBeat\Plugin\FormLayout($opts);
         $list = $this->parseFields($fields);
         $layout->setFields($list);
 
