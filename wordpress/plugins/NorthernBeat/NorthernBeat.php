@@ -1,9 +1,8 @@
 <?php
 /**
  * Plugin Name: Northern Beat
- * Description: Northern Beat website plugin. Sets up custom post and
- *              page types, adds smart links and custom dashboard pages.
- * Author: eirikref
+ * Description: Northern Beat website plugin. Sets up custom post and page types, advanced post edit pages, etc.
+ * Author: Northern Beat
  * Version: 1.0.0
  */
 
@@ -12,6 +11,10 @@ require_once("vendor/autoload.php");
 class NorthernBeat
 {
 
+    private $postTypes = array("employee", "customer", "quote", "showcase");
+    // private $postTypes = array("showcase");
+
+    
     function __construct()
     {
         // add_action("admin_menu", array($this, "addAdminMenus"));
@@ -30,10 +33,17 @@ class NorthernBeat
 
     function registerPostTypes()
     {
-        $post = new \NorthernBeat\Employee();
-        $post->register();
-        $post->buildForm();
+        foreach ($this->postTypes as $p) {
+            $class = "\\NorthernBeat\\" . ucfirst($p);
+            $post  = new $class();
 
+            // print_pre_r($post);
+            
+            $post->register();
+            $post->buildForm();
+        }
+
+        // die("slutt");
         // register_post_type("case",
         //                    array(
         //                        "labels" => array(
