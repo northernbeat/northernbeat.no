@@ -4,25 +4,98 @@ namespace NorthernBeat;
 
 class FormBuilder
 {
-    private $pre = array("firstname" => array("label" => "Fornavn",
-                                              "type" => "text"),
-                         "lastname" => array("label" => "Etternavn",
-                                             "type" => "text"),
-                         "email" => array("label" => "Epost",
-                                          "type" => "text",
-                                          "append" => "@northernbeat.no"),
-                         "phone" => array("label" => "Telefon",
-                                          "type" => "text",
-                                          "prepend" => "+47"),
-                         "photo" => array("label" => "Bilde",
-                                          "type" => "image")
-    );
-                                       
 
-    public function __construct($input)
+    // Advanced fields
+    private $advanced = array(
+        "tab"       => array("class"    => "FormFieldTab"),
+        "post"      => array("class"    => "FormFieldPost"),
+        "content"   => array("class"    => "FormFieldComplexContent",
+                             "label"    => "Innhold"),
+        "contactUs" => array("class"    => "FormFieldComplexContactUs"),
+        "customer"  => array("class"    => "FormFieldPost",
+                             "key"      => "customer",
+                             "label"    => "Kunde",
+                             "postType" => array("customer"),
+                             "multiple" => false),
+        "customers" => array("class"    => "FormFieldPost",
+                             "key"      => "customer",
+                             "label"    => "Kunde",
+                             "postType" => array("customer"),
+                             "multiple" => true),
+        "selectQuote"  => array("class"    => "FormFieldPost",
+                                "key"      => "quote",
+                                "label"    => "Sitat",
+                                "postType" => array("quote"),
+                                "multiple" => false),
+    );
+
+    // Simple fields
+    private $simple = array(
+        
+        // Personal-ish about/contact information
+        "name" => array("label" => "Navn",
+                        "type" => "text"),
+        "firstname" => array("label" => "Fornavn",
+                             "type" => "text"),
+        "lastname" => array("label" => "Etternavn",
+                            "type" => "text"),
+        "email" => array("label" => "Epost",
+                         "type" => "text",
+                         "append" => "@northernbeat.no"),
+        "phone" => array("label" => "Telefon",
+                         "type" => "text",
+                         "prepend" => "+47"),
+        "title" => array("label" => "Tittel/rolle",
+                         "type" => "text"),
+
+        // Social media
+        "facebook" => array("label" => "Facebook",
+                            "type" => "text",
+                            "prepend" => "https://facebook.com/"),
+        "instagram" => array("label" => "Instagram",
+                            "type" => "text",
+                            "prepend" => "https://instagram.com/"),
+        "twitter" => array("label" => "Twitter",
+                           "type" => "text",
+                           "prepend" => "https://twitter.com/"),
+        "snapchat" => array("label" => "Snapchat",
+                            "type" => "text"),
+        "homepage" => array("label" => "Webside",
+                            "type" => "url"),
+
+        // Images
+        "photo" => array("label" => "Bilde",
+                         "type" => "image"),
+        "logo" => array("label" => "Logo",
+                         "type" => "image"),
+
+        // Text fields
+        "description" => array("label" => "Beskrivelse",
+                               "type" => "textarea"),
+        "plaintext" => array("label" => "Tekst",
+                             "type" => "textarea"),
+
+
+    );
+
+    // Layouts
+    private $layouts = array(
+        // Quote
+        "quote" => array("label" => "Sitat",
+                         "fields" => array("selectQuote", "name")
+        )
+    );
+
+
+
+    public function __construct($input, $postType, $prefix)
     {
-        $this->orig = $input;
+        $this->orig     = $input;
+        $this->postType = $postType;
+        $this->prefix   = $prefix;
     }
+
+
 
     public function parse()
     {
@@ -36,176 +109,103 @@ class FormBuilder
             ++$gIndex;
             $groupData = $this->parseGroup($group);
             $groupData["menu_order"] = $gIndex;
+            $this->log($groupData);
             acf_add_local_field_group($groupData);
         }
     }
 
     private function parseGroup(array $g)
     {
-        $group = null;
-        $field = null;
-        $prefix = "";
+        $key       = $g[0];
+        $label     = $g[1];
+        $fields    = $g[2];
+        $groupOpts = array();
 
-        $gOpts = array_shift($g);
-        list($key, $title, $postType, $prefix) = $gOpts;
-        $group = new \NorthernBeat\FormGroup($key, $title, $postType);
-        
-        foreach ($g as $key => $val) {
-            unset($opts);
-
-            if (is_string($val) && isset($this->pre[$val])) {
-                $key = $val;
-                $opts = $this->pre[$key];
-            } elseif (is_string($key) && isset($this->pre[$key]) && is_array($val)) {
-                $opts = array_merge($this->pre[$key], $val);
-            } elseif (is_string($key) && is_array($val)) {
-                $opts = $val;
-            } else {
-                die("Not how we want things");
-            }
-            
-            $opts["key"] = $key;
-            $opts["prefix"] = $prefix;
-
-            $field = $this->buildField($key, $opts);
-            $group->addField($field);
+        if (isset($g[3]) && is_array($g[3])) {
+            $groupOpts = $g[3];
         }
 
+        $group = new \NorthernBeat\FormGroup($key, $label, $this->postType, $this->prefix, $groupOpts);
+        $list = $this->parseFields($fields);
+        $group->setFields($list);
+        
         return $group->get();
     }
 
-    private function buildField($id, $opts)
+
+
+    private function parseFields($fields)
     {
-        $field = new \NorthernBeat\FormField($opts);
-        return $field->get();
-    }
-}
-
-class FormGroup
-{
-    protected $key;
-    protected $title;
-    protected $fields = array();
-    protected $postType;
-    protected $menuOrder = 0;
-    protected $position = "normal";
-    protected $style = "default";
-    protected $labelPlacement = "left";
-    protected $instructionPlacement = "label";
-    protected $hideOnScreen = "";
-    protected $active = 1;
-    protected $description = "";
-
-    public function __construct($key, $title, $postType)
-    {
-        $this->key = $key;
-        $this->title = $title;
-        $this->postType = $postType;
-    }
-
-    public function addField($f)
-    {
-        $this->fields[] = $f;
-    }
-
-    public function get()
-    {
-        return array (
-            "key" => $this->key,
-            "title" => $this->title,
-            "fields" => $this->fields,
-            "location" => array (
-                array (
-                    array (
-                        "param" => "post_type",
-                        "operator" => "==",
-                        "value" => $this->postType,
-                    ),
-                ),
-            ),
-            "menu_order" => 0,
-            "position" => "normal",
-            "style" => "default",
-            "label_placement" => "left",
-            "instruction_placement" => "label",
-            "hide_on_screen" => "",
-            "active" => 1,
-            "description" => ""
-        );
-    }
-}
-
-class FormField
-{
-    protected $key;
-    protected $label;
-    protected $name;
-    protected $type = "text";
-    protected $instructions;
-    protected $required = 0;
-    protected $conditionalLogic = 0;
-    protected $wrapperWidth = "";
-    protected $wrapperClass = "";
-    protected $wrapperId = "";
-    protected $defaultValue = "";
-    protected $placeholder = "";
-    protected $prepend = "";
-    protected $append = "";
-    protected $maxLength = "";
-    protected $readonly;
-    protected $disabled;
-    protected $prefix;
-
-    public function __construct($in = array())
-    {
-        $prefix = null;
-
-        if (isset($in["prefix"])) {
-            $this->prefix = $in["prefix"];
-            unset($in["prefix"]);
-        }
+        $ret = array();
         
-        if (is_array($in)) {
-            foreach ($in as $key => $val) {
-                if (property_exists($this, $key)) {
-
-                    if ("key" == $key && isset($this->prefix)) {
-                        $key = $prefix . $key;
-                    }
-                    
-                    $this->$key = $val;
-                }
+        for ($i = 0; $i < count($fields); ++$i) {
+            $name = $fields[$i];
+            $opts  = array();
+            $next  = $i + 1;
+            $field = null;
+            
+            if (is_array($name)) {
+                continue;
             }
+
+            if (isset($fields[$next]) && is_array($fields[$next])) {
+                $opts = $fields[$next];
+            }
+
+            if (!isset($opts["key"])) {
+                $opts["key"] = $this->prefix . $name;
+            }
+
+            // If target is one of the predefined classes, ie. tab
+            if (isset($this->advanced[$name])) {
+                $class = "\\NorthernBeat\\" . $this->advanced[$name]["class"];
+                $opts  = array_merge($this->advanced[$name], $opts);
+                $field = new $class($opts, $this);
+
+            // If target is a predefined simple field, ie. firstname
+            } elseif (isset($this->simple[$name])) {
+                $opts = array_merge($this->simple[$name], $opts);
+                $field = new \NorthernBeat\FormField($opts, $this);
+            } else {
+                die(sprintf("Invalid custom post field configuration. Post type: %s, Group: %s, Field: %s",
+                            $this->postType, $key, $name));
+            }
+
+            $ret[] = $field->get();
         }
 
-        if (!isset($this->name)) {
-            $this->name = $this->key;
-        }
+        return $ret;
     }
+
     
-    public function get()
+
+    public function getLayout($l, $parentKey)
     {
-        return array (
-            "key" => $this->key,
-            "label" => $this->label,
-            "name" => $this->name,
-            "type" => $this->type,
-            "instructions" => $this->instructions,
-            "required" => $this->required,
-            "conditional_logic" => $this->conditionalLogic,
-            "wrapper" => array (
-                "width" => $this->wrapperWidth,
-                "class" => $this->wrapperClass,
-                "id" => $this->wrapperId,
-            ),
-            "default_value" => $this->defaultValue,
-            "placeholder" => $this->placeholder,
-            "prepend" => $this->prepend,
-            "append" => $this->append,
-            "maxlength" => $this->maxLength,
-            "readonly" => $this->readonly,
-            "disabled" => $this->disabled
-        );
+        if (!isset($this->layouts[$l])) {
+            die("Invalid layout '$l'");
+        }
+
+        $opts = $this->layouts[$l];
+        $opts["key"] = $parentKey . "-" . $l;
+        
+        $fields = $opts["fields"];
+        unset($opts["fields"]);
+        $layout = new \NorthernBeat\FormLayout($opts);
+        $list = $this->parseFields($fields);
+        $layout->setFields($list);
+
+        return $layout->get();
     }
+
+
+
+    private function log($in)
+    {
+        $file = "/tmp/wp-debug.log";
+        $fh = fopen($file, "a");
+
+        fwrite($fh, print_r($in, true));
+        fclose($fh);
+    }
+
 }
-    
