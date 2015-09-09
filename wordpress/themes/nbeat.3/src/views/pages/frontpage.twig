@@ -1,21 +1,45 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
-
-  <section class="container">
-    {% include "modules/list-cases.twig" with {"posts": cases} %}
-  </section>
+  <article>
   
-  <section class="container">
-    {% include "modules/list-services.twig" with {"posts": services, "listClasses": services.listClasses } %}
-  </section>
-  
-  <section class="no-nbeat-bg-blue">
-    <div class="container">
-      {% include "modules/quote.twig" with {"quote": quote} %}
-    </div>
-  </section>
+    <section class="content-section">
+      <div class="container">
+        {% include "modules/list-cases.twig" with {"posts": cases} %}
+      </div>
+    </section>
+    
+    <section class="content-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1">
+            <div class="content-textheader content-subsection">
+              <h2 class="has-branding">Slik hjelper vi deg</h2>
+              
+              <div class="ingress">
+                For å lage gode brukeropplevelser har vi spesialisert oss på ulike områder. Denne kunnskapen kombinerer vi med dine problemstillinger og kunnskap tog sammen lager vi løsninger som forenkler og beriker menneskers hverdag.
+              </div>
+            </div>
+          
+            <div class="content-list content-subsection">
+              {% include "modules/list-services.twig" with {"posts": services, "listClasses": services.listClasses } %}
+            </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="content-section no-nbeat-bg-blue">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1">
+            {% include "modules/quote.twig" with {"quote": quote} %}
+          </div>
+        </div>
+      </div>
+    </section>
 
+  </article>
+  
 {% endblock %}
 
 

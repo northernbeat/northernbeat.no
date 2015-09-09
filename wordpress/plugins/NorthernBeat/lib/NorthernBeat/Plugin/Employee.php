@@ -8,23 +8,23 @@ class Employee extends \NorthernBeat\Plugin\CustomPost
     public function __construct()
     {
         $this->id       = "employee";
-        $this->prefix   = "emp-";
+        $this->prefix   = "employee-";
         $this->plural   = "Ansatte";
         $this->singular = "Ansatt";
         $this->slug     = "menneskene";
         $this->icon     = "dashicons-groups";
 
         $this->form = array(
-            array("details", "Detaljer",
-                  array("tab", ["key" => "emp-tab-about",
+            array("groupDetails", "Detaljer",
+                  array("tab", ["key" => "tabAbout",
                                 "label" => "Personlig informasjon"],
-                        "firstname", "lastname", "email", "phone", "description",
-
-                        "tab", ["key" => "emp-tab-photo",
+                        "firstname", "lastname", "email", "phone", "title", "description",
+                        
+                        "tab", ["key" => "tabPhoto",
                                 "label" => "Foto"],
                         "photo",
 
-                        "tab", ["key" => "emp-tab-social",
+                        "tab", ["key" => "tabSocial",
                                 "label" => "Sosiale medier"],
                         "facebook", "twitter", "instagram", "snapchat"
                   ),

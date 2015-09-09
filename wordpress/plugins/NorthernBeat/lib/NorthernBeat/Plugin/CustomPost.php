@@ -10,6 +10,7 @@ class CustomPost
     protected $singular;
     protected $public = true;
     protected $archive = true;
+    protected $menuPosition = 1;
     protected $slug;
     protected $supports = array("title");
     protected $icon;
@@ -24,24 +25,27 @@ class CustomPost
     {
         register_post_type($this->id,
                            array(
+                               "label" => __($this->plural),
                                "labels" => array(
                                    "name" => __($this->plural),
                                    "singular_name" => __($this->singular)
                                ),
                                "public" => $this->public,
+                               // "menu_position" => $this->menuPosition,
                                "has_archive" => $this->archive,
                                "rewrite" => array("slug" => $this->slug),
                                "supports" => $this->supports,
                                "menu_icon" => $this->icon
                            )
         );
+        flush_rewrite_rules();
     }
 
 
 
     public function buildForm()
     {
-        $form = new \NorthernBeat\Plugin\FormBuilder($this->form, $this->id, $this->prefix);
+        $form = new \NorthernBeat\Plugin\FormBuilder($this->form, $this->id);
         $form->parse();
     }
             

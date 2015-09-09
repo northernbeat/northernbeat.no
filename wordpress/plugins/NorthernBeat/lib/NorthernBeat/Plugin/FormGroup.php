@@ -18,27 +18,42 @@ class FormGroup
     protected $description = "";
     protected $prefix = null;
 
+
+    
     public function __construct($key, $title, $postType, $prefix, $opts)
     {
-        $this->key = $prefix . $key . "-group";
+        $this->key = $prefix . $key;
         $this->title = $title;
         $this->postType = $postType;
         $this->prefix = $prefix;
 
         if (is_array($opts)) {
             foreach ($opts as $key => $val) {
-                if (property_exists($this, $key)) {
+                if (property_exists($this, $key) && "key" != $key) {
                     $this->$key = $val;
                 }
             }
         }
+
+        $this->name = $this->key;
     }
 
+
+    
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+
+    
     public function setFields(array $f)
     {
         $this->fields = $f;
     }
 
+
+    
     public function get()
     {
         return array (

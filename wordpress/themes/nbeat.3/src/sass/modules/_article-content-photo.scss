@@ -1,0 +1,26 @@
+.content-photo {
+    .list-photos {
+        @include nb_flex();
+        width: 100%;
+        
+        div {
+            overflow: hidden;
+        }
+        
+        img {
+            width: 100%;
+        }
+    }
+    
+    .list-of-one {
+        div {
+            width: 100%;
+        }
+    }
+    
+    .list-of-two {
+        div {
+            width: 50%;
+        }
+    }
+}

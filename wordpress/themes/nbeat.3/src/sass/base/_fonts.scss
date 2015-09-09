@@ -17,7 +17,7 @@
          url($theme-path + "/fonts/nationale-demibold-webfont.woff") format("woff"),
          url($theme-path + "/fonts/nationale-demibold-webfont.ttf") format("truetype"),
          url($theme-path + "/fonts/nationale-demibold-webfont.svg#nationale_demibold") format("svg");
-    font-weight: normal;
+    font-weight: bold;
     font-style: normal;
 }
 
@@ -29,6 +29,6 @@
          url($theme-path + "/fonts/nationale-light-webfont.woff") format("woff"),
          url($theme-path + "/fonts/nationale-light-webfont.ttf") format("truetype"),
          url($theme-path + "/fonts/nationale-light-webfont.svg#nationale_light") format("svg");
-    font-weight: normal;
+    font-weight: 300;
     font-style: normal;
 }

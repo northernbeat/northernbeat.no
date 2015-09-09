@@ -1,0 +1,72 @@
+@mixin list-item($_margin)
+{
+    .list-item {
+        width: 100%;
+        @include scale("margin-top", $_margin);
+        overflow: hidden;
+
+        &:first-child {
+            margin-top: 0;
+        }
+        
+        &:nth-child(2) {
+            @include scale("margin-top", $_margin);
+        }
+
+        &:nth-child(3) {
+            @include scale("margin-top", $_margin);
+        }
+    }
+
+
+    &.list-of-two {
+        .list-item {
+            @include media-breakpoint-up(md) {
+                width: 49%;
+                margin-right: 2%;
+                
+                &:nth-child(2n+2) {
+                    margin-right: 0;
+                }
+                
+                &:nth-child(2) {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
+    &.list-of-three {
+        .list-item {
+            @include media-breakpoint-up(md) {
+                width: 49%;
+                margin-right: 2%;
+                
+                &:nth-child(2) {
+                    margin-top: 0;
+                }
+                
+                &:nth-child(2n+2) {
+                    margin-right: 0;
+                }
+            }
+            
+            @include media-breakpoint-up(lg) {
+                width: 32%;
+                margin-right: 2%;
+                
+                &:nth-child(3) {
+                    margin-top: 0;
+                }
+                
+                &:nth-child(2n+2) {
+                    margin-right: 2%;
+                }
+                
+                &:nth-child(3n+3) {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

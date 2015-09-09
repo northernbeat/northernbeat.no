@@ -11,7 +11,7 @@ require_once("vendor/autoload.php");
 class NorthernBeat
 {
 
-    private $postTypes = array("employee", "customer", "quote", "showcase");
+    private $postTypes = array("employee", "customer", "quote", "showcase", "service");
 
 
 
@@ -19,8 +19,10 @@ class NorthernBeat
     {
         add_action("init", array($this, "registerPostTypes"));
         add_filter("upload_mimes", array($this, "registerMimeTypes"));
+        add_action("admin_enqueue_scripts", array($this, "addAdminCss"));
+        add_action("login_enqueue_scripts", array($this, "addAdminCss"));
     }
-
+    
 
 
     function registerPostTypes()
@@ -41,6 +43,14 @@ class NorthernBeat
         $mimes["svg"] = "image/svg+xml";
         return $mimes;
     }
+
+
+
+    function addAdminCss()
+    {
+        wp_enqueue_style('my-admin-theme', plugins_url('nbeat-admin-overrides.css', __FILE__));
+    }
+    
 }
 
 $nb = new NorthernBeat();

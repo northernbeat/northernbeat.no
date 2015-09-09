@@ -2,8 +2,6 @@
 
 $args          = array("post_type" => "case");
 $data          = Timber::get_context();
-$data["posts"] = Timber::get_posts($args);
+$data["posts"] = Timber::get_posts($args, "\\NorthernBeat\\Theme\\Showcase");
 
 Timber::render("pages/cases.twig", $data);
-
-?>

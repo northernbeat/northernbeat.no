@@ -14,9 +14,33 @@ $(document).ready(function() {
         });
     }
 
+    function setCaseColors()
+    {
+        $(".no-nbeat-bg-attrs").each(function() {
+            $(this).css("background-color", $(this).attr("data-bg"));
+            $(this).css("color", $(this).attr("data-fg"));
+        });
+
+        $(".no-nbeat-fg-attrs").each(function() {
+            $(this).css("color", $(this).attr("data-fg"));
+        });
+    }
+
     handleHamburgerEvents();
+    setCaseColors();
+    // showContentDebug();
     // drawLogo();
 
+    function showContentDebug()
+    {
+        var colors = ["#EBF7F8", "#D0E0EB", "#88ABC2", "#49708A"];
+
+        $(".content-section").each(function() {
+            var color = colors[Math.floor(Math.random() * colors.length)];
+            $(this).css("background", color + " url(\"/wp-content/themes/NorthernBeat3/img/diagonal.png\") repeat");
+        });
+    }
+    
     function drawLogo()
     {
         var c = document.getElementById("logo");

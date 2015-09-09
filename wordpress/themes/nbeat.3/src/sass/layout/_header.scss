@@ -1,11 +1,16 @@
 #header {
-    padding-top: $header-padding;
-    margin-bottom: $header-padding;
-    /* display: block; */
-    /* background-color: #fff; */
-    /* color: #0000ff; */
+    @include scale("padding-top", $header-padding);
+    @include scale("padding-bottom", $header-padding);
     border-top: $header-border-top;
+    position: relative;
+    z-index: 3;
 
+    &.no-nbeat-fp {
+        background: linear-gradient($header-gradient-from, $header-gradient-to),
+                    url("#{$theme-path}/img/topp.jpg") no-repeat center top;
+        background-size: cover;
+    }
+    
     .no-nbeat-menubar {
         display: -webkit-flex;
         display: flex;
@@ -20,65 +25,3 @@
         }
     }
 }
-
- 
-
-
-
-
-
-
-/*
-.frontpage header .NBeatlogo {
-    fill: #ffffff;
-}
-    }
-.frontpage header {
-    border: none;
-    padding-top: 5px;
-    margin-bottom: 60px;
-}
-
-header 
-
-.frontpage header {
-    background: linear-gradient(rgba(0, 0, 255, 0.78), rgba(0, 0, 255, 0.78)), url(../images/toppbilde-fade.jpg) no-repeat center top;
-    background-size: cover;
-    color: #fff;
-}
-
-
-header .NBeatlogo {
-    #Layer_1 {
-        width: 120px;
-    }
-    fill: #0000ff;
-}
-
-.frontpage header .NBeatlogo {
-    fill: #ffffff;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.closebutton {
-    text-align: right;
-    height: 74px;
-    path {
-        fill: #ffffff;
-    }
-}
-
-*/

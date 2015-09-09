@@ -1,23 +1,78 @@
 .list {
-    margin: $_padding auto;
+    @include list-item($list-item-margin-vertical);
+    
+    margin: 0 auto;
     padding: 0;
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
-
-    .list-item {
-        overflow: hidden;
-    }
 }
 
-.list-of-two {
-    .list-item {
-        width: 49%;
-    }
-}
+/*     .list-item { */
+/*         margin-top: $list-item-margin-vertical; */
+/*         overflow: hidden; */
 
-.list-of-three {
-    .list-item {
-        width: 33%;
-    }
-}
+/*         &:first-child { */
+/*             margin-top: 0; */
+/*         } */
+
+/*         &:nth-child(2) { */
+/*             margin-top: $list-item-margin-vertical; */
+/*         } */
+
+/*         &:nth-child(3) { */
+/*             margin-top: $list-item-margin-vertical; */
+/*         } */
+/*     } */
+/* } */
+
+/* .list-of-two { */
+/*     .list-item { */
+/*         @include media-breakpoint-up(md) { */
+/*             width: 49%; */
+/*             margin-right: 2%; */
+            
+/*             &:nth-child(2n+2) { */
+/*                 margin-right: 0; */
+/*             } */
+            
+/*             &:nth-child(2) { */
+/*                 margin-top: 0; */
+/*             } */
+/*         } */
+/*     } */
+/* } */
+
+/* .list-of-three { */
+/*     .list-item { */
+/*         @include media-breakpoint-up(md) { */
+/*             width: 49%; */
+/*             margin-right: 2%; */
+
+/*             &:nth-child(2) { */
+/*                 margin-top: 0; */
+/*             } */
+            
+/*             &:nth-child(2n+2) { */
+/*                 margin-right: 0; */
+/*             } */
+/*         } */
+
+/*         @include media-breakpoint-up(lg) { */
+/*             width: 32%; */
+/*             margin-right: 2%; */
+
+/*             &:nth-child(3) { */
+/*                 margin-top: 0; */
+/*             } */
+
+/*             &:nth-child(2n+2) { */
+/*                 margin-right: 2%; */
+/*             } */
+            
+/*             &:nth-child(3n+3) { */
+/*                 margin-right: 0; */
+/*             } */
+/*         } */
+/*     } */
+/* } */

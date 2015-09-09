@@ -1,0 +1,48 @@
+.content-next {
+    height: $no-nbeat-article-next-height;
+    max-height: $no-nbeat-article-next-height;
+    background-size: cover;
+    background-position: center center;
+
+    a {
+        display: block;
+        height: 100%;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        > div {
+            height: 100%;
+            @include nb_flex();
+            @include nb_flex-align-items(center);
+
+            .container {
+                width: 100%;
+                
+                > div {
+                    @include nb_flex();
+                    @include nb_flex-align-items(center);
+                    
+                    .left, .right {
+                        width: 50%;
+                    }
+                    
+                    .left {
+                        text-align: center;
+
+                        .arrow {
+                            @include scale("font-size", $no-nbeat-article-next-arrow-size);
+                            line-height: 1;
+                        }
+                    }
+                    
+                    h2 {
+                        color: inherit;
+                        @include scale("margin-bottom", 1.5rem);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+.content-pageheader {
+    .customers {
+        display: inline-block;
+        @include scale("font-size", $no-nbeat-article-pageheader-customers-size);
+        @include scale("margin-bottom", $no-nbeat-article-pageheader-margin);
+        padding: 0.3rem 0.6rem;
+
+        @include media-breakpoint-up(md) {
+            padding: 0.6rem 1.2rem;
+        }
+    }
+    
+    h1 {
+        @include scale("margin-top", $no-nbeat-article-pageheader-margin);
+        @include scale("margin-bottom", 2 * $no-nbeat-article-pageheader-margin);
+        color: $body-color;
+    }
+
+    .ingress {
+        @include scale("font-size", $no-nbeat-article-pageheader-ingress-size);
+        line-height: 1.4
+    }
+}

@@ -1,0 +1,71 @@
+.list-cases {
+    @include clearfix;
+    @include list-item(round(1.5 * $list-item-margin-vertical));
+
+    .list-item {
+        position: relative;
+        overflow: hidden;
+        
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .content {
+            @include scale("padding-top", $no-nbeat-cases-content-padding, "", $_scale2);
+            @include scale("padding-left", $no-nbeat-cases-content-padding, "", $_scale2);
+            @include scale("padding-right", $no-nbeat-cases-content-padding, "", $_scale2);
+            @include scale("padding-bottom", $no-nbeat-cases-content-padding, "", $_scale2);
+
+            position: absolute;
+            bottom: 0;
+            top: 45%;
+            right: 0;
+            width: 80%;
+            height: 55%;
+
+            @include media-breakpoint-down(sm) {
+                @include nb_flex();
+                @include nb_flex-align-items(center);
+                @include nb_flex-direction(column);
+                @include nb_flex-justifycontent(center);
+            }
+
+            @include media-breakpoint-up(md) {
+                height: 100%;
+                top: 0;
+                width: 50%;
+            }
+
+            .title {
+                font-size: $font-size-h6;
+                font-weight: bold;
+                line-height: 1.3;
+                color: inherit;
+                margin-bottom: 0;
+                width: 100%;
+
+                @include media-breakpoint-up(md) {
+                    @include scale("font-size", $font-size-h2);
+                }
+            }
+
+            .byline {
+                width: 100%;
+                @include scale("font-size", $font-size-h6);
+                @include scale("margin-top", $no-nbeat-cases-byline-margin, "", $_scale2);
+                @include scale("margin-bottom", $no-nbeat-cases-byline-margin, "", $_scale2);
+            }
+
+            .text {
+                display: none;
+
+                @include media-breakpoint-up(md) {
+                    @include scale("font-size", $font-size-h6);
+                    display: block;
+                }
+            }
+        }
+    }
+}

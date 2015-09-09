@@ -8,7 +8,7 @@ class FormFieldPost extends \NorthernBeat\Plugin\FormField
     protected $taxonomy = array();
     protected $allowNull = false;
     protected $multiple = true;
-    protected $returnObject = "object";
+    protected $returnFormat = "id";
     protected $ui = true;
     
     public function get()
@@ -30,7 +30,7 @@ class FormFieldPost extends \NorthernBeat\Plugin\FormField
 			'taxonomy' => $this->taxonomy,
 			'allow_null' => $this->allowNull,
 			'multiple' => $this->multiple,
-			'return_format' => $this->returnObject,
+			'return_format' => $this->returnFormat,
 			'ui' => $this->ui
         );
     }

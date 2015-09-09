@@ -1,6 +1,6 @@
 <li class="list-item">
-  <img src="{{site.theme.link}}/img/icons/{{post.custom.image|default("designicon")}}.svg" />
-  <h3 class="title"><a href="{{post.link}}">{{post.title}}</a></h3>
-  <div class="text">{{post.content}}</div>
+  <img src="{{post.getIcon()}}" />
+  <h2 class="title"><a href="{{post.link}}">{{post.getName()}}</a></h2>
+  <div class="text">{{post.getDescription()}}</div>
   </span>
 </li>

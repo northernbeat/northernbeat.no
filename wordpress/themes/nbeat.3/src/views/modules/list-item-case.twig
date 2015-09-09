@@ -1,10 +1,10 @@
 <li class="list-item">
   <a href="{{post.link}}">
-    <img src="{{TimberImage(post.get_field('photo')).src}}" />
-    <span class="content no-nbeat-bg-{{post.custom.color}} no-nbeat-bg-tint">
-      <h1 class="title">{{post.title}}</h1>
-      <div class="byline">{{post.custom.customer}}</div>
-      <div class="Text">{{post.custom.ingress}}</div>
+    <img src="{{post.getThumbImage()}}" />
+    <span class="content {{post.getThumbCssClasses()}}" {{post.getColorAttrs()}}>
+      <h1 class="title">{{post.getThumbTitle()}}</h1>
+      <div class="byline">{{post.getCustomers()}}</div>
+      <div class="text">{{post.getThumbIngress()}}</div>
     </span>
   </a>
 </li>

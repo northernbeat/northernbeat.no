@@ -15,19 +15,25 @@ class Showcase extends \NorthernBeat\Plugin\CustomPost
         $this->icon     = "dashicons-format-gallery";
 
         $this->form = array(
-            array("basic", "Something",
-                  array("tab", ["key" => "tab-basic", "label" => "Basic"],
-                        "customers",
+            array("groupCase", "Om caset",
+                  array("tab", ["key" => "tabBasic", "label" => "Basisinformasjon"],
+                        "customers", ["required" => true], "coverimage", "ingress", "webpage", "webpagetitle",
                         
-                        "tab", ["key" => "tab-thumb", "label" => "Thumbnail"],
-                        "photo", "plaintext",
+                        "tab", ["key" => "tabContent", "label" => "Innhold"],
+                        "content", ["layouts" => ["quote", "text", "photo", "metrics"]],
 
-                        "tab", ["key" => "tab-people", "label" => "Kontaktpersoner"],
-                        "facebook",
+                        "tab", ["key" => "tabColors", "label" => "Farger"],
+                        "set::color",
+
+                        "tab", ["key" => "tabPeople", "label" => "Kontaktpersoner"],
+                        "set::contact",
+
+                        "tab", ["key" => "tabThumb", "label" => "Thumbnail"],
+                        "message", ["message" => "Du kan bruke disse feltene til å overstyre bilde, overskrift og ingress i listevisning av case (feks. på forsiden). Hvis du ikke legger inn noe her, brukes bilde, overskrift og ingress som angitt i 'Basisinformasjon'."],
+                        "photo", ["key" => "thumbimage"], "heading", ["key" => "thumbheading"],
+                        "ingress", ["key" => "thumbingress"],
                   ),
-            ),
-            array("content", "Innhold",
-                  array("content", ["layouts" => ["quote"]])
+                  array("style" => "seamless")
             ),
         );
 

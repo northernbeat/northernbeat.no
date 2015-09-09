@@ -1,0 +1,39 @@
+{% extends "modules/content-field.twig" %}
+
+{% block fieldContent %}
+  {% if "full" == field.getWidth() %}
+    <div class="content-section content-photo">
+      <div class="list-photos {{field.getNumPhotosClass()}}">
+        {% for img in field.getPhotos() %}
+          <div><img src="{{img.src}}" /></div>
+        {% endfor %}
+      </div>
+    </div>
+  {% elseif "grid" == field.getWidth() %}
+    <div class="content-section content-photo">
+      <div class="container">
+        <div class="row">
+          <div class="list-photos {{field.getNumPhotosClass()}}">
+            {% for img in field.getPhotos() %}
+              <div><img src="{{img.src}}" /></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% elseif "text" == field.getWidth() %}
+    <div class="content-section content-photo">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1">
+            <div class="list-photos {{field.getNumPhotosClass()}}">
+              {% for img in field.getPhotos() %}
+                <div><img src="{{img.src}}" /></div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

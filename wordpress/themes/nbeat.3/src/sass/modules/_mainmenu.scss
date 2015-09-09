@@ -1,4 +1,7 @@
 .no-nbeat-mainmenu {
+    @include scale("padding-top", $no-nbeat-mainmenu-offset + $no-nbeat-mainmenu-padding);
+    @include scale("padding-bottom", $no-nbeat-mainmenu-padding);
+
     display: block;
     background: $no-nbeat-mainmenu-background;
     position: absolute;
@@ -6,8 +9,6 @@
     right: 0;
     transition: top 0.4s ease-in-out;
     top: -600px;
-    padding-top: $no-nbeat-mainmenu-offset + $no-nbeat-mainmenu-padding;
-    padding-bottom: $no-nbeat-mainmenu-padding;
     z-index: $no-nbeat-mainmenu-zindex;
     
     .menu {
@@ -15,17 +16,18 @@
         padding: 0;
         
         li {
-            // font-family: "nationale_light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            @include scale("margin-top", 1.4rem);
+            @include scale("margin-bottom", 1.4rem);
             letter-spacing: 0.02em;
-            margin: 1.4em 0;
             
             a {
+                @include scale("font-size", $font-size-h1);
+
                 display: block;
-                font-size: 2.5em;
                 text-align: center;
                 color: #fff;
                 text-decoration: none;
-                line-height: 1.5em;
+                line-height: 1.5;
             }
         }
     }

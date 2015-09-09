@@ -2,45 +2,39 @@
 @import "bootstrap";
 
 // Mixins
-// @import "mixins/media-queries";
+@import "mixins/debug";
+@import "mixins/list-item";
 @import "mixins/transitions";
 @import "mixins/padding";
+@import "mixins/flex";
+@import "mixins/responsiveness";
 
 // Base
 @import "base/base";
 @import "base/fonts";
+@import "base/typography";
 
 // Layout
-// @import "layout/grid";
 @import "layout/header";
 @import "layout/footer";
 @import "layout/container";
 @import "layout/content";
 
 // Modules
-@import "modules/bg";
-@import "modules/slogan";
+@import "modules/article";
+@import "modules/colors";
 @import "modules/hamburger";
 @import "modules/list";
 @import "modules/list-archive";
-@import "modules/list-case";
+@import "modules/list-cases";
 @import "modules/list-employees";
+@import "modules/list-services";
 @import "modules/logo";
 @import "modules/mainmenu";
 @import "modules/quote";
+@import "modules/slogan";
 
-// @import "modules/article";
-// @import "modules/case";
-// @import "modules/color-section";
-// @import "modules/container-big";
-// @import "modules/container-content";
-// @import "modules/gallery";
-// @import "modules/page-illustration";
-// @import "modules/profile";
-
-// // Misc
-// @import "misc";
-
-// Misc
+// State
 @import "state/header";
 @import "state/logo";
+@import "state/typography";

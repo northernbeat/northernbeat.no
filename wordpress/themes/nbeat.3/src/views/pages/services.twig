@@ -1,7 +1,29 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
-  <section class="container">
-    {% include "modules/list-services.twig" with {"listClasses": "list-of-three"} %}
+  <section class="container article">
+    <div class="row">
+      <div class="col-lg-10 col-lg-offset-1">
+    
+        <h1 class="section-header">Tjenester</h1>
+        
+        <div class="section-ingress">
+          Vi er her fort å hjelpe deg med å finne ut hva du skal bruke digitale kanaler til. Vi er blant de beste i landet på å jobbe ut verdiskapende kommunikasjonskonsepter. Våre kunder og det de oppnår viser oss dette.
+        </div>
+
+        {% include "modules/list-services.twig" with {"servicesListClasses": "list-of-three"} %}
+      </div>
+    </div>
   </section>
+
+  <div class="no-nbeat-bg-blue">
+    <section class="container article">
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+          Hei
+        </div>
+      </div>
+    </section>
+  </div>
+
 {% endblock %}

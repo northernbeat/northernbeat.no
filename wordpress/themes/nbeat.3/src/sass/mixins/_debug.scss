@@ -1,0 +1,7 @@
+@mixin debug()
+{
+    @if $debug == true {
+        background: map-get($_bg, nth(map-keys($_bg), random(length(map-keys($_bg)))))
+                    url($theme-path + "/img/diagonal.png") repeat;
+    }
+}

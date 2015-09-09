@@ -1,9 +1,9 @@
 <li class="list-item">
-  <img class="photo" src="{{TimberImage(post.get_field('photo')).src}}" />
+  <img class="photo" src="{{post.getPhoto()}}" />
   <div class="details">
-    <h2 class="name"><a href="{{post.link}}">{{post.firstname}}<br />{{post.lastname}}</a></h2>
-    <div class="role">{{post.custom.role}}</div>
-    <div class="email"><a href="mailto:{{post.custom.email}}">{{post.custom.email}}</a></div>
-    <div class="phone">{{post.custom.phone}}</div>
+    <h2 class="name"><a href="{{post.link}}">{{post.getFirstname()}}<br />{{post.getLastname()}}</a></h2>
+    <div class="role">{{post.getTitle()}}</div>
+    <div class="email"><a href="mailto:{{post.getEmail()}}">{{post.getEmail()}}</a></div>
+    <div class="phone">{{post.getPhone()}}</div>
   </div>
 </li>

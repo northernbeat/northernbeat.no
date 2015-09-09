@@ -1,2 +1,17 @@
 .list-services {
+    .list-item {
+        img {
+            margin-bottom: 0.6rem;
+        }
+
+        .title {
+            font-size: $font-size-h4;
+            margin: 0.6rem 0;
+            font-weight: normal;
+        }
+        
+        .text {
+            margin: 0.6rem 0;
+        }
+    }
 }

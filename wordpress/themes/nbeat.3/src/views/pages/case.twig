@@ -1,4 +1,76 @@
-Case
+{% extends "layout/default.twig" %}
 
-{% include "modules/list-employees.twig" with {"posts": post.peoplelist,
-                                               "classes": "list-of-two"} %}
+{% block content %}
+  <article>
+    <section class="content-coverimage" style="background-image: url({{post.getCoverImage()}})">
+    </section>
+
+    <section class="content-section content-pageheader content-text">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1 two-thirds">
+
+            <div class="customers {{post.getBgCss()}}" {{post.getColorAttrs()}}>
+              {{post.getCustomers()}}
+            </div>
+
+            <h1>{{post.post_title}}</h1>
+
+            <div class="ingress">
+              {{post.getIngress()}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% for field in post.getContent() %}
+      {{ include("modules/content-field-#{field.getType()}.twig") }}
+    {% else %}
+      <section class="content-section content-text">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 two-thirds">
+              <em>Dette caset mangler innhold.</em>
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endfor %}
+
+    {% if post.getLink() %}
+      <section class="content-section content-link">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 two-thirds">
+              <a href="{{post.getLink().url}}">Gå til {{post.getLink.title}}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+
+    {% if post.getNext() %}
+    <section class="content-next" style="background-image: url({{post.getNext().getCoverImage()}})">
+      <a href="{{post.getNext().link}}">
+        <div class="{{post.getNext().getThumbCssClasses()}}" {{post.getNext().getColorAttrs()}}>
+          <div class="container">
+            <div>
+              <div class="left">
+                Neste case
+                <div class="arrow">&darr;</div>
+              </div>
+              
+              <div class="right">
+                <h2>{{post.getNext().getThumbTitle()}}</h2>
+                {{post.getNext().getCustomers()}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </section>
+    {% endif %}
+  
+  </article>
+{% endblock %}

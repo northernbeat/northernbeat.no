@@ -1,0 +1,25 @@
+{% extends "modules/content-field.twig" %}
+
+{% block fieldContent %}
+  <div class="content-section content-metrics content-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+          <div class="two-thirds">
+            <h2>{{field.getHeading()}}</h2>
+            {{field.getText()}}
+          </div>
+
+          <div class="list-metrics list-of-three">
+            {% for m in field.getMetrics() %}
+              <div class="list-item list-item-{{m.sign}} {{post.getFgCss()}}" {{post.getColorFgAttrs()}}>
+                <p class="value">{{m.value}}</p>
+                <p class="name">{{m.name}}</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -16,16 +16,16 @@ class Customer extends \NorthernBeat\Plugin\CustomPost
         $this->icon     = "dashicons-groups";
 
         $this->form = array(
-            array("details", "Detaljer",
-                  array("tab", ["key" => "cus-tab-about",
+            array("groupDetails", "Detaljer",
+                  array("tab", ["key" => "tabAbout",
                                 "label" => "Om kunden"],
-                        "homepage", "description",
+                        "webpage", "description",
 
-                        "tab", ["key" => "cus-tab-logo",
+                        "tab", ["key" => "tabLogo",
                                 "label" => "Logo"],
                         "logo",
 
-                        "tab", ["key" => "cus-tab-social",
+                        "tab", ["key" => "tabSocial",
                                 "label" => "Sosiale medier"],
                         "facebook", "twitter", "instagram", "snapchat"
                   ),

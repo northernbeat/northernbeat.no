@@ -1,26 +1,11 @@
-article.highlights {
-    position: relative;
-    margin: 30px 20px 30px;
-    overflow: hidden;
-    img {
-        display: block;
-    }
-    h1 {
-        color: #fff;
-        font-size: 1.2em;
-        margin: 0;
-    }
-    p {
-        font-size: 1.15em;
-    }
-    .content {
-        position: absolute;
-        bottom: 0;
-        top: 45%;
-        right: 0;
-        height: 100%;
-        width: 80%;
-        padding: 20px;
-        color: #fff;
-    }
+article {
+    @import "article-content-section";
+    @import "article-content-coverimage";
+    @import "article-content-pageheader";
+    @import "article-content-textheader";
+    @import "article-content-photo";
+    @import "article-content-text";
+    @import "article-content-metrics";
+    @import "article-content-link";
+    @import "article-content-next";
 }

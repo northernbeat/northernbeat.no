@@ -1,0 +1,30 @@
+.content-section {
+    @include scale("margin-top", $no-nbeat-article-section-margin);
+    @include scale("margin-bottom", $no-nbeat-article-section-margin);
+    @include scale("padding-top", $no-nbeat-article-section-padding);
+    @include scale("padding-bottom", $no-nbeat-article-section-padding);
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+    
+    .two-thirds {
+        @include media-breakpoint-up(lg) {
+            width: 67%;
+            max-width: 67%;
+        }
+    }
+
+    .content-subsection {
+        @include scale("margin-top", $no-nbeat-article-section-subcontent-margin);
+        @include scale("margin-bottom", $no-nbeat-article-section-subcontent-margin);
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,10 +1,9 @@
 .no-nbeat-logo {
-    height: 70px;
-    width: 186px;
+    // height: 70px;
+    // width: 186px;
 
     img {
-        // background-image: url(#{$theme-path}/img/logo.svg);
-        // background-repeat: no-repeat;
+        @include scale("width", 100, "%");
         transition: 0.2s linear;
     }
     &.no-nbeat-logo-white {

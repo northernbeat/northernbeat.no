@@ -16,7 +16,7 @@ class Quote extends \NorthernBeat\Plugin\CustomPost
         $this->icon     = "dashicons-format-quote";
 
         $this->form = array(
-            array("details", "Detaljer",
+            array("groupDetails", "Detaljer",
                   array("plaintext", "customer", "name", "title")
             ),
         );

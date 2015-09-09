@@ -21,6 +21,8 @@ class FormField
     protected $maxLength = "";
     protected $readonly;
     protected $disabled;
+    protected $rows = 8;
+    protected $fields = array();
 
     public function __construct($in = array(), $builder = null)
     {
@@ -32,11 +34,14 @@ class FormField
             }
         }
 
-        if (!isset($this->name)) {
-            $this->name = $this->key;
-        }
+        $this->name = $this->key;
     }
     
+    public function setFields(array $f)
+    {
+        $this->fields = $f;
+    }
+
     public function get()
     {
         return array (
@@ -58,7 +63,9 @@ class FormField
             "append" => $this->append,
             "maxlength" => $this->maxLength,
             "readonly" => $this->readonly,
-            "disabled" => $this->disabled
+            "disabled" => $this->disabled,
+            "rows" => $this->rows,
+            "new_lines" => "wpautop",
         );
     }
 }
