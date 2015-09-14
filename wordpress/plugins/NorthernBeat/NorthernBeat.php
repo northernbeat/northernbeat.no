@@ -21,6 +21,7 @@ class NorthernBeat
         add_filter("upload_mimes", array($this, "registerMimeTypes"));
         add_action("admin_enqueue_scripts", array($this, "addAdminCss"));
         add_action("login_enqueue_scripts", array($this, "addAdminCss"));
+        add_filter("upload_size_limit", array($this, "setUploadSize"));
     }
     
 
@@ -50,7 +51,14 @@ class NorthernBeat
     {
         wp_enqueue_style('my-admin-theme', plugins_url('nbeat-admin-overrides.css', __FILE__));
     }
-    
+
+
+
+    function setUploadSize()
+    {
+        return 1024 * 1024 * 10;
+    }
+
 }
 
 $nb = new NorthernBeat();
