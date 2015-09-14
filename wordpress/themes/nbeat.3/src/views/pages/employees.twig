@@ -1,7 +1,31 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
-  <div class="container">
-    {% include "modules/list-employees.twig" with {"listClasses": classes} %}
-  </div>
+  <article>
+
+    <section class="content-section content-pageheader content-text">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1 two-thirds">
+            <h1 class="has-branding">Senior kompetanse</h1>
+
+            <div class="ingress">
+              Vi er her for å hjelpe deg med å finne ut hva du skal
+              bruke digitale kanaler til. Vi er blant de bester i
+              landet på å jobbe ut verdiskapende
+              kommunikasjonskonsepter. Våre kunder, og det de oppnår,
+              viser oss dette.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section content-list">
+      <div class="container">
+        {% include "modules/list-employees.twig" with {"listClasses": classes} %}
+      </div>
+    </section>
+    
+  </article>
 {% endblock %}

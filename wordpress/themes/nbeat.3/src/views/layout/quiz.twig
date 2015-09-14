@@ -1,0 +1,19 @@
+{% extends "no-nbeat/layout/page-wordpress.twig" %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+  <div id="bd-quiz">
+    {% block content %}
+    {% endblock %}
+  </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ site.theme.link }}/js/jquery.min.js"></script>
+  <script src="{{ site.theme.link }}/js/nbeat-quiz.js"></script>
+{% endblock %}

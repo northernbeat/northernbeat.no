@@ -7,4 +7,8 @@
         font-weight: bold;
         margin-bottom: 1.2rem;
     }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
 }

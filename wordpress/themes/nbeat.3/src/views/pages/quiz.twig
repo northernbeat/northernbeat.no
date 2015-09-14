@@ -1,0 +1,66 @@
+{% extends "layout/quiz.twig" %}
+
+{% block content %}
+
+  <form id="quiz-container" action="/quiz" method="get">
+
+    {% if score %}
+      <div class="page page-score" id="page-0">
+        <img class="spin-out" src="{{site.theme.link}}/img/nb-ref.svg" />
+        <div class="result">
+          <div class="score">{{score}}%</div>
+          <div class="total">
+            Du hadde {{correct}} av {{total}} riktige svar.
+
+            <div>
+              <a href="/quiz" class="btn btn-lg btn-quiz" id="finishQuiz">Ferdig</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    
+    <div class="page page-logo" id="page-1">
+      <img src="{{site.theme.link}}/img/nb-ref.svg" />
+      
+      <div class="page-button-bar center">
+        <a class="btn btn-lg btn-quiz" id="startQuiz">Start quiz</a>
+      </div>
+    </div>
+    
+    {% for question in post.getContent() %}
+      <div class="page page-question" id="page-{{loop.index + 1}}">
+        {% include "modules/question.twig" with {"q": question} %}
+
+        <div class="page-button-bar">
+          <a class="btn btn-lg btn-quiz-link btn-quiz-back">Tilbake</a>
+          <!-- a class="btn btn-lg btn-quiz btn-quiz-next">Neste <span class="icon">&rarr;</span></a -->
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="page page-form" id="page-{{post.getNumContentItems() + 2}}">
+      <h2>Takk for din deltakelse</h2>
+
+      <p class="text">Fyll inn epost og mobilnummer, så tar vi kontakt dersom du er en av de heldige vinnerne.</p>
+
+      <div class="line">
+        <label for="inputEmail">Epost:</label>
+        <input name="email" type="email" class="form-control" id="inputEmail">
+      </div>
+        
+      <div class="line">
+        <label for="inputPhone">Mobil:</label>
+        <input name="mobile" type="tel" class="form-control" id="inputPhone">
+      </div>
+      
+      <div class="page-button-bar">
+        <div>
+          <a class="btn btn-lg btn-quiz-link btn-quiz-back">Tilbake</a>
+          <a class="btn btn-lg btn-quiz-link btn-quiz-reset">Avbryt</a>
+        </div>
+        <button type="submit" name="submit" class="btn btn-lg btn-quiz">Send inn</a>
+      </div>
+    </div>
+</form>
+{% endblock %}

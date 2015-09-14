@@ -8,6 +8,9 @@
 @import "mixins/padding";
 @import "mixins/flex";
 @import "mixins/responsiveness";
+@import "mixins/hyphenation";
+@import "mixins/widths";
+@import "mixins/keyframes";
 
 // Base
 @import "base/base";
@@ -23,6 +26,7 @@
 // Modules
 @import "modules/article";
 @import "modules/colors";
+@import "modules/employee";
 @import "modules/hamburger";
 @import "modules/list";
 @import "modules/list-archive";
@@ -33,6 +37,7 @@
 @import "modules/mainmenu";
 @import "modules/quote";
 @import "modules/slogan";
+@import "modules/quiz";
 
 // State
 @import "state/header";

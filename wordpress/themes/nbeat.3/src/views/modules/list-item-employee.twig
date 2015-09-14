@@ -1,5 +1,7 @@
-<li class="list-item">
-  <img class="photo" src="{{post.getPhoto()}}" />
+<li class="list-item employee">
+  <div class="photo">
+    <img src="{{post.getPhoto()}}" alt="{{post.getFirstname()}} {{post.getLastname()}}" />
+  </div>
   <div class="details">
     <h2 class="name"><a href="{{post.link}}">{{post.getFirstname()}}<br />{{post.getLastname()}}</a></h2>
     <div class="role">{{post.getTitle()}}</div>

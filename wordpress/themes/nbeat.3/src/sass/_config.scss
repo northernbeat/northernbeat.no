@@ -15,8 +15,11 @@ $_fg: (
 );
 $brand-primary: map-get($_colors, "blue");
 
+$debugImg: diagonal diagonal2 diagonal3 diagonal4;
+
 // Switches
-$debug: false;
+$debug: true;
+$debugbp: true;
 $enable-flex: true;
 
 // General settings
@@ -69,18 +72,24 @@ $container-max-widths: (
 );
 
 $_scale: (
-    "base": 0.6,
+    "base": 0.7,
     "sm": 0.7,
     "md": 0.8,
     "lg": 0.9,
     "xl": 1
 );
-
-$_scale2: (
-    "base": 0.1,
-    "sm": 0.15,
-    "md": 0.3,
-    "lg": 0.6,
+$_scale-aggr: (
+    "base": 0.25,
+    "sm": 0.25,
+    "md": 0.5,
+    "lg": 0.75,
+    "xl": 1
+);
+$_scale-case: (
+    "base": 0.35,
+    "sm": 0.35,
+    "md": 0.5,
+    "lg": 0.7,
     "xl": 1
 );
 
@@ -106,9 +115,8 @@ $no-nbeat-mainmenu-zindex: 950;
 $no-nbeat-mainmenu-padding: round(0.5 * $_padding);
 
 // Slogan
-$slogan-font-size-xs: 2.2rem;
-$slogan-font-size-sm: 5.7vw;
-$slogan-font-size-xl: 4rem;
+$no-nbeat-slogan-font-size: 3.3rem;
+$no-nbeat-slogan-line-height: 1.4;
 $slogan-font-weight: 800;
 $slogan-padding-top: round(3 * $_padding);
 $slogan-padding-bottom: round(3 * $_padding);
@@ -120,8 +128,9 @@ $list-item-margin-vertical: $_padding;
 
 // Article: Section
 $no-nbeat-article-section-margin: 0;
-$no-nbeat-article-section-padding: round(1.5 * $_padding);
-$no-nbeat-article-section-subcontent-margin: round(1.5 * $_padding);
+// $no-nbeat-article-section-padding: round(1.5 * $_padding);
+$no-nbeat-article-section-padding: 7vmin;
+$no-nbeat-article-section-subcontent-margin: 3.2rem;
 
 // Article: Cover imafge
 $no-nbeat-article-coverimage-height: 40vmax;
@@ -130,6 +139,12 @@ $no-nbeat-article-coverimage-height: 40vmax;
 $no-nbeat-article-pageheader-customers-size: $font-size-h5;
 $no-nbeat-article-pageheader-margin: 1rem;
 $no-nbeat-article-pageheader-ingress-size: $font-size-h4;
+
+// Article: Header
+// $no-nbeat-article-header-size: $font-size-h2;
+$no-nbeat-article-header-margin: 1rem;
+$no-nbeat-article-header-ingress-size: $font-size-lg;
+$no-nbeat-article-header-color: map-get($_colors, "blue");
 
 // Article: Link
 $no-nbeat-article-link-arrow-color: map-get($_colors, "gray-light");
@@ -146,6 +161,10 @@ $no-nbeat-quote-size: $font-size-h1;
 $no-nbeat-quote-footer-size: $font-size-h3;
 
 // List: Cases
-$no-nbeat-cases-byline-margin: 1.5rem;
+$no-nbeat-cases-title-size: $font-size-h1;
+$no-nbeat-cases-byline-margin: 3rem;
 $no-nbeat-cases-content-padding: 4rem;
 $no-nbeat-cases-content-padding-vertical: 2rem;
+
+// List: Employees
+$no-nbeat-employees-name-size: $font-size-h4;

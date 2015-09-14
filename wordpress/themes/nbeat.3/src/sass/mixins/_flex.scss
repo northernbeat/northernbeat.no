@@ -16,10 +16,10 @@
 	align-items: $pos;
 }
 
-@mixin nb_flex_wrap()
+@mixin nb_flex_wrap($mode: wrap)
 {
-    flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
+    flex-wrap: $mode;
+    -webkit-flex-wrap: $mode;
 }
 
 @mixin nb_flex_justifycontent($val: space-between)
@@ -28,8 +28,14 @@
     justify-content: $val;
 }
 
-@mixin nb_flex-direction($dir: rows)
+@mixin nb_flex-direction($dir: row)
 {
     flex-direction: $dir;
     -webkit-flex-direction: $dir;
+}
+
+@mixin nb_flex-shrink($val: 1)
+{
+    flex-shrink: $val;
+    -webkit-flex-shrink: $val;
 }

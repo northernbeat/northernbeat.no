@@ -17,7 +17,7 @@ class Employee extends \NorthernBeat\Theme\Post
 
     public function getEmail()
     {
-        $append = "@northernbeat.no";
+        $append = "@nbeat.no";
 
         return $this->getProp("email") . $append;
     }

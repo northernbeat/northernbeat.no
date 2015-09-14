@@ -1,0 +1,23 @@
+@mixin two-thirds()
+{
+    @include media-breakpoint-up(lg) {
+        width: 67%;
+        max-width: 67%;
+    }
+}
+
+@mixin one-third()
+{
+    @include media-breakpoint-up(lg) {
+        width: 33%;
+        max-width: 33%;
+    }
+}
+
+@mixin half()
+{
+    @include media-breakpoint-up(lg) {
+        width: 50%;
+        max-width: 50%;
+    }
+}

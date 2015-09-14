@@ -17,13 +17,13 @@ class Service extends \NorthernBeat\Plugin\CustomPost
         $this->form = array(
             array("groupAbout", "Om tjenesten",
                   array("tab", ["key" => "tabBasic", "label" => "Basisinformasjon"],
-                        "icon", "description", ["instructions" => "Kort beskrivelse for brukt på forsiden"],
+                        "icon", "ingress",
                         
                         "tab", ["key" => "tabContent", "label" => "Innhold"],
-                        "content",
+                        "content", ["layouts" => ["quote", "text", "photo", "contact"]],
 
-                        "tab", ["key" => "tabContact", "label" => "Kontakt oss"],
-                        "set::contact",
+                        // "tab", ["key" => "tabContact", "label" => "Kontakt oss"],
+                        // "set::contact",
                   ),
                   array("style" => "seamless")
             ),

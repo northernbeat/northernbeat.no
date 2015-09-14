@@ -1,0 +1,10 @@
+<h2>{{q.getQuestion()}}</h2>
+
+<fieldset>
+  {% for a in q.getAnswers() %}
+    <input type="radio" name="ans-q{{q.getId()}}" value="{{a.id}}" id="{{a.id}}" />
+    <label class="quiz-label" for="{{a.id}}">
+      {{a.text}}
+    </label>
+  {% endfor %}
+</fieldset>

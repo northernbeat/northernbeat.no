@@ -57,11 +57,23 @@ class FormBuilder
                                      "min"      => 1,
                                      "max"      => 6,
                                      "fields"   => ["name", "sign", "value"]),
+        "answers"           => array("class"    => "FormFieldRepeater",
+                                     "key"      => "answers",
+                                     "label"    => "Svaralternativer",
+                                     "layout"   => "row",
+                                     "min"      => 2,
+                                     "max"      => 5,
+                                     "fields"   => ["answer", "correct"]),
         "sign"              => array("class"   => "FormFieldSelect",
                                      "key"     => "sign",
                                      "label"   => "Fortegn",
                                      "choices" => ["plus"  => "+",
                                                    "minus" => "-"]),
+        "correct"           => array("class"   => "FormFieldBoolean",
+                                     "key"     => "correct",
+                                     "label"   => "Rett svar?",
+                                     "defaultValue" => false),
+
     );
     
     // Simple fields
@@ -124,6 +136,15 @@ class FormBuilder
                                "type"  => "textarea",
                                "rows"  => 2),
 
+        // Quiz
+        "question"    => array("label" => "Spørsmål",
+                               "type"  => "textarea",
+                               "rows"  => 4),
+        "answer"      => array("label" => "Svar",
+                               "type"  => "textarea",
+                               "rows"  => 2),
+
+
         // Special stuff
         "value"       => array("label"   => "Verdi",
                                "type"    => "text"),
@@ -138,10 +159,16 @@ class FormBuilder
                          "fields" => array("heading", "plaintext")),
         "photo" => array("label" => "Bilde",
                          "fields" => array("one-or-two-photos", "photowidth", "caption")),
+        "contact" => array("label" => "Kontaktpersoner",
+                           "fields" => array("heading", ["key" => "contactheading"],
+                                             "ingress", ["key" => "contactingress"],
+                                             "employees")),
         "metrics" => array("label" => "Nøkkeltall",
                            "fields" => array("heading", ["key" => "mheading"],
                                              "plaintext", ["key" => "mtext"],
                                              "metrics")),
+        "question" => array("label" => "Spørsmål",
+                            "fields" => array("question", "answers")),
     );
 
     // Field sets
@@ -188,9 +215,9 @@ class FormBuilder
                   "label"   => "Gjennomsiktig bakgrunnsfarge?"
             ),
         ),
-        "set::contact" => array(
-            "heading", ["key" => "contactHeading"], "ingress", ["key" => "contactIngress"], "employees"
-        ),
+        // "set::contact" => array(
+        //     "heading", ["key" => "contactheading"], "ingress", ["key" => "contactingress"], "employees"
+        // ),
     );
 
 

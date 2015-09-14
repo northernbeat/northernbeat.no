@@ -11,7 +11,7 @@ require_once("vendor/autoload.php");
 class NorthernBeat
 {
 
-    private $postTypes = array("employee", "customer", "quote", "showcase", "service");
+    private $postTypes = array("employee", "customer", "quote", "showcase", "service", "quiz");
 
 
 

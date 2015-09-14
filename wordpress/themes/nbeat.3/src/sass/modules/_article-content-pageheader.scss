@@ -13,7 +13,7 @@
     h1 {
         @include scale("margin-top", $no-nbeat-article-pageheader-margin);
         @include scale("margin-bottom", 2 * $no-nbeat-article-pageheader-margin);
-        color: $body-color;
+        // color: $body-color;
     }
 
     .ingress {

@@ -1,17 +1,37 @@
 .list-services {
     .list-item {
         img {
-            margin-bottom: 0.6rem;
+            float: left;
+            width: 15%;
+
+            @include media-breakpoint-up(md) {
+                @include scale("margin-bottom", 0.6rem);
+                float: none;
+            }
         }
 
         .title {
-            font-size: $font-size-h4;
-            margin: 0.6rem 0;
+            @include scale("font-size", $font-size-h5);
             font-weight: normal;
+            margin: 0;
+            margin-left: 20%;
+
+            @include media-breakpoint-up(md) {
+                @include scale("margin-top", 0.6rem);
+                @include scale("margin-bottom", 0.6rem);
+                margin-left: 0;
+            }
         }
         
-        .text {
-            margin: 0.6rem 0;
+        .text { 
+            margin-top: 0.6rem;
+            margin-left: 20%;
+            font-size: $font-size-sm;
+
+            @include media-breakpoint-up(md) {
+                @include scale("font-size", $font-size-base);
+                margin-left: 0;
+            }
         }
     }
 }

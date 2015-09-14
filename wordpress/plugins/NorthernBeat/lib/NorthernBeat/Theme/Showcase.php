@@ -117,7 +117,8 @@ class Showcase extends \NorthernBeat\Theme\Post
 
     private function getUserColors()
     {
-        $data = array();
+        $data = array("bg" => "#575757",
+                      "fg" => "#ffffff");
         
         if ($this->hasProp("colorpicker-bg") && $this->hasProp("colorpicker-fg")) {
             $data["bg"] = $this->getProp("colorpicker-bg");
@@ -229,5 +230,5 @@ class Showcase extends \NorthernBeat\Theme\Post
 
         return array("url" => $href, "title" => $title);
     }
-    
+
 }

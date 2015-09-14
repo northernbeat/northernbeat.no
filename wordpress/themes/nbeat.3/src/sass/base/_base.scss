@@ -2,6 +2,36 @@ h1 {
     font-size: $font-size-h1;
 }
 
+body {
+    @if ($debugbp == true) {
+        &:before {
+            font-size: $font-size-xs;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: red;
+            color: #fff;
+            content: "xs";
+            z-index: 99999999999;
+            text-align: center;
+            padding: 0.5vmin 1vmin;
+
+            @include media-breakpoint-up(sm) {
+                content: "sm";
+            }
+            @include media-breakpoint-up(md) {
+                content: "md";
+            }
+            @include media-breakpoint-up(lg) {
+                content: "lg";
+            }
+            @include media-breakpoint-up(xl) {
+                content: "xl";
+            }
+        }
+    }
+}
+
 // html {
 //     font-size: 13px;
 //     font-family: "nationale_regular", "Helvetica Neue", Helvetica, Arial, sans-serif;

@@ -1,29 +1,34 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
-  <section class="container article">
-    <div class="row">
-      <div class="col-lg-10 col-lg-offset-1">
+  <article>
     
-        <h1 class="section-header">Tjenester</h1>
-        
-        <div class="section-ingress">
-          Vi er her fort å hjelpe deg med å finne ut hva du skal bruke digitale kanaler til. Vi er blant de beste i landet på å jobbe ut verdiskapende kommunikasjonskonsepter. Våre kunder og det de oppnår viser oss dette.
-        </div>
-
-        {% include "modules/list-services.twig" with {"servicesListClasses": "list-of-three"} %}
-      </div>
-    </div>
-  </section>
-
-  <div class="no-nbeat-bg-blue">
-    <section class="container article">
-      <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-          Hei
+    <section class="content-section content-pageheader content-text">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1 two-thirds">
+            <h1 class="has-branding">Tjenester</h1>
+            
+            <div class="ingress">
+              Vi er her fort å hjelpe deg med å finne ut hva du skal bruke
+              digitale kanaler til. Vi er blant de beste i landet på å
+              jobbe ut verdiskapende kommunikasjonskonsepter. Våre kunder
+              og det de oppnår viser oss dette.
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  </div>
+    
+    <section class="content-section content-list">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1 two-thirds">
+            {% include "modules/list-services.twig" with {"servicesListClasses": "list-of-three"} %}
+          </div>
+        </div>
+      </div>
+    </section>
 
+  </article>
 {% endblock %}

@@ -97,12 +97,20 @@ class Post extends \TimberPost
             return array();
         }
 
-        $list = $this->getRawLayoutList();
-        $objs = $this->populateLayouts($list);
+        if (!isset($this->contentObjs)) {
+            $list = $this->getRawLayoutList();
+            $this->contentObjs = $this->populateLayouts($list);
+        }
         
-        return $objs;
+        return $this->contentObjs;
     }
 
+
+
+    public function getNumContentItems()
+    {
+        return count($this->getContent);
+    }
 
     
     private function getRawLayoutList()
@@ -111,7 +119,7 @@ class Post extends \TimberPost
         $key     = $class . "-content";
         $ret     = array();
         $maxLen  = count($this->custom[$key]);
-        $tmpMet  = array();
+        $other   = array();
         
         if (!isset($this->custom[$key]) || !is_array($this->custom[$key]) || count($this->custom[$key]) < 1) {
             return $ret;
@@ -133,17 +141,22 @@ class Post extends \TimberPost
                     $_label = substr($_rawLabel, strlen($class . "-content-"));
                     $_field = substr($_substring, strpos($_substring, "_") + strlen($class . "-") + 1);
 
-                    // print_pre_r($_field);
-                    
+                    // Metrics
                     if ("metrics_" == substr($_field, 0, strlen("metrics_"))) {
-                        if (0 == strncmp($_field, "metrics_", strlen("metrics_"))) {
-                            // print_pre_r($_field);
-                            $_metsub   = substr($_field, strlen("metrics_"));
-                            $_metidx   = substr($_metsub, 0, strpos($_metsub, "_"));
-                            $_metfield = substr($_metsub, strpos($_metsub, "_") + strlen($class . "-") + 1);
-                            
-                            $tmpMet[$elIdx][$_metidx][$_metfield] = $val;
-                        }
+                        $_sub = substr($_field, strlen("metrics_"));
+                        $_idx = substr($_sub, 0, strpos($_sub, "_"));
+                        $_val = substr($_sub, strpos($_sub, "_") + strlen($class . "-") + 1);
+
+                        $other[$elIdx]["metrics"][$_idx][$_val] = $val;
+                    }
+
+                    // Answers
+                    else if ("answers_" == substr($_field, 0, strlen("answers_"))) {
+                        $_sub = substr($_field, strlen("answers_"));
+                        $_idx = substr($_sub, 0, strpos($_sub, "_"));
+                        $_val = substr($_sub, strpos($_sub, "_") + strlen($class . "-") + 1);
+
+                        $other[$elIdx]["answers"][$_idx][$_val] = $val;
                     } else {
                         $ret[$elIdx][] = array("field" => $_field,
                                                "value" => $val);
@@ -151,10 +164,12 @@ class Post extends \TimberPost
                 }
             }
         }
-
-        foreach ($tmpMet as $idx => $val) {
-            $ret[$idx][] = array("field" => "metrics",
-                                 "value" => $val);
+        
+        foreach ($other as $idx => $sub) {
+            foreach ($sub as $name => $val) {
+                $ret[$idx][] = array("field" => $name,
+                                     "value" => $val);
+            }
         }
 
         return $ret;
@@ -164,11 +179,14 @@ class Post extends \TimberPost
     
     private function populateLayouts(array $list)
     {
-        $classes = array("quote" => "Quote",
-                         "text"  => "Text",
-                         "photo" => "Photo",
-                         "metrics" => "Metrics");
+        $classes = array("quote"    => "Quote",
+                         "text"     => "Text",
+                         "photo"    => "Photo",
+                         "metrics"  => "Metrics",
+                         "question" => "Question",
+                         "contact"  => "Contact");
         $ret = array();
+        $i   = 1;
         
         foreach ($list as $raw) {
             $label = $raw["_label"];
@@ -177,12 +195,14 @@ class Post extends \TimberPost
             $layout = new $class();
 
             $layout->set("type", $label);
+            $layout->set("num", $i);
             
             foreach ($raw as $field) {
                 $layout->set($field["field"], $field["value"]);
             }
 
             $ret[] = $layout;
+            ++$i;
         }
 
         return $ret;

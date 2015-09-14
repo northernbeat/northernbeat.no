@@ -5,6 +5,8 @@
     <section class="content-coverimage" style="background-image: url({{post.getCoverImage()}})">
     </section>
 
+
+    
     <section class="content-section content-pageheader content-text">
       <div class="container">
         <div class="row">
@@ -24,6 +26,8 @@
       </div>
     </section>
 
+
+    
     {% for field in post.getContent() %}
       {{ include("modules/content-field-#{field.getType()}.twig") }}
     {% else %}
@@ -38,6 +42,7 @@
       </section>
     {% endfor %}
 
+    
     {% if post.getLink() %}
       <section class="content-section content-link">
         <div class="container">
@@ -50,6 +55,8 @@
       </section>
     {% endif %}
 
+
+    
     {% if post.getNext() %}
     <section class="content-next" style="background-image: url({{post.getNext().getCoverImage()}})">
       <a href="{{post.getNext().link}}">

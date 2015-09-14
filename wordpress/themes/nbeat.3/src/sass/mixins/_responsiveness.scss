@@ -1,20 +1,20 @@
-@mixin scale($key, $size, $append: "", $factors: $_scale)
+@mixin scale($key, $inSize, $append: "", $factors: $_scale, $override: ())
 {
-    #{$key}: ($size * map-get($factors, "base"))#{$append};
+    $sizes: "base" "sm" "md" "lg" "xl";
 
-    @include media-breakpoint-up(sm) {
-        #{$key}: ($size * map-get($factors, "sm"))#{$append};
-    }
-
-    @include media-breakpoint-up(md) {
-        #{$key}: ($size * map-get($factors, "md"))#{$append};
-    }
-
-    @include media-breakpoint-up(lg) {
-        #{$key}: ($size * map-get($factors, "lg"))#{$append};
-    }
-    
-    @include media-breakpoint-up(xl) {
-        #{$key}: ($size * map-get($factors, "xl"))#{$append};
+    @each $s in $sizes {
+        @include media-breakpoint-up($s) {
+            @if (map-has-key($override, $s)) {
+                #{$key}: map-get($override, $s);
+            } @else {
+                @if (map-has-key($factors, $s)) {
+                    $factor: map-get($factors, $s);
+                } @else {
+                    $factor: 1.0;
+                }
+                            
+                #{$key}: ($inSize * $factor)#{$append};
+            }
+        }
     }
 }
