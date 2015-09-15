@@ -157,6 +157,15 @@ class Post extends \TimberPost
                         $_val = substr($_sub, strpos($_sub, "_") + strlen($class . "-") + 1);
 
                         $other[$elIdx]["answers"][$_idx][$_val] = $val;
+                    }
+
+                    // Agenda
+                    else if ("agendaitem_" == substr($_field, 0, strlen("agendaitem_"))) {
+                        $_sub = substr($_field, strlen("agendaitem_"));
+                        $_idx = substr($_sub, 0, strpos($_sub, "_"));
+                        $_val = substr($_sub, strpos($_sub, "_") + strlen($class . "-") + 1);
+
+                        $other[$elIdx]["agendaitem"][$_idx][$_val] = $val;
                     } else {
                         $ret[$elIdx][] = array("field" => $_field,
                                                "value" => $val);
@@ -186,6 +195,7 @@ class Post extends \TimberPost
                          "question" => "Question",
                          "contact"  => "Contact",
                          "listview" => "ListView");
+                         "agenda"   => "Agenda",
         $ret = array();
         $i   = 1;
         

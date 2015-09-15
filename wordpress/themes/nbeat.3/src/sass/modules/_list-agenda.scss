@@ -1,0 +1,37 @@
+.list-agenda {
+    @include clearfix;
+    @include list-item(0.5rem);
+
+    .list-item {
+        @include nb_flex();
+        @include nb_flex-align-items(flex-start);
+        @include nb_flex_wrap();
+
+        @include scale("font-size", $font-size-base);
+        
+        .time {
+            width: 100%;
+            color: map-get($_colors, "blue");
+            white-space: nowrap;
+            line-height: 1.2;
+
+            @include media-breakpoint-up(md) {
+                width: auto;
+                padding-right: 1rem;
+            }
+        }
+        
+        .details {
+            width: 100%;
+            line-height: 1.2;
+
+            @include media-breakpoint-up(md) {
+                width: auto;
+            }
+
+            .heading {
+                font-weight: bold;
+            }
+        }
+    }
+}

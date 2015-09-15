@@ -194,6 +194,20 @@ class FormBuilder
                                "choices" => ["full" => "Full skjermbredde",
                                              "grid" => "Grid (12/12)",
                                              "text" => "Tekstbredde (10/12)"]),
+        // Agenda fields
+        "agendaheading" => array("label" => "Overskrift",
+                                 "type"  => "text"),
+        "agendatext"    => array("label" => "Beskrivelse",
+                                 "type"  => "textarea"),
+        "timefrom"      => array("label" => "Fra kl.",
+                                 "type"  => "text"),
+        "timeto"        => array("label" => "Til kl.",
+                                 "type"  => "text"),
+        "agendaitem"    => array("label"    => "Hendelse",
+                                 "key"      => "agendaitem",
+                                 "type"     => "repeater",
+                                 "layout"   => "row",
+                                 "fields"   => ["timefrom", "timeto", "agendaheading", "agendatext"]),
     );
 
     // Layouts
