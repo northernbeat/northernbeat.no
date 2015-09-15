@@ -5,9 +5,9 @@ namespace NorthernBeat\Plugin;
 class FormFieldRepeater extends \NorthernBeat\Plugin\FormField
 {
 
-    protected $min = 0;
-    protected $max = 0;
-    protected $layout = "table";
+    protected $min;
+    protected $max;
+    protected $layout = "row";
     protected $buttonLabel = "Legg til ny rad";
 
 
