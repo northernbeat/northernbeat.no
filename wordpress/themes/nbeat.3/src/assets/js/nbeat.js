@@ -15,6 +15,7 @@ $(document).ready(function() {
             if (typeof toggle !== typeof undefined && toggle !== false) {
                 $(this).toggleClass("is-active");
                 $("#" + toggle).toggleClass("is-active");
+                changeLogoColors();
             } else {
                 console.log("The no-nbeat-hamburger item you clicked on does not have an attached data-toggle attribute, so unable to continue.");
             }
@@ -22,6 +23,25 @@ $(document).ready(function() {
     }
 
 
+
+    function changeLogoColors()
+    {
+        var header = $("#header");
+        var logo   = $("#toplogo");
+        
+        if (logo.hasClass("logo-white")) {
+            console.log("har hvit logo, ingenting å gjøre");
+            return;
+        }
+
+        if (header.hasClass("is-active")) {
+            // -var svg = $("#svglogo").svg("get");
+            // $($('#sirkel').val(), svg.root()).attr('fill', "#ffffff");
+            $("#svglogo").children().css('fill', '#ffffff');
+        } else {
+            console.log("hvit. må bli blå.");
+        }
+    }
 
     function setCaseColors()
     {
