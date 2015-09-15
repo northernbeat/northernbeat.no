@@ -8,7 +8,26 @@
         margin-bottom: 1.2rem;
     }
 
-    p:last-child {
-        margin-bottom: 0;
+    .text {
+
+        &.text-columns-2 {
+            @include media-breakpoint-up(lg) {
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+                column-count: 2;
+            }
+        }
+
+        &.text-columns-3 {
+            @include media-breakpoint-up(lg) {
+                -webkit-column-count: 3;
+                -moz-column-count: 3;
+                column-count: 3;
+            }
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
     }
 }

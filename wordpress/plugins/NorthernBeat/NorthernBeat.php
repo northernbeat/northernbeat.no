@@ -46,7 +46,8 @@ class NorthernBeat
         $form = array(
             array("page", "pagecontent",
                   array("ingress",
-                        "content", ["layouts" => ["quote", "text", "photo", "contact"]],
+                        "content", ["layouts" => ["text", "photo", "listview",
+                                                  "quote", "contact"]],
                   ),
                   array("style" => "seamless")
             ),

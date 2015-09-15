@@ -4,9 +4,17 @@
   <div class="content-section content-text">
     <div class="container">
       <div class="row">
-        <div class="col-lg-10 col-lg-offset-1 content-two-thirds">
-          <h2>{{field.getHeading()}}</h2>
-          {{field.getText()}}
+        <div class="col-lg-10 col-lg-offset-1">
+
+          {% if field.getHeading() %}
+            <h2 class="content-two-thirds">{{field.getHeading()}}</h2>
+          {% endif %}
+
+          {% if field.getText() %}
+            <div class="text text-columns-{{field.getNumColumns()}}">
+              {{field.getText()}}
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

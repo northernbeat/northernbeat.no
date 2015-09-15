@@ -11,6 +11,8 @@
     <link rel="stylesheet" media="all" href="{{ site.theme.link }}/style.css" />
 
     {{ function('wp_head') }}
+    {% block extrahead %}
+    {% endblock %}
   </head>
 
   <body class="{{ body_class|e('html_attr') }}">
