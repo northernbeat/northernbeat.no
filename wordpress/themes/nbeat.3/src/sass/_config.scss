@@ -19,7 +19,7 @@ $debugImg: diagonal diagonal2 diagonal3 diagonal4;
 
 // Switches
 $debug: false;
-$debugbp: false;
+$debugbp: true;
 $enable-flex: true;
 
 // General settings
@@ -129,7 +129,7 @@ $list-item-margin-vertical: $_padding;
 // Article: Section
 $no-nbeat-article-section-margin: 0;
 // $no-nbeat-article-section-padding: round(1.5 * $_padding);
-$no-nbeat-article-section-padding: 7vmin;
+$no-nbeat-article-section-padding: 3rem;
 $no-nbeat-article-section-subcontent-margin: 3.2rem;
 
 // Article: Cover imafge

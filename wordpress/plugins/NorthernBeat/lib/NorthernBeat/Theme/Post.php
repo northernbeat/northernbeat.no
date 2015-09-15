@@ -184,7 +184,8 @@ class Post extends \TimberPost
                          "photo"    => "Photo",
                          "metrics"  => "Metrics",
                          "question" => "Question",
-                         "contact"  => "Contact");
+                         "contact"  => "Contact",
+                         "listview" => "ListView");
         $ret = array();
         $i   = 1;
         

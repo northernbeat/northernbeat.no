@@ -1,15 +1,8 @@
 .content-section {
     @include scale("margin-top", $no-nbeat-article-section-margin);
     @include scale("margin-bottom", $no-nbeat-article-section-margin);
-    // @include scale("padding-top", $no-nbeat-article-section-padding, "", $_scale, ());
-    // @include scale("padding-bottom", $no-nbeat-article-section-padding);
-    padding-top: round(1.5 * $no-nbeat-article-section-padding);
-    padding-bottom: round(1.5 * $no-nbeat-article-section-padding);
-
-    @include media-breakpoint-up(lg) {
-        padding-top: $no-nbeat-article-section-padding;
-        padding-bottom: $no-nbeat-article-section-padding;
-    }
+    @include scale("padding-top", $no-nbeat-article-section-padding);
+    @include scale("padding-bottom", $no-nbeat-article-section-padding);
 
     @if $debug == true {
         background-image: url($theme-path + "/img/diagonal.png");

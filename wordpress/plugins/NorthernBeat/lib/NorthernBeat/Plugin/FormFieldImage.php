@@ -2,12 +2,10 @@
 
 namespace NorthernBeat\Plugin;
 
-class FormFieldGallery extends \NorthernBeat\Plugin\FormField
+class FormFieldImage extends \NorthernBeat\Plugin\FormField
 {
-
-    protected $defaultValue = "";
-    protected $min = "";
-    protected $max = "";
+    
+    protected $returnFormat = "id";
     protected $previewSize = "thumbnail";
     protected $library = "all";
     protected $minWidth = "";
@@ -17,15 +15,14 @@ class FormFieldGallery extends \NorthernBeat\Plugin\FormField
     protected $maxHeight = "";
     protected $maxSize = "";
     protected $mimeTypes = "";
+
+
     
-
-
     public function getOverrides()
     {
         return array (
-            "type" => "gallery",
-			"min" => $this->min,
-			"max" => $this->max,
+            "type" => "image",
+			"return_format" => $this->returnFormat,
 			"preview_size" => $this->previewSize,
 			"library" => $this->library,
 			"min_width" => $this->minWidth,
