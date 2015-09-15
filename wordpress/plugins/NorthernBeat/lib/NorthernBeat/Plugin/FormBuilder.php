@@ -321,9 +321,11 @@ class FormBuilder
                     
                 // If target is a predefined simple field, ie. firstname
                 } elseif (isset($this->simple[$name])) {
+                    $type  = $this->simple[$name]["type"];
+                    $class = "\\NorthernBeat\\Plugin\\FormField" . ucfirst($type);
                     $opts = array_merge($this->simple[$name], $opts);
                     $opts["name"] = $opts["key"];
-                    $field = new \NorthernBeat\Plugin\FormField($opts, $this);
+                    $field = new $class($opts, $this);
                 } else {
                     die(sprintf("Invalid custom post field configuration. " .
                                 "Post type: %s, Group: %s, Field: %s",
