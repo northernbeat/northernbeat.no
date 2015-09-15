@@ -194,11 +194,12 @@ class Post extends \TimberPost
                          "metrics"  => "Metrics",
                          "question" => "Question",
                          "contact"  => "Contact",
-                         "listview" => "ListView");
+                         "listview" => "ListView",
                          "agenda"   => "Agenda",
+                         "contactform" => "ContactForm");
         $ret = array();
         $i   = 1;
-        
+
         foreach ($list as $raw) {
             $label = $raw["_label"];
             unset($raw["_label"]);

@@ -194,6 +194,11 @@ class FormBuilder
                                "choices" => ["full" => "Full skjermbredde",
                                              "grid" => "Grid (12/12)",
                                              "text" => "Tekstbredde (10/12)"]),
+        "contactform" => array("type"     => "post",
+                               "label"    => "Velg kontaktskjema",
+                               "postType" => array("wpcf7_contact_form"),
+                               "multiple" => false),
+
         // Agenda fields
         "agendaheading" => array("label" => "Overskrift",
                                  "type"  => "text"),
@@ -232,6 +237,10 @@ class FormBuilder
         "listview" => array("label" => "Listevisning",
                             "fields" => array("posttype", "numitems", "orderby", "order",
                                               "numperrow", "gridwidth")),
+        "agenda" => array("label" => "Agenda",
+                          "fields" => array("heading", "agendaitem")),
+        "contactform" => array("label" => "Kontaktskjema",
+                               "fields" => array("heading", "contactform")),
     );
 
     // Field sets
@@ -306,7 +315,7 @@ class FormBuilder
             ++$gIndex;
             $groupData = $this->parseGroup($group);
             $groupData["menu_order"] = $gIndex;
-            // $this->log($groupData);
+            $this->log($groupData);
             acf_add_local_field_group($groupData);
         }
     }
@@ -389,6 +398,11 @@ class FormBuilder
                     $opts = array_merge($this->simple[$name], $opts);
                     $opts["name"] = $opts["key"];
                     $field = new $class($opts, $this);
+
+                    if (isset($this->simple[$name]["fields"])) {
+                        $sub = $this->parseFields($this->simple[$name]["fields"], $prefix);
+                        $field->setFields($sub);
+                    }
                 } else {
                     die(sprintf("Invalid custom post field configuration. " .
                                 "Post type: %s, Group: %s, Field: %s",
