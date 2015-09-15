@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+    handleHamburgerEvents();
+    setCaseColors();
+    // showContentDebug();
+    // drawLogo();
+
+
+
     function handleHamburgerEvents()
     {
         $(".no-nbeat-hamburger").on("click", function() {
@@ -14,6 +21,8 @@ $(document).ready(function() {
         });
     }
 
+
+
     function setCaseColors()
     {
         $(".no-nbeat-bg-attrs").each(function() {
@@ -26,10 +35,7 @@ $(document).ready(function() {
         });
     }
 
-    handleHamburgerEvents();
-    setCaseColors();
-    // showContentDebug();
-    // drawLogo();
+    
 
     function showContentDebug()
     {
@@ -40,6 +46,8 @@ $(document).ready(function() {
             $(this).css("background", color + " url(\"/wp-content/themes/NorthernBeat3/img/diagonal.png\") repeat");
         });
     }
+
+
     
     function drawLogo()
     {

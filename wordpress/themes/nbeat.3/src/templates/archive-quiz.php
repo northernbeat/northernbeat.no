@@ -32,6 +32,16 @@ if (isset($_REQUEST["submit"])) {
     $data["score"]   = round(($correct / $total) * 100);
     $data["correct"] = $correct;
     $data["total"]   = $total;
+
+    $email = $_REQUEST["email"];
+    $phone = $_REQUEST["mobile"];
+    
+    $to      = "eirik@nbeat.no, orjan@nbeat.no";
+    $subject = "Svar på quiz (" . $data["score"] . " %)";
+    $msg     = sprintf("Epost: %s\nTelefon: %s\nAntall riktige: %s (av %s)",
+                       $email, $phone, $correct, $total);
+
+    mail($to, $subject, $msg);
 }
 
 Timber::render("pages/quiz.twig", $data);

@@ -18,8 +18,8 @@ $brand-primary: map-get($_colors, "blue");
 $debugImg: diagonal diagonal2 diagonal3 diagonal4;
 
 // Switches
-$debug: true;
-$debugbp: true;
+$debug: false;
+$debugbp: false;
 $enable-flex: true;
 
 // General settings
