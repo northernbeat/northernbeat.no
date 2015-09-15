@@ -18,6 +18,8 @@ class NorthernBeat
     function __construct()
     {
         add_action("init", array($this, "registerPostTypes"));
+        add_action("init", array($this, "registerPageDatatypes"));
+        add_action("admin_menu", array($this, "removeMetaBoxes"));
         add_filter("upload_mimes", array($this, "registerMimeTypes"));
         add_action("admin_enqueue_scripts", array($this, "addAdminCss"));
         add_action("login_enqueue_scripts", array($this, "addAdminCss"));
@@ -38,6 +40,31 @@ class NorthernBeat
     }
 
 
+    
+    function registerPageDatatypes()
+    {
+        $form = array(
+            array("page", "pagecontent",
+                  array("ingress",
+                        "content", ["layouts" => ["quote", "text", "photo", "contact"]],
+                  ),
+                  array("style" => "seamless")
+            ),
+        );
+
+        $form = new \NorthernBeat\Plugin\FormBuilder($form, "page");
+        $form->parse();
+    }
+
+
+    
+    function removeMetaBoxes()
+    {
+        remove_meta_box("commentstatusdiv", "page", "normal");
+        remove_meta_box("revisionsdiv", "page", "normal");
+    }
+
+    
 
     function registerMimeTypes($mimes)
     {
@@ -49,7 +76,7 @@ class NorthernBeat
 
     function addAdminCss()
     {
-        wp_enqueue_style('my-admin-theme', plugins_url('nbeat-admin-overrides.css', __FILE__));
+        wp_enqueue_style("my-admin-theme", plugins_url("nbeat-admin-overrides.css", __FILE__));
     }
 
 
