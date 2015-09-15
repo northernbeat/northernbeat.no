@@ -3,15 +3,9 @@ $(document).ready(function() {
     var maxPage = $(".page").length - 1;
 
     // setDebugInfo();
-    setPagePadding();
-    
-    window.addEventListener('viewport-unit-buggyfill-init', function() {
-        console.log('getting lost in CSSOM');
-    });
-    window.addEventListener('viewport-unit-buggyfill-style', function() {
-        console.log('updated rules using viewport unit');
-    });
-    
+    // setPagePadding();
+    setActivePage(activePage);
+
     $("#startQuiz").on("click touchstart", function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -95,17 +89,26 @@ $(document).ready(function() {
     
     function goToPage(id)
     {
+        console.log("goToPage: " + id);
         var left = "-" + (id * 100) + "vw";
 
-        console.log("id: " + id);
-        
-        $("#page-" + activePage).removeClass("is-active");
-        $("#page-" + id).addClass("is-active");
+        setActivePage(id);
         $("#quiz-container").css("left", left);
-        activePage = id;
         setDebugInfo();
     }
 
+
+    
+    function setActivePage(id)
+    {
+        console.log("setActivePage: " + id);
+        $("#page-" + activePage).removeClass("is-active");
+        $("#page-" + id).addClass("is-active");
+        activePage = id;
+    }
+
+
+    
     function moveLeft()
     {
         if (activePage > 0) {
@@ -120,13 +123,29 @@ $(document).ready(function() {
         }
     }
 
-    $(document).keydown(function(e) {
-        if (e.keyCode == 37) { // left
-            moveLeft();
-        }
-        else if (e.keyCode == 39) { // right
-            moveRight();
-        }
-    });
+    // $(document).keydown(function(e) {
+    //     if (e.keyCode == 37) { // left
+    //         moveLeft();
+    //     }
+    //     else if (e.keyCode == 39) { // right
+    //         moveRight();
+    //     }
+    // });
+
+
+    // function fixVh()
+    // {
+    //     window.viewportUnitsBuggyfill.init({
+    //         refreshDebounceWait: 50,
+    //         hacks: window.viewportUnitsBuggyfillHacks
+    //     });
+    // }
     
+    // window.addEventListener('viewport-unit-buggyfill-init', function() {
+    //     console.log('getting lost in CSSOM');
+    // });
+    // window.addEventListener('viewport-unit-buggyfill-style', function() {
+    //     console.log('updated rules using viewport unit');
+    // });
+
 });
