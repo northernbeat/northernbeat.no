@@ -13,24 +13,32 @@
         @include nb_flex();
         @include nb_flex-align-items(center);
         height: 100%;
-        
+
         > div {
             width: 100%;
             @include nb_flex();
             @include nb_flex_justifycontent();
             @include nb_flex_wrap();
             @include nb_flex-align-items(center);
+            position: relative;
+
+            > * {
+                // border: 1px solid red;
+            }
+        
         }
     }
     
-    .col {
-    }
-
-    .logo {
-        width: 100%;
+    .no-nbeat-logo {
+        width: auto;
+        margin-bottom: 1rem;
 
         @include media-breakpoint-up(lg) {
-            width: 33%;
+            width: auto;
+        }
+
+        @include media-breakpoint-up(xl) {
+            margin-bottom: 0;
         }
     }
 
@@ -39,21 +47,103 @@
         @include nb_flex();
         @include nb_flex_justifycontent();
         @include scale("font-size", $font-size-base);
-        margin-top: 1.5rem;
+        @include nb_flex_wrap();
+        margin-bottom: 0;
+        
+        @include media-breakpoint-up(md) {
+            margin-bottom: 1rem;
+            @include nb_flex_wrap(nowrap);
+        }
         
         @include media-breakpoint-up(lg) {
-            width: 66%;
-            margin-top: 0;
+            width: auto;
+            @include nb_flex_justifycontent(flex-end);
         }
 
-        h3 {
-            @include scale("font-size", $font-size-h6);
-            margin: 0;
-            font-weight: bold;
+        @include media-breakpoint-up(xl) {
+            margin-bottom: 0;
         }
-        
-        p {
-            margin: 0;
+
+        .col {
+            a {
+                @include nb_flex();
+                @include nb_flex-align-items();
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            // border: 1px solid orange;
+
+            &:first-of-type {
+                margin-bottom: 0.5rem;
+            }
+
+            &:nth-child(-n+2) {
+                width: 100%;
+            }
+
+            @include media-breakpoint-up(md) {
+                margin-left: 2rem;
+
+                &:first-of-type {
+                    margin-bottom: 0;
+                }
+
+                &:nth-child(-n+2) {
+                    width: auto;
+                }
+            }
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+
+            .footericon {
+                padding-right: 0.7rem;
+                line-height: 1;
+                min-width: 32px;
+            }
+            
+            h3 {
+                @include scale("font-size", $font-size-h6);
+                margin: 0;
+                font-weight: bold;
+            }
+            
+            p {
+                margin: 0;
+            }
+            
+            a {
+                color: $no-nbeat-footer-color;
+            }
+        }
+
+        .social {
+            @include nb_flex();
+            @include nb_flex-direction(column);
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            a {
+                margin-bottom: 0.5rem;
+
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
+            
+            @include media-breakpoint-up(md) {
+                position: relative;
+                @include nb_flex-direction(row);
+
+                a {
+                    margin-bottom: 0;
+                    margin-left: 0.5rem;
+                }
+            }
         }
     }
 }
