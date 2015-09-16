@@ -28,18 +28,22 @@ $(document).ready(function() {
     {
         var header = $("#header");
         var logo   = $("#toplogo");
+        var img    = $("#svglogo");
+        var blue   = "/wp-content/themes/NorthernBeat3/img/logo.svg";
+        var white  = "/wp-content/themes/NorthernBeat3/img/logo-white.svg";
         
         if (logo.hasClass("logo-white")) {
-            console.log("har hvit logo, ingenting å gjøre");
+            // console.log("har hvit logo, ingenting å gjøre");
             return;
         }
 
         if (header.hasClass("is-active")) {
             // -var svg = $("#svglogo").svg("get");
             // $($('#sirkel').val(), svg.root()).attr('fill', "#ffffff");
-            $("#svglogo").children().css('fill', '#ffffff');
+            // $("#svglogo").children().css('fill', '#ffffff');
+            $("#svglogo").attr("src", white);
         } else {
-            console.log("hvit. må bli blå.");
+            $("#svglogo").attr("src", blue);
         }
     }
 
