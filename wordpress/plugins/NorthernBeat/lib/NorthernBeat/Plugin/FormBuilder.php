@@ -315,7 +315,7 @@ class FormBuilder
             ++$gIndex;
             $groupData = $this->parseGroup($group);
             $groupData["menu_order"] = $gIndex;
-            $this->log($groupData);
+            // $this->log($groupData);
             acf_add_local_field_group($groupData);
         }
     }
