@@ -46,6 +46,13 @@ class FormBuilder
                                  "choices" => ["full" => "Full skjermbredde",
                                                "grid" => "Full grid (ca. 1200px)",
                                                "text" => "Følg teksten (10/12 av grid)"]),
+        "numcolumns" => array("class"   => "FormFieldSelect",
+                              "key"     => "numcolumns",
+                              "label"   => "Antall kolonner",
+                              "choices" => ["1" => "En",
+                                            "2" => "To",
+                                            "3" => "Tre"],
+                              "defaultValue" => 1),
         "one-or-two-photos" => array("class"    => "FormFieldGallery",
                                      "key"      => "photos",
                                      "label"    => "Velg bilder",
@@ -73,7 +80,6 @@ class FormBuilder
                                      "key"     => "correct",
                                      "label"   => "Rett svar?",
                                      "defaultValue" => false),
-
     );
     
     // Simple fields
@@ -129,6 +135,8 @@ class FormBuilder
                                "type"  => "textarea"),
         "plaintext"   => array("label" => "Tekst",
                                "type"  => "textarea"),
+        "richtext"    => array("label" => "Tekst",
+                               "type"  => "wysiwyg"),
         "ingress"     => array("label" => "Ingress",
                                "type"  => "textarea",
                                "rows"  =>  4),
@@ -148,6 +156,63 @@ class FormBuilder
         // Special stuff
         "value"       => array("label"   => "Verdi",
                                "type"    => "text"),
+        "posttype"    => array("label"   => "Posttype",
+                               "type"    => "select",
+                               "choices" => ["employee" => "Ansatte",
+                                             "case"     => "Case",
+                                             "service"  => "Tjenester",
+                                             "quote"    => "Sitat"]),
+        "numitems"    => array("label"   => "Antall",
+                               "type"    => "select",
+                               "choices" => ["all" => "Alle",
+                                             "1"   => "1",
+                                             "2"   => "2",
+                                             "3"   => "3",
+                                             "4"   => "4",
+                                             "5"   => "5",
+                                             "6"   => "6",
+                                             "7"   => "7",
+                                             "8"   => "8",
+                                             "9"   => "9",
+                                             "10"  => "10"]),
+        "orderby"     => array("label"   => "Sorter etter",
+                               "type"    => "select",
+                               "choices" => ["date" => "Dato",
+                                             "name" => "Navn",
+                                             "rand" => "Tilfeldig"]),
+        "order"       => array("label"   => "Rekkefølge",
+                               "type"    => "select",
+                               "choices" => ["asc"  => "Stigende",
+                                             "desc" => "Synkende"]),
+        "numperrow"   => array("label"   => "Antall per linje",
+                               "type"    => "select",
+                               "choices" => ["1" => "1",
+                                             "2" => "2",
+                                             "3" => "3"]),
+        "gridwidth"   => array("label"   => "Innholdsbredde",
+                               "type"    => "select",
+                               "choices" => ["full" => "Full skjermbredde",
+                                             "grid" => "Grid (12/12)",
+                                             "text" => "Tekstbredde (10/12)"]),
+        "contactform" => array("type"     => "post",
+                               "label"    => "Velg kontaktskjema",
+                               "postType" => array("wpcf7_contact_form"),
+                               "multiple" => false),
+
+        // Agenda fields
+        "agendaheading" => array("label" => "Overskrift",
+                                 "type"  => "text"),
+        "agendatext"    => array("label" => "Beskrivelse",
+                                 "type"  => "textarea"),
+        "timefrom"      => array("label" => "Fra kl.",
+                                 "type"  => "text"),
+        "timeto"        => array("label" => "Til kl.",
+                                 "type"  => "text"),
+        "agendaitem"    => array("label"    => "Hendelse",
+                                 "key"      => "agendaitem",
+                                 "type"     => "repeater",
+                                 "layout"   => "row",
+                                 "fields"   => ["timefrom", "timeto", "agendaheading", "agendatext"]),
     );
 
     // Layouts
@@ -156,7 +221,7 @@ class FormBuilder
         "quote" => array("label" => "Sitat",
                          "fields" => array("quote", "quotetarget")),
         "text"  => array("label" => "Tekst",
-                         "fields" => array("heading", "plaintext")),
+                         "fields" => array("heading", "richtext", "numcolumns")),
         "photo" => array("label" => "Bilde",
                          "fields" => array("one-or-two-photos", "photowidth", "caption")),
         "contact" => array("label" => "Kontaktpersoner",
@@ -169,6 +234,13 @@ class FormBuilder
                                              "metrics")),
         "question" => array("label" => "Spørsmål",
                             "fields" => array("question", "answers")),
+        "listview" => array("label" => "Listevisning",
+                            "fields" => array("posttype", "numitems", "orderby", "order",
+                                              "numperrow", "gridwidth")),
+        "agenda" => array("label" => "Agenda",
+                          "fields" => array("heading", "agendaitem")),
+        "contactform" => array("label" => "Kontaktskjema",
+                               "fields" => array("heading", "contactform")),
     );
 
     // Field sets
@@ -321,9 +393,16 @@ class FormBuilder
                     
                 // If target is a predefined simple field, ie. firstname
                 } elseif (isset($this->simple[$name])) {
+                    $type  = $this->simple[$name]["type"];
+                    $class = "\\NorthernBeat\\Plugin\\FormField" . ucfirst($type);
                     $opts = array_merge($this->simple[$name], $opts);
                     $opts["name"] = $opts["key"];
-                    $field = new \NorthernBeat\Plugin\FormField($opts, $this);
+                    $field = new $class($opts, $this);
+
+                    if (isset($this->simple[$name]["fields"])) {
+                        $sub = $this->parseFields($this->simple[$name]["fields"], $prefix);
+                        $field->setFields($sub);
+                    }
                 } else {
                     die(sprintf("Invalid custom post field configuration. " .
                                 "Post type: %s, Group: %s, Field: %s",

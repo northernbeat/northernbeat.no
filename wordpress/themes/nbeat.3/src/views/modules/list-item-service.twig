@@ -1,5 +1,5 @@
 <li class="list-item">
-  <img src="{{post.getIcon()}}" />
+  <img src="{{post.getIcon()|default("/wp-content/themes/NorthernBeat3/img/service.svg")}}" alt="{{post.getName()}}" />
   <h2 class="title"><a href="{{post.link}}">{{post.getName()}}</a></h2>
   <div class="text">{{post.getDescription()}}</div>
   </span>

@@ -4,10 +4,13 @@ namespace NorthernBeat\Plugin;
 
 class FormFieldComplexContent extends \NorthernBeat\Plugin\FormField
 {
+
     protected $buttonLabel = "Legg til innhold";
     protected $min = 0;
     protected $max = 0;
     protected $layouts = array();
+
+
 
     public function __construct($opts, $builder)
     {
@@ -20,22 +23,13 @@ class FormFieldComplexContent extends \NorthernBeat\Plugin\FormField
             }
         }
     }
+
+
     
-    public function get()
+    public function getOverrides()
     {
         return array (
-            "key" => $this->key,
-            "label" => $this->label,
-            "name" => $this->name,
             "type" => "flexible_content",
-            "instructions" => $this->instructions,
-            "required" => $this->required,
-            "conditional_logic" => $this->conditionalLogic,
-            "wrapper" => array (
-                "width" => $this->wrapperWidth,
-                "class" => $this->wrapperClass,
-                "id" => $this->wrapperId,
-            ),
             "button_label" => $this->buttonLabel,
             "min" => $this->min,
             "max" => $this->max,

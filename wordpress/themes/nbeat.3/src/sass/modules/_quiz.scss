@@ -102,8 +102,6 @@
         @include nb_flex-direction(column);
 
         img {
-            position: relative;
-            top: -5%;
             height: 90vmin;
             z-index: 200;
             animation-name: spin, spin-out;
@@ -169,8 +167,6 @@
         @include nb_flex-direction(column);
 
         img {
-            position: relative;
-            top: -5%;
             height: 60vmin;
             z-index: 200;
             animation: spin 3s infinite cubic-bezier(.95,.41,.27,.76);

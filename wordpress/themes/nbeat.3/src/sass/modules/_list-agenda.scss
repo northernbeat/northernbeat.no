@@ -1,0 +1,48 @@
+.list-agenda {
+    @include clearfix;
+    @include list-item(1.5rem);
+
+    .list-item {
+        @include nb_flex();
+        @include nb_flex-align-items(flex-start);
+        @include nb_flex_wrap(wrap);
+        @include scale("font-size", $font-size-base);
+
+        @include media-breakpoint-up(md) {
+            @include nb_flex_wrap(nowrap);
+        }
+        
+        .time {
+            width: 100%;
+            color: map-get($_colors, "blue");
+            white-space: nowrap;
+            line-height: 1.2;
+            font-weight: bold;
+            @include scale("font-size", $font-size-h5);
+
+            @include media-breakpoint-up(md) {
+                width: auto;
+                padding-right: 2rem;
+            }
+        }
+        
+        .details {
+            width: 100%;
+            line-height: 1.2;
+            font-weight: 300;
+
+            @include media-breakpoint-up(md) {
+                width: auto;
+            }
+
+            .heading {
+                font-weight: bold;
+                font-size: $font-size-base;
+            }
+
+            .text {
+                margin-top: 0.5rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+{% extends "modules/content-field.twig" %}
+
+{% block fieldContent %}
+  <div class="content-section content-agenda">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+
+          <h2>{{field.getHeading()}}</h2>
+          <ul class="list list-agenda">
+            {% for item in field.getItems() %}
+              <li class="list-item">
+
+                {% if item.timeto %}
+                  <div class="time">{{item.timefrom}} - {{item.timeto}}</div>
+                {% else %}
+                  <div class="time">{{item.timefrom}}</div>
+                {% endif %}
+
+                <div class="details">
+                  <div class="heading">{{item.agendaheading}}</div>
+                  {% if item.agendatext %}
+                    <div class="text">
+                      {{item.agendatext}}
+                    </div>
+                  {% endif %}
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
