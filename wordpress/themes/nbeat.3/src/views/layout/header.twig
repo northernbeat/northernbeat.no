@@ -3,8 +3,8 @@
 
   <section class="container">
 	<div class="no-nbeat-menubar">
-	  <a href="/" class="no-nbeat-logo">
-        <img src="{{site.theme.link}}/img/{{header.logo|default("logo")}}.svg" />
+	  <a id="toplogo" href="/" class="no-nbeat-logo {{header.logo}}">
+        <img id="svglogo" src="{{site.theme.link}}/img/{{header.logo|default("logo")}}.svg" />
         <canvas id="no-nbeat-logo-canvas"></canvas>
       </a>
 	  <button class="no-nbeat-hamburger" data-toggle="header">

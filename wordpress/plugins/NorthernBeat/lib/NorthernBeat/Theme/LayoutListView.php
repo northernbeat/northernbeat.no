@@ -52,20 +52,23 @@ class LayoutListView extends \NorthernBeat\Theme\Layout
 
     private function fetchItems()
     {
-        $type    = $this->data["posttype"];
-        $classes = array("employee" => "Employee",
-                         "case"     => "Showcase",
-                         "service"  => "Service",
-                         "quote"    => "Quote");
-        $class   = "\\NorthernBeat\\Theme\\" . $classes[$type];
-        $args    = array("post_type" => $type,
-                         "orderby"   => $this->data["orderby"],
-                         "order"     => $this->data["order"]);
-
+        $type     = $this->data["posttype"];
+        $maxPosts = 50;
+        $classes  = array("employee" => "Employee",
+                          "case"     => "Showcase",
+                          "service"  => "Service",
+                          "quote"    => "Quote");
+        $class    = "\\NorthernBeat\\Theme\\" . $classes[$type];
+        $args     = array("post_type" => $type,
+                          "orderby"   => $this->data["orderby"],
+                          "order"     => $this->data["order"]);
+        
         if ("all" != $this->data["numitems"]) {
             $args["numberposts"] = $this->data["numitems"];
+        } else {
+            $args["numberposts"] = $maxPosts;
         }
-
+        
         $this->list = \Timber::get_posts($args, $class);
     }
 
