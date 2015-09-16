@@ -2,6 +2,9 @@
     
     &.list-of-three {
         .list-item {
+            @include nb_flex-align-items(flex-start);
+            @include nb_flex-direction(column);
+            
             .photo {
                 width: 100%;
             }
