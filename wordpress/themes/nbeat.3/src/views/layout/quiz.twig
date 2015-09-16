@@ -1,7 +1,8 @@
 {% extends "no-nbeat/layout/page-wordpress.twig" %}
 
 {% block extrahead %}
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 {% endblock %}
 
 {% block body %}
@@ -16,7 +17,6 @@
 
 {% block scripts %}
   <script src="{{ site.theme.link }}/js/jquery.min.js"></script>
-  <script src="{{ site.theme.link }}/js/viewport-units-buggyfill.js"></script>
-  <script src="{{ site.theme.link }}/js/viewport-units-buggyfill.hacks.js"></script>
+  <script src="{{ site.theme.link }}/js/jquery.stayInWebApp.js"></script>
   <script src="{{ site.theme.link }}/js/nbeat-quiz.js"></script>
 {% endblock %}

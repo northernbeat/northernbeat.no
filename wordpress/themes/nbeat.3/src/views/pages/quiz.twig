@@ -12,7 +12,9 @@
               Du hadde {{correct}} av {{total}} riktige svar.
               
               <div>
-                <a href="/quiz" class="btn btn-lg btn-quiz" id="finishQuiz">Ferdig</a>
+                <form action="/quiz" method="post">
+                  <button type="submit" class="btn btn-lg btn-quiz" id="finishQuiz">Ferdig</button>
+                </form>
               </div>
             </div>
           </div>
