@@ -1,7 +1,7 @@
 {% extends "modules/content-field.twig" %}
 
 {% block fieldContent %}
-  <div class="content-section content-text">
+  <div class="content-section content-agenda">
     <div class="container">
       <div class="row">
         <div class="col-lg-10 col-lg-offset-1">
@@ -10,10 +10,20 @@
           <ul class="list list-agenda">
             {% for item in field.getItems() %}
               <li class="list-item">
-                <div class="time">{{item.timefrom}} - {{item.timeto}}</div>
+
+                {% if item.timeto %}
+                  <div class="time">{{item.timefrom}} - {{item.timeto}}</div>
+                {% else %}
+                  <div class="time">{{item.timefrom}}</div>
+                {% endif %}
+
                 <div class="details">
-                  <h6 class="heading">{{item.agendaheading}}</h6>
-                  {{item.agendatext}}
+                  <div class="heading">{{item.agendaheading}}</div>
+                  {% if item.agendatext %}
+                    <div class="text">
+                      {{item.agendatext}}
+                    </div>
+                  {% endif %}
                 </div>
               </li>
             {% endfor %}
