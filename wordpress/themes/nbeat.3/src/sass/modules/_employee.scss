@@ -1,10 +1,28 @@
 .employee {
     @include nb_flex();
     @include nb_flex_wrap(); 
-   
+
+    @include media-breakpoint-up(xl) {
+        @include nb_flex_direction(column); 
+        @include nb_flex_justify_content(flex-start); 
+    }
+
     .photo {
         width: 40%;
         padding-right: 5%;
+
+        @include media-breakpoint-up(md) {
+            max-width: 10rem;
+        }
+
+        @include media-breakpoint-up(lg) {
+            max-width: 15rem;
+        }
+
+        @include media-breakpoint-up(xl) {
+            max-width: none;
+            width: 100%;
+        }
 
         img {
             width: 100%;
@@ -12,9 +30,14 @@
     }
     
     .details {
+        @include scale("font-size", $font-size-sm, "", $_scale_xs);
         width: 60%;
-        @include scale("font-size", $font-size-base);
 
+        @include media-breakpoint-up(xl) {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
         .name {
             @include scale("font-size", $no-nbeat-employees-name-size);
             @include scale("margin-top", 0.67rme);

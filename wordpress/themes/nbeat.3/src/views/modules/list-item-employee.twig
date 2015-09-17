@@ -1,6 +1,8 @@
 <li class="list-item employee">
   <div class="photo">
-    <img src="{{post.getPhoto()|default("/wp-content/themes/NorthernBeat3/img/person.svg")}}" alt="{{post.getFirstname()}} {{post.getLastname()}}" />
+    <a href="{{post.link}}">
+      <img src="{{post.getPhoto()|default("/wp-content/themes/NorthernBeat3/img/person.svg")}}" alt="{{post.getFirstname()}} {{post.getLastname()}}" />
+    </a>
   </div>
   <div class="details">
     <h2 class="name"><a href="{{post.link}}">{{post.getFirstname()}}<br />{{post.getLastname()}}</a></h2>

@@ -121,6 +121,13 @@ $_scale-sm: (
     "lg": 0.9,
     "xl": 1
 );
+$_scale-xs: (
+    "base": 0.75,
+    "sm": 0.75,
+    "md": 0.83,
+    "lg": 0.92,
+    "xl": 1
+);
 
 // Body
 
@@ -197,4 +204,5 @@ $no-nbeat-cases-content-padding: 4rem;
 $no-nbeat-cases-content-padding-vertical: 2rem;
 
 // List: Employees
-$no-nbeat-employees-name-size: $font-size-h4;
+$no-nbeat-employees-name-size: $font-size-h5;
+$no-nbeat-employees-list-margin: $_padding;
