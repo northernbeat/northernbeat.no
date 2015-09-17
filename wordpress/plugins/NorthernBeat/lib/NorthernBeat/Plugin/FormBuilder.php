@@ -160,8 +160,7 @@ class FormBuilder
                                "type"    => "select",
                                "choices" => ["employee" => "Ansatte",
                                              "case"     => "Case",
-                                             "service"  => "Tjenester",
-                                             "quote"    => "Sitat"]),
+                                             "service"  => "Tjenester"]),
         "numitems"    => array("label"   => "Antall",
                                "type"    => "select",
                                "choices" => ["all" => "Alle",
@@ -198,6 +197,11 @@ class FormBuilder
                                "label"    => "Velg kontaktskjema",
                                "postType" => array("wpcf7_contact_form"),
                                "multiple" => false),
+        
+        "random"      => array("type"     => "radio",
+                               "label"    => "Velg verdi",
+                               "choices"  => ["self"  => "Velg selv",
+                                              "random" => "Bruk en tilfeldig verdi"]),
 
         // Agenda fields
         "agendaheading" => array("label" => "Overskrift",
@@ -219,7 +223,9 @@ class FormBuilder
     private $layouts = array(
         // Quote
         "quote" => array("label" => "Sitat",
-                         "fields" => array("quote", "quotetarget")),
+                         "fields" => array("random", ["key" => "quote-random", "label" => "Velg sitat"],
+                                           "quote", ["conditionalLogic" => [[["field" => "page-quote-random", "operator" => "==", "value" => "self"]]]],
+                                           "quotetarget")),
         "text"  => array("label" => "Tekst",
                          "fields" => array("heading", "richtext", "numcolumns")),
         "photo" => array("label" => "Bilde",

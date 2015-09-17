@@ -4,6 +4,7 @@ namespace NorthernBeat\Theme;
 
 class Quote extends \NorthernBeat\Theme\Post
 {
+
     private $customer;
 
 
@@ -49,6 +50,9 @@ class Quote extends \NorthernBeat\Theme\Post
     public function getCustomer()
     {
         $this->fetchCustomer();
-        return $this->customer->getName();
+
+        if (isset($this->customer)) {
+            return $this->customer->getName();
+        }
     }
 }
