@@ -4,6 +4,7 @@ namespace NorthernBeat\Theme;
 
 class Service extends \NorthernBeat\Theme\Post
 {
+
     private $icon;
 
 
@@ -36,8 +37,8 @@ class Service extends \NorthernBeat\Theme\Post
     
     public function getDescription()
     {
-        if (isset($this->custom["service-description"])) {
-            return $this->custom["service-description"];
+        if (isset($this->custom["service-ingress"])) {
+            return $this->custom["service-ingress"];
         }
     }
     
