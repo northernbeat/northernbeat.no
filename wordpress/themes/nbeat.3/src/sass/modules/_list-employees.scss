@@ -11,14 +11,6 @@
 
     &.list-of-three {
         .list-item {
-            @include media-breakpoint-up(md) {
-                @include _list-item-single($no-nbeat-employees-list-margin);
-
-                &:nth-of-type(2n+2) {
-                    margin-left: 0;
-                }
-            }
-
             @include media-breakpoint-up(lg) {
                 @include _list-item-half();
 
