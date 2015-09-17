@@ -26,6 +26,11 @@
 
         img {
             width: 100%;
+
+            &:hover {
+                filter: opacity(0.90);
+                -webkit-filter: opacity(0.90);
+            }
         }
     }
     
