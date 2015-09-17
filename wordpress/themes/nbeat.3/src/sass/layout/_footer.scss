@@ -2,13 +2,16 @@
     background-color: $no-nbeat-footer-bg;
     color: $no-nbeat-footer-color;
     padding: $footer-padding 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 0;
     height: $no-nbeat-footer-height;
 
+    @include media-breakpoint-up(lg) {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+    }
+    
     .container {
         @include nb_flex();
         @include nb_flex-align-items(center);
@@ -45,7 +48,7 @@
     .info {
         width: 100%;
         @include nb_flex();
-        @include nb_flex_justifycontent();
+        @include nb_flex_justifycontent(flex-start);
         @include scale("font-size", $font-size-base);
         @include nb_flex_wrap();
         margin-bottom: 0;
@@ -135,7 +138,7 @@
                 }
             }
             
-            @include media-breakpoint-up(md) {
+            @include media-breakpoint-up(lg) {
                 position: relative;
                 @include nb_flex-direction(row);
 
