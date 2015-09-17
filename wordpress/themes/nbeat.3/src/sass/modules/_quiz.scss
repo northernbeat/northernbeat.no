@@ -58,7 +58,7 @@
     }
     
     .page {
-        @include nb_flex-shrink(0);
+        @include nb_flex_shrink(0);
         border: 10gpx dotted #fff;
         width: 100%;
         height: 100vh;
@@ -86,20 +86,20 @@
             
             @include nb_flex();
             @include nb_flex_wrap(nowrap);
-            @include nb_flex-align-items();
-            @include nb_flex-justifycontent();
+            @include nb_flex_align_items();
+            @include nb_flex_justify_content();
 
             &.center {
-                @include nb_flex-justifycontent(center);
+                @include nb_flex_justify_content(center);
             }
         }
     }
 
     .page-score {
         @include nb_flex();
-        @include nb_flex-align-items();
-        @include nb_flex-justifycontent(center);
-        @include nb_flex-direction(column);
+        @include nb_flex_align_items();
+        @include nb_flex_justify_content(center);
+        @include nb_flex_direction(column);
 
         img {
             height: 90vmin;
@@ -121,9 +121,9 @@
             width: 100vw;
             height: 100vh;
             @include nb_flex();
-            @include nb_flex-align-items();
-            @include nb_flex-justifycontent(center);
-            @include nb_flex-direction(column);
+            @include nb_flex_align_items();
+            @include nb_flex_justify_content(center);
+            @include nb_flex_direction(column);
             z-index: 400;
 
             .score {
@@ -162,9 +162,9 @@
 
     .page-logo {
         @include nb_flex();
-        @include nb_flex-align-items();
-        @include nb_flex-justifycontent(center);
-        @include nb_flex-direction(column);
+        @include nb_flex_align_items();
+        @include nb_flex_justify_content(center);
+        @include nb_flex_direction(column);
 
         img {
             height: 60vmin;
@@ -188,9 +188,9 @@
         
         fieldset {
             @include nb_flex();
-            @include nb_flex-align-items();
-            @include nb_flex-justifycontent(center);
-            @include nb_flex-direction(column);
+            @include nb_flex_align_items();
+            @include nb_flex_justify_content(center);
+            @include nb_flex_direction(column);
             
             input[type="radio"] {
                 display: none;
@@ -239,9 +239,9 @@
 
         .line {
             @include nb_flex();
-            @include nb_flex-align-items(flex-end);
-            @include nb_flex-justifycontent(flex-start);
-            @include nb_flex-direction(row);
+            @include nb_flex_align_items(flex-end);
+            @include nb_flex_justify_content(flex-start);
+            @include nb_flex_direction(row);
             margin-bottom: 2rem;
 
             label {

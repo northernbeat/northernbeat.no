@@ -7,7 +7,7 @@
     display: flex;
 }
 
-@mixin nb_flex-align-items($pos: center)
+@mixin nb_flex_align_items($pos: center)
 {
 	-ms-flex-align: $pos;
 	-webkit-align-items: $pos;
@@ -22,19 +22,19 @@
     -webkit-flex-wrap: $mode;
 }
 
-@mixin nb_flex_justifycontent($val: space-between)
+@mixin nb_flex_justify-content($val: space-between)
 {
     -webkit-justify-content: $val;
     justify-content: $val;
 }
 
-@mixin nb_flex-direction($dir: row)
+@mixin nb_flex_direction($dir: row)
 {
     flex-direction: $dir;
     -webkit-flex-direction: $dir;
 }
 
-@mixin nb_flex-shrink($val: 1)
+@mixin nb_flex_shrink($val: 1)
 {
     flex-shrink: $val;
     -webkit-flex-shrink: $val;

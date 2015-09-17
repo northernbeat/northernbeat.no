@@ -29,9 +29,9 @@
 
             @include media-breakpoint-down(sm) {
                 @include nb_flex();
-                @include nb_flex-align-items(center);
-                @include nb_flex-direction(column);
-                @include nb_flex-justifycontent(center);
+                @include nb_flex_align_items(center);
+                @include nb_flex_direction(column);
+                @include nb_flex_justify_content(center);
             }
 
             @include media-breakpoint-up(md) {

@@ -14,15 +14,15 @@
     
     .container {
         @include nb_flex();
-        @include nb_flex-align-items(center);
+        @include nb_flex_align_items(center);
         height: 100%;
 
         > div {
             width: 100%;
             @include nb_flex();
-            @include nb_flex_justifycontent();
+            @include nb_flex_justify_content();
             @include nb_flex_wrap();
-            @include nb_flex-align-items(center);
+            @include nb_flex_align_items(center);
             position: relative;
 
             > * {
@@ -48,7 +48,7 @@
     .info {
         width: 100%;
         @include nb_flex();
-        @include nb_flex_justifycontent(flex-start);
+        @include nb_flex_justify_content(flex-start);
         @include scale("font-size", $font-size-base);
         @include nb_flex_wrap();
         margin-bottom: 0;
@@ -60,7 +60,7 @@
         
         @include media-breakpoint-up(lg) {
             width: auto;
-            @include nb_flex_justifycontent(flex-end);
+            @include nb_flex_justify_content(flex-end);
         }
 
         @include media-breakpoint-up(xl) {
@@ -70,7 +70,7 @@
         .col {
             a {
                 @include nb_flex();
-                @include nb_flex-align-items();
+                @include nb_flex_align_items();
 
                 &:hover {
                     text-decoration: none;
@@ -125,7 +125,7 @@
 
         .social {
             @include nb_flex();
-            @include nb_flex-direction(column);
+            @include nb_flex_direction(column);
             position: absolute;
             right: 0;
             top: 0;
@@ -140,7 +140,7 @@
             
             @include media-breakpoint-up(lg) {
                 position: relative;
-                @include nb_flex-direction(row);
+                @include nb_flex_direction(row);
 
                 a {
                     margin-bottom: 0;
