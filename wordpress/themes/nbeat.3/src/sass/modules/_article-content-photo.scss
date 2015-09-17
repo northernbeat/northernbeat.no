@@ -19,8 +19,14 @@
     }
     
     .list-of-two {
+        @include nb_flex_wrap();
+
         div {
-            width: 50%;
+            width: 100%;
+
+            @include media-breakpoint-up(md) {
+                width: 50%;
+            }
         }
     }
 }
