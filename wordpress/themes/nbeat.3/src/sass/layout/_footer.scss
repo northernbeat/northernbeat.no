@@ -120,6 +120,12 @@
             
             a {
                 color: $no-nbeat-footer-color;
+
+                &:hover {
+                    p {
+                        text-decoration: underline;
+                    }
+                }
             }
         }
 
@@ -145,6 +151,13 @@
                 a {
                     margin-bottom: 0;
                     margin-left: 0.5rem;
+
+                    img {
+                        &:hover {
+                            filter: brightness(130%);
+                            -webkit-filter: brightness(130%);
+                        }
+                    }
                 }
             }
         }
