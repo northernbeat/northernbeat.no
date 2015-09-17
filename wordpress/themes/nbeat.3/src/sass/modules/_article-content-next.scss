@@ -29,18 +29,27 @@
                     }
                     
                     .left {
+                        @include scale("font-size", $font-size-base, "", $_scale-sm);
                         text-align: center;
 
                         .arrow {
-                            @include scale("font-size", $no-nbeat-article-next-arrow-size);
+                            @include scale("font-size", $no-nbeat-article-next-arrow-size, "",
+                                           $_scale-md);
                             line-height: 1;
                         }
                     }
                     
-                    h2 {
+                    h2.title {
                         color: inherit;
-                        @include scale("margin-bottom", 1.5rem);
+                        @include scale("font-size", $no-nbeat-article-next-title-size,
+                                      "", $_scale-lg);
+                        @include scale("margin-bottom", 1.5rem, "", $_scale-xl);
                     }
+
+                    .customer {
+                        @include scale("font-size", $font-size-base, "", $_scale-sm);
+                        margin-bottom: 0;
+                    }                        
                 }
             }
         }

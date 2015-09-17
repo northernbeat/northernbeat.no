@@ -93,6 +93,34 @@ $_scale-case: (
     "lg": 0.7,
     "xl": 1
 );
+$_scale-xl: (
+    "base": 0.25,
+    "sm": 0.25,
+    "md": 0.5,
+    "lg": 0.75,
+    "xl": 1
+);
+$_scale-lg: (
+    "base": 0.4,
+    "sm": 0.4,
+    "md": 0.6,
+    "lg": 0.8,
+    "xl": 1
+);
+$_scale-md: (
+    "base": 0.5,
+    "sm": 0.5,
+    "md": 0.65,
+    "lg": 0.8,
+    "xl": 1
+);
+$_scale-sm: (
+    "base": 0.7,
+    "sm": 0.7,
+    "md": 0.8,
+    "lg": 0.9,
+    "xl": 1
+);
 
 // Body
 
@@ -154,6 +182,7 @@ $no-nbeat-article-link-arrow-top: 0.5rem;
 $no-nbeat-article-link-text-left: 3rem;
 
 // Article: Next
+$no-nbeat-article-next-title-size: $font-size-h2;
 $no-nbeat-article-next-arrow-size: $font-size-h2;
 $no-nbeat-article-next-height: 30vw;
 
