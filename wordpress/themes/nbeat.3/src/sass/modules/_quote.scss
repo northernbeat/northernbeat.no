@@ -6,7 +6,7 @@
         border-left: 0;
         
         p {
-            @include scale("font-size", $no-nbeat-quote-size);
+            @include scale("font-size", $no-nbeat-quote-size, "", $_scale-lg);
             position: relative;
             color: inherit;
             margin-bottom: $_padding;
@@ -19,7 +19,7 @@
         }
 
         footer {
-            @include scale("font-size", $no-nbeat-quote-footer-size);
+            @include scale("font-size", $no-nbeat-quote-footer-size, "", $_scale-md);
             color: inherit;
             font-weight: light;
 
