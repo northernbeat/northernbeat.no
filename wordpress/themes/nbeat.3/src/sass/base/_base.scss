@@ -32,6 +32,14 @@ body {
     }
 }
 
+a {
+    color: $link-color;
+
+    &:hover {
+        color: $link-color;
+    }
+}
+
 // html {
 //     font-size: 13px;
 //     font-family: "nationale_regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
