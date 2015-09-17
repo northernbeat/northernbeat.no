@@ -2,35 +2,52 @@
     .list-item {
         img {
             float: left;
-            width: 15%;
+            width: 12%;
 
-            @include media-breakpoint-up(md) {
+            @include media-breakpoint-up(lg) {
                 @include scale("margin-bottom", 0.6rem);
                 float: none;
+                width: 20%;
             }
         }
 
         .title {
-            @include scale("font-size", $font-size-h5);
-            font-weight: normal;
+            @include scale("font-size", $font-size-h5, "", $_scale_sm);
+            font-weight: bold;
             margin: 0;
             margin-left: 20%;
 
-            @include media-breakpoint-up(md) {
-                @include scale("margin-top", 0.6rem);
+            @include media-breakpoint-up(lg) {
+                @include scale("margin-top", 0.4rem);
                 @include scale("margin-bottom", 0.6rem);
                 margin-left: 0;
             }
         }
         
         .text { 
-            margin-top: 0.6rem;
+            @include scale("margin-top", 0.6rem, "", $_scale_sm);
+            @include scale("font-size", $font-size-sm, "", $_scale_sm);
+            color: $body-color;
             margin-left: 20%;
-            font-size: $font-size-sm;
 
-            @include media-breakpoint-up(md) {
-                @include scale("font-size", $font-size-base);
+            @include media-breakpoint-up(lg) {
                 margin-left: 0;
+            }
+        }
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: none;
+
+                .title {
+                    text-decoration: underline;
+                }
+                
+                .text {
+                    text-decoration: none;
+                }
             }
         }
     }
