@@ -9,9 +9,9 @@ class Showcase extends \NorthernBeat\Plugin\CustomPost
     {
         $this->id       = "case";
         $this->prefix   = "case-";
-        $this->plural   = "Case";
-        $this->singular = "Case";
-        $this->slug     = "case";
+        $this->plural   = "Arbeider";
+        $this->singular = "Arbeider";
+        $this->slug     = "arbeider";
         $this->icon     = "dashicons-format-gallery";
 
         $this->form = array(
