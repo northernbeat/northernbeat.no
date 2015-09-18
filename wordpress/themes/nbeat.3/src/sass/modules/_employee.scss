@@ -60,5 +60,20 @@
     .text {
         margin-top: 5%;
         width: 100%;
+        @include scale("font-size", $font-size-base, "", $_scale_sm);
+    }
+
+    &.employee-single {
+        @include nb_flex();
+        @include nb_flex_direction(row);
+
+        .photo {
+            width: 40%;
+            max-width: 15rem;
+        }
+
+        .details {
+            width: 60%;
+        }
     }
 }
