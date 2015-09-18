@@ -8,7 +8,6 @@
     },
 
     "require": {
-        "jarednova/timber": "dev-master"
     },
 
     "extra": {
