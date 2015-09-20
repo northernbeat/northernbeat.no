@@ -20,22 +20,30 @@
 {
     flex-wrap: $mode;
     -webkit-flex-wrap: $mode;
+    -ms-flex-wrap: $mode;
 }
 
 @mixin nb_flex_justify-content($val: space-between)
 {
+    -ms-justify-content: $val;
     -webkit-justify-content: $val;
     justify-content: $val;
+
+    @if ($val == "space-between") {
+        -ms-flex-pack: justify;
+    }
 }
 
 @mixin nb_flex_direction($dir: row)
 {
     flex-direction: $dir;
     -webkit-flex-direction: $dir;
+    -ms-flex-direction: $dir;
 }
 
 @mixin nb_flex_shrink($val: 1)
 {
     flex-shrink: $val;
     -webkit-flex-shrink: $val;
+    -ms-flex-shrink: $val;
 }

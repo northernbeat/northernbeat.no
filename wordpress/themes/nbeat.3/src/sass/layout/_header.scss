@@ -12,12 +12,9 @@
     }
     
     .no-nbeat-menubar {
-        display: -webkit-flex;
-        display: flex;
-        -webkit-justify-content: space-between;
-        justify-content: space-between;
-        -webkit-align-items: center;
-        align-items: center;
+        @include nb_flex();
+        @include nb_flex_justify_content();
+        @include nb_flex_align_items();
         z-index: $no-nbeat-menubar-zindex;
 
         > * {
