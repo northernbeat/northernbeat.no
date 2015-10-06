@@ -2,7 +2,7 @@
 
 namespace NorthernBeat\Plugin;
 
-class Quiz extends \NorthernBeat\Plugin\CustomPost
+class Quiz extends \PCP\Post
 {
 
     public function __construct()

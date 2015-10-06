@@ -6,6 +6,20 @@
  * Version: 1.0.0
  */
 
+require_once(ABSPATH . "wp-admin/includes/plugin.php");
+
+function checkNbeatDependencies()
+{
+    if (!class_exists("ProgrammableCustomPosts")) {
+        trigger_error("Please install the plugin Programmable Custom Posts first", E_USER_NOTICE);
+        deactivate_plugins( plugin_basename( __FILE__ ) );
+        exit;
+    }
+}
+add_action("plugins_loaded", "checkNbeatDependencies");
+
+
+
 require_once("vendor/autoload.php");
 
 class NorthernBeat
@@ -53,7 +67,7 @@ class NorthernBeat
             ),
         );
 
-        $form = new \NorthernBeat\Plugin\FormBuilder($form, "page");
+        $form = new \PCP\Form($form, "page");
         $form->parse();
     }
 

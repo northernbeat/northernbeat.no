@@ -2,7 +2,7 @@
 
 namespace NorthernBeat\Plugin;
 
-class Service extends \NorthernBeat\Plugin\CustomPost
+class Service extends \PCP\Post
 {
 
     public function __construct()

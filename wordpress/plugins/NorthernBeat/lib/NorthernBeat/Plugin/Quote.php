@@ -2,7 +2,7 @@
 
 namespace NorthernBeat\Plugin;
 
-class Quote extends \NorthernBeat\Plugin\CustomPost
+class Quote extends \PCP\Post
 {
 
     public function __construct()

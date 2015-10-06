@@ -2,7 +2,7 @@
 
 namespace NorthernBeat\Plugin;
 
-class Showcase extends \NorthernBeat\Plugin\CustomPost
+class Showcase extends \PCP\Post
 {
 
     public function __construct()
