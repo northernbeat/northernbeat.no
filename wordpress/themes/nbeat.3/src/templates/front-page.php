@@ -10,4 +10,4 @@ $data["header"] = array("classes" => "no-nbeat-bg-blue no-nbeat-fp",
 $data["post"] = new \NorthernBeat\Theme\Page();
 $data["page"]["noHeader"] = true;
 
-Timber::render("pages/page.twig", $data);
+Timber::render("pages/page.twig", $data, 600);

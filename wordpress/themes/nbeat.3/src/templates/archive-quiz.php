@@ -44,4 +44,4 @@ if (isset($_REQUEST["submit"])) {
     mail($to, $subject, $msg);
 }
 
-Timber::render("pages/quiz.twig", $data);
+Timber::render("pages/quiz.twig", $data, 600);
