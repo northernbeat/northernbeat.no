@@ -9,13 +9,13 @@ module.exports = function(gulp, plugins)
                                    ]
                    };
     var css      = gulp.src("src/sass/nbeat.scss")
-                       .pipe(plugins.sass(sassOpts));
+                   .pipe(plugins.sass(sassOpts))
+                   .pipe(plugins.minifyCss());
     
     return function()
     {
         return es.merge(header, css)
             .pipe(plugins.concat("style.css"))
-            .pipe(plugins.minifyCss())
             .pipe(gulp.dest("build/NorthernBeat3"));
     };
 };
