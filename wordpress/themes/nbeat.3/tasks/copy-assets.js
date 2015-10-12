@@ -23,7 +23,7 @@ module.exports = function(gulp, plugins)
         gulp.src("src/assets/**/*")
             .pipe(gulp.dest("build/NorthernBeat3"));
 
-        gulp.src("node_modules/jquery/dist/**/*")
+        gulp.src("node_modules/jquery/dist/jquery.min.js")
             .pipe(gulp.dest("build/NorthernBeat3/js"));
     };
 };
