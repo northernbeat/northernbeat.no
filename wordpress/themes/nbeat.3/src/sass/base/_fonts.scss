@@ -9,8 +9,6 @@
     font-style: normal;
 }
 
-
-
 @font-face {
     font-family: "Nationale";
     src: url($theme-path + "/fonts/nationale-medium.eot");
@@ -21,17 +19,3 @@
     font-weight: bold;
     font-style: normal;
 }
-
-
-// @font-face {
-//     font-family: "Nationale";
-//     src: url($theme-path + "/fonts/nationale-demibold-webfont.eot");
-//     src: url($theme-path + "/fonts/nationale-demibold-webfont.eot?#iefix") format("embedded-opentype"),
-//          url($theme-path + "/fonts/nationale-demibold-webfont.woff") format("woff"),
-//          url($theme-path + "/fonts/nationale-demibold-webfont.ttf") format("truetype"),
-//          url($theme-path + "/fonts/nationale-demibold-webfont.svg#nationale_demibold") format("svg");
-//     font-weight: 900;
-//     font-style: normal;
-// }
-
-
