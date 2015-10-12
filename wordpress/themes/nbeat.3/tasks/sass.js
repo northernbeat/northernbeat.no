@@ -13,9 +13,9 @@ module.exports = function(gulp, plugins)
     
     return function()
     {
-        console.log("sass");
         return es.merge(header, css)
             .pipe(plugins.concat("style.css"))
+            .pipe(plugins.minifyCss())
             .pipe(gulp.dest("build/NorthernBeat3"));
     };
 };
