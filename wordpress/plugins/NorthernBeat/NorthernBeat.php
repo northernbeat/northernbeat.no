@@ -91,7 +91,7 @@ class NorthernBeat
 
     function addAdminCss()
     {
-        wp_enqueue_style("my-admin-theme", plugins_url("nbeat-admin-overrides.css", __FILE__));
+        // wp_enqueue_style("my-admin-theme", plugins_url("nbeat-admin-overrides.css", __FILE__));
     }
 
 
