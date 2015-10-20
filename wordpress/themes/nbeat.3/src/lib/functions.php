@@ -13,6 +13,9 @@ function print_pre_r($in)
     print "</pre>";
 }
 
-if (class_exists("TimberSite")) {
-    new NorthernBeat\Theme\Site();
+if (class_exists("TimberSite") && class_exists("\NorthernBeat\Theme\Site")) {
+    new \NorthernBeat\Theme\Site();
+} else {
+    echo "Missing plugins: Timber and/or NorthernBeat. Please go to admin page and resolve the issues.";
+    error_log("*** Missing plugins: Timber and/or NorthernBeat");
 }
