@@ -25,7 +25,7 @@
 
         &:hover {
             background-color: #fff;
-            color: map-get($_colors, "blue");
+            color: color(blue);
         }
 
         .icon {
@@ -81,7 +81,7 @@
             right: 0;
             bottom: 0;
             padding: 7vmin;
-            background-color: map-get($_colors, "blue");
+            background-color: color(blue);
             z-index: 300;
             
             @include nb_flex();
@@ -205,7 +205,7 @@
 
                     &:hover {
                         background-color: #fff;
-                        color: map-get($_colors, "blue");
+                        color: color(blue);
                         cursor: pointer;
                         cursor: hand;
                     }
@@ -214,7 +214,7 @@
                 &:checked {
                     + label {
                         background-color: #fff;
-                        color: map-get($_colors, "blue");
+                        color: color(blue);
                     }
                 }
             }

@@ -14,7 +14,7 @@
         
         .time {
             width: 100%;
-            color: map-get($_colors, "blue");
+            color: color(blue);
             white-space: nowrap;
             line-height: 1.2;
             font-weight: bold;
