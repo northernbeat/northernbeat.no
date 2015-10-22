@@ -19,3 +19,7 @@ if (class_exists("TimberSite") && class_exists("\NorthernBeat\Theme\Site")) {
     echo "Missing plugins: Timber and/or NorthernBeat. Please go to admin page and resolve the issues.";
     error_log("*** Missing plugins: Timber and/or NorthernBeat");
 }
+
+$timberCacheTime = 0;
+$loader = new TimberLoader();
+$loader->clear_cache_timber();

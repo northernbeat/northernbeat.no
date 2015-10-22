@@ -8,4 +8,4 @@ $data["classes"] = "list-of-three";
 
 // print_pre_r($data["posts"]);
 
-Timber::render("pages/employees.twig", $data, 86400);
+Timber::render("pages/employees.twig", $data, $timberCacheTime);

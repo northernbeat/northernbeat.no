@@ -3,4 +3,4 @@
 $data = Timber::get_context();
 $data["post"] = new \NorthernBeat\Theme\Service();
 
-Timber::render("pages/service.twig", $data, 86400);
+Timber::render("pages/service.twig", $data, $timberCacheTime);
