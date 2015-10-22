@@ -1,3 +1,4 @@
+@import "data";
 @import "mixins/color";
 @import "config";
 @import "bootstrap";
@@ -5,13 +6,12 @@
 // Mixins
 @import "mixins/debug";
 @import "mixins/flexbox";
+@import "mixins/hyphenation";
+@import "mixins/keyframes";
 @import "mixins/list-item";
 @import "mixins/scale";
 @import "mixins/transitions";
-@import "mixins/padding";
-@import "mixins/hyphenation";
 @import "mixins/widths";
-@import "mixins/keyframes";
 
 // Base
 @import "base/base";
@@ -27,6 +27,7 @@
 // Modules
 @import "modules/article";
 @import "modules/colors";
+@import "modules/debug";
 @import "modules/employee";
 @import "modules/hamburger";
 @import "modules/list";

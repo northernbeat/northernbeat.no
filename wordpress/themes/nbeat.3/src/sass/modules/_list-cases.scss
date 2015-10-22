@@ -1,16 +1,53 @@
 .list-cases {
     @include clearfix;
-    @include list-item(7vmin);
+    // @include list-item(7vmin);
 
     .list-item {
         position: relative;
         overflow: hidden;
+        max-height: 10rem;
+        height: 10rem;
         
-        img {
+        @include media-breakpoint-up(sm) {
+            max-height: 14rem;
+            height: 14rem;
+        }
+        
+        @include media-breakpoint-up(md) {
+            max-height: 18rem;
+            height: 18rem;
+        }
+        
+        @include media-breakpoint-up(lg) {
+            max-height: 22rem;
+            height: 22rem;
+        }
+
+        @include media-breakpoint-up(xl) {
+            max-height: 28rem;
+            height: 28rem;
+        }
+        
+        a {
             display: block;
-            max-width: 100%;
-            height: auto;
+            height: 100%;
             width: 100%;
+
+            &:hover {
+                .bg-img {
+                    transform: scale(1.025);
+                    -webkit-transform: scale(1.025);
+                    @include ease-out(2s);
+                }
+            }
+        }
+
+        .bg-img {
+            background-size: cover;
+            background-position: center center;
+            height: 100%;
+            width: 100%;
+            @include ease-out(1s);
         }
 
         .content {
@@ -46,8 +83,9 @@
                 color: inherit;
                 margin-bottom: 0;
                 width: 100%;
-                line-height: 1.0;
                 @include scale("font-size", $no-nbeat-cases-title-size);
+                line-height: 1.2;
+                margin-top: 0;
                 
                 @include media-breakpoint-up(md) {
                     line-height: 1.3;

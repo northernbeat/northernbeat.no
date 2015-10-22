@@ -1,6 +1,6 @@
 <li class="list-item">
   <a href="{{post.link}}">
-    <img src="{{post.getThumbImage()|default("/wp-content/themes/NorthernBeat3/img/case.svg")}}" alt="Bakgrunnsbilde" />
+    <div class="bg-img" style="background-image: url({{post.getThumbImage()|default("/wp-content/themes/NorthernBeat3/img/case.svg")}});"></div>
     <span class="content {{post.getThumbCssClasses()}}" {{post.getColorAttrs()}}>
       <h1 class="title">{{post.getThumbTitle()}}</h1>
       <div class="byline">{{post.getCustomers()}}</div>

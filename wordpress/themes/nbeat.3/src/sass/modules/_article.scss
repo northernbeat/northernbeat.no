@@ -9,4 +9,24 @@ article {
     @import "article-content-agenda";
     @import "article-content-link";
     @import "article-content-next";
+
+    // _@include scale("padding-top", $no-nbeat-article-section-margin);
+
+    > :first-child {
+        margin-top: 0.3 * $no-nbeat-article-section-margin !important;
+
+        &.content-coverimage {
+            margin-top: 0 !important;
+        }
+    }
+
+    > :last-child {
+        margin-bottom: 0.3 * $no-nbeat-article-section-margin !important;
+        padding-bottom: 0.3 * $no-nbeat-article-section-margin !important;
+
+        &.content-next {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    }
 }

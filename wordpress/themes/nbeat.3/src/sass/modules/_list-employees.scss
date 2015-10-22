@@ -11,7 +11,7 @@
 
     &.list-of-three {
         .list-item {
-            @include media-breakpoint-up(lg) {
+            @include media-breakpoint-only(lg) {
                 @include _list-item-half();
 
                 &:nth-of-type(3n+2) {
@@ -25,9 +25,13 @@
                 &:nth-of-type(2n+2) {
                     margin-left: 3%;
                 }
+
+                &:nth-child(3) {
+                    margin-top: $no-nbeat-employees-list-margin;
+                }
             }
             
-            @include media-breakpoint-up(xl) {
+            @include media-breakpoint-only(xl) {
                 @include _list-item-third();
                 @include scale("margin-top", round(1.5 * $no-nbeat-employees-list-margin));
 
@@ -42,7 +46,6 @@
                 &:nth-of-type(3n+3) {
                     margin-left: 3%;
                 }
-
             }
         }
     }

@@ -1,11 +1,15 @@
 $(document).ready(function() {
 
+    var footer = $("#footer");
+
     handleHamburgerEvents();
     setCaseColors();
     // showContentDebug();
     // drawLogo();
+    initFooter();
+    handleScroll();
 
-
+    
 
     function handleHamburgerEvents()
     {
@@ -98,4 +102,55 @@ $(document).ready(function() {
         }
     }
 
+
+
+    function handleScroll()
+    {
+        var didScroll = false;
+ 
+        $(window).scroll(function() {
+            didScroll = true;
+        });
+ 
+        setInterval(function() {
+            if (didScroll) {
+                didScroll = false;
+
+                setFooterOpacity();
+            }
+        }, 250);
+    }
+
+
+
+    function initFooter()
+    {
+        var dh = $(document).height();
+        var wh = $(window).height();
+        var fh = footer.height();
+
+        if (wh >= dh - fh) {
+            footer.fadeIn(0);
+        }
+    }
+
+
+    function setFooterOpacity()
+    {
+        if ($(window).scrollTop() + $(window).height() > (getDocHeight() - 500)) {
+            footer.fadeIn(0);
+        } else {
+            footer.fadeOut(0);
+        }
+    }
+
+    
+    function getDocHeight() {
+        var D = document;
+        return Math.max(
+            D.body.scrollHeight, D.documentElement.scrollHeight,
+            D.body.offsetHeight, D.documentElement.offsetHeight,
+            D.body.clientHeight, D.documentElement.clientHeight
+        );
+    }
 });

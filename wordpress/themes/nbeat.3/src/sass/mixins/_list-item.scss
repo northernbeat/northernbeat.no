@@ -2,6 +2,10 @@
 {
     .list-item {
         @include _list-item-single($_margin);
+    
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
 
@@ -12,6 +16,10 @@
 
                 &:nth-of-type(2n+2) {
                     margin-left: 3%;
+                }
+
+                &:nth-child(-n+2) {
+                    margin-top: 0;
                 }
             }
         }
@@ -24,6 +32,10 @@
 
                 &:nth-of-type(2n+2) {
                     margin-left: 3%;
+                }
+
+                &:nth-child(-n+2) {
+                    margin-top: 0;
                 }
             }
             
@@ -40,6 +52,10 @@
 
                 &:nth-of-type(3n+3) {
                     margin-left: 3%;
+                }
+
+                &:nth-child(-n+3) {
+                    margin-top: 0;
                 }
             }
         }

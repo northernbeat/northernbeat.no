@@ -1,18 +1,35 @@
 .content-next {
     height: $no-nbeat-article-next-height;
     max-height: $no-nbeat-article-next-height;
-    background-size: cover;
-    background-position: center center;
+    position: relative;
+    overflow: hidden;
 
     a {
         display: block;
         height: 100%;
 
+        .bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center center;
+            @include ease-out(2s);
+        }
+        
         &:hover {
             text-decoration: none;
+
+            .bg-img {
+                transform: scale(1.025);
+                -webkit-transform: scale(1.025);
+                @include ease-out(4s);
+            }
         }
 
-        > div {
+        .content {
             height: 100%;
             @include flexbox();
             @include align-items(center);
@@ -24,20 +41,30 @@
                     @include flexbox();
                     @include align-items(center);
                     
-                    .left, .right {
-                        width: 50%;
-                    }
                     
                     .left {
                         @include scale("font-size", $font-size-base, "sm");
                         text-align: center;
-
+                        width: 33%;
+                        
+                        @include media-breakpoint-up(md) {
+                            width: 50%;
+                        }
+                        
                         .arrow {
                             @include scale("font-size", $no-nbeat-article-next-arrow-size);
                             line-height: 1;
                         }
                     }
-                    
+
+                    .right {
+                        width: 67%;
+
+                        @include media-breakpoint-up(md) {
+                            width: 50%;
+                        }
+                    }
+
                     h2.title {
                         color: inherit;
                         @include scale("font-size", $no-nbeat-article-next-title-size);

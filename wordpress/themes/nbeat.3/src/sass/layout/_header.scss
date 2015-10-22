@@ -9,6 +9,7 @@
         background: linear-gradient($header-gradient-from, $header-gradient-to),
                     url("#{$theme-path}/img/headerbilde.jpg") no-repeat center center;
         background-size: cover;
+        @include scale("margin-bottom", $no-nbeat-article-section-margin);
     }
     
     .no-nbeat-menubar {
@@ -19,6 +20,16 @@
 
         > * {
             z-index: $no-nbeat-menubar-zindex;
+        }
+    }
+
+    .container {
+        .row {
+            // min-height: 70vmin;
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            @include flexbox();
+            @include align-items(center);
         }
     }
 }

@@ -2,12 +2,11 @@
     h2 {
         // @include scale("margin-top", $no-nbeat-article-header-margin);
         margin-top: 0;
-        @include scale("margin-bottom", 2 * $no-nbeat-article-header-margin);
+        @include scale("margin-bottom", $no-nbeat-article-header-margin);
         color: $no-nbeat-article-header-color;
     }
     
     .ingress {
-        line-height: 1.4;
         @include scale("font-size", $no-nbeat-article-header-ingress-size, "sm");
         @include scale("margin-bottom", $no-nbeat-article-header-ingress-margin);
     }

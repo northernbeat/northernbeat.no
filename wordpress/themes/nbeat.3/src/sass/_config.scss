@@ -1,14 +1,43 @@
-
-$debugImg: diagonal diagonal2 diagonal3 diagonal4;
 $brand-primary: color(blue);
+$debugImg: diagonal;
 
 // Switches
 $debug: false;
-$debugbp: false;
+$debugbp: true;
 $enable-flex: false;
 
 // General settings
 $theme-path: "/wp-content/themes/NorthernBeat3";
+
+// Paddings and margins
+
+// Fonts
+$font-family-sans-serif: "Nationale", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size-root: 20px;
+
+// Containers and grid
+$grid-breakpoints: (
+    xs: 0,
+    sm: 544px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+$container-max-widths: (
+    sm: 576px,
+    md: 720px,
+    lg: 940px,
+    xl: 1200px
+);
+
+$html-color: color(white);
+$body-color: color(gray-darkest);
+
+// Border radius
+$border-radius: 0;
+$border-radius-lg: 0;
+$border-radius-sm: 0;
 
 // Paddings and margins
 $_padding: 2.4rem;
@@ -16,53 +45,8 @@ $_padding-half: 1.2rem;
 $padding-vertical: 0.75rem;
 $padding-horizontal: 1rem;
 
-// Fonts
-$font-family-sans-serif: "Nationale", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-size-root: 20px;
-
-$font-size-base:             1rem;
-$font-size-lg:               1.25rem;
-$font-size-sm:               .85rem;
-$font-size-xs:               .75rem;
-$font-size-h1:               2.5rem;
-$font-size-h2:               2rem;
-$font-size-h3:               1.75rem;
-$font-size-h4:               1.5rem;
-$font-size-h5:               1.25rem;
-$font-size-h6:               1rem;
-$display1-size:               6rem;
-$display2-size:               5.5rem;
-$display3-size:               4.5rem;
-$display4-size:               3.5rem;
-$display1-weight:             300;
-$display2-weight:             300;
-$display3-weight:             300;
-$display4-weight:             300;
-$line-height:                1.5;
-
-// Containers and grid
-$grid-breakpoints: (
-    xs: 0, // 480
-    sm: 24rem, // 480
-    md: 36rem, // 720
-    lg: 50rem, // 960
-    xl: 62rem  // 1200
-);
-
-$container-max-widths: (
-    sm: 24rem, // 480
-    md: 36rem, // 720
-    lg: 48rem, // 960
-    xl: 60rem  // 1200
-);
-
-$html-color: color(white);
-$body-color: color(gray-darkest);
-
-// Body
-
 // Header
-$header-padding: $_padding;
+$header-padding: 3rem;
 $footer-padding: $_padding;
 $header-border-top: 0.2rem solid $brand-primary;
 $header-gradient-from: rgba($brand-primary, 0.83);
@@ -90,49 +74,49 @@ $slogan-letter-spacing: 0.04em;
 $slogan-line-height: 1.25;
 
 // Generic lists
-$list-item-margin-vertical: $_padding;
+$list-item-margin-vertical: 3.5rem;
 
 // Article: Section
-$no-nbeat-article-section-margin: 0;
+$no-nbeat-article-section-margin: 7rem;
 // $no-nbeat-article-section-padding: round(1.5 * $_padding);
-$no-nbeat-article-section-padding: 3rem;
+$no-nbeat-article-section-padding: 0;
 $no-nbeat-article-section-subcontent-margin: 3.2rem;
 
 // Article: Cover imafge
 $no-nbeat-article-coverimage-height: 40vmax;
 
 // Article: Page header
-$no-nbeat-article-pageheader-customers-size: $font-size-h5;
+$no-nbeat-article-pageheader-customers-size: 1rem;
 $no-nbeat-article-pageheader-margin: 1rem;
-$no-nbeat-article-pageheader-ingress-size: $font-size-h4;
+$no-nbeat-article-pageheader-ingress-size: 1.2rem;
 
 // Article: Header
 // $no-nbeat-article-header-size: $font-size-h2;
-$no-nbeat-article-header-margin: 1rem;
-$no-nbeat-article-header-ingress-size: $font-size-lg;
+$no-nbeat-article-header-margin: 1.5rem;
+$no-nbeat-article-header-ingress-size: 1.1rem;
+$no-nbeat-article-header-ingress-margin: 3rem;
 $no-nbeat-article-header-color: color(blue);
 
 // Article: Link
-$no-nbeat-article-link-arrow-size: $font-size-h2;
 $no-nbeat-article-link-arrow-color: color(gray-light);
+$no-nbeat-article-link-arrow-size: 2rem;
 $no-nbeat-article-link-arrow-top: 0.5rem;
 $no-nbeat-article-link-text-left: 3rem;
 
 // Article: Next
-$no-nbeat-article-next-title-size: $font-size-h2;
-$no-nbeat-article-next-arrow-size: $font-size-h2;
+$no-nbeat-article-next-title-size: 2rem;
+$no-nbeat-article-next-arrow-size: 2rem;
 $no-nbeat-article-next-height: 30vw;
 
 // Quote
-$no-nbeat-quote-size: $font-size-h1;
-$no-nbeat-quote-footer-size: $font-size-h3;
+$no-nbeat-quote-size: 2.2rem;
+$no-nbeat-quote-footer-size: 1.7rem;
 
 // List: Cases
-$no-nbeat-cases-title-size: $font-size-h1;
+$no-nbeat-cases-title-size: 2.2rem;
 $no-nbeat-cases-byline-margin: 3rem;
 $no-nbeat-cases-content-padding: 4rem;
 $no-nbeat-cases-content-padding-vertical: 2rem;
 
 // List: Employees
-$no-nbeat-employees-name-size: $font-size-h5;
 $no-nbeat-employees-list-margin: $_padding;

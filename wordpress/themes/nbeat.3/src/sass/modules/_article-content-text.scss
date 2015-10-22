@@ -1,5 +1,6 @@
 .content-text {
-    line-height: 1.4;
+    line-height: 1.5;
+    @include scale("font-size", $font-size-base, "xs");
     
     h2 {
         color: inherit;
