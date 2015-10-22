@@ -28,10 +28,10 @@
             height: 55%;
 
             @include media-breakpoint-down(sm) {
-                @include nb_flex();
-                @include nb_flex_align_items(center);
-                @include nb_flex_direction(column);
-                @include nb_flex_justify_content(center);
+                @include flexbox();
+                @include align_items(center);
+                @include flex_direction(column);
+                @include justify_content(center);
             }
 
             @include media-breakpoint-up(md) {

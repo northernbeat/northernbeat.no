@@ -12,9 +12,9 @@
     }
     
     .no-nbeat-menubar {
-        @include nb_flex();
-        @include nb_flex_justify_content();
-        @include nb_flex_align_items();
+        @include flexbox();
+        @include justify_content(space-between);
+        @include align_items(center);
         z-index: $no-nbeat-menubar-zindex;
 
         > * {

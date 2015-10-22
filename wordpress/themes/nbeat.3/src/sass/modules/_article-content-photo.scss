@@ -1,6 +1,6 @@
 .content-photo {
     .list-photos {
-        @include nb_flex();
+        @include flexbox();
         width: 100%;
         
         div {
@@ -19,7 +19,7 @@
     }
     
     .list-of-two {
-        @include nb_flex_wrap();
+        @include flex_wrap(wrap);
 
         div {
             width: 100%;

@@ -1,8 +1,8 @@
 .content-metrics {
     .list-metrics {
         @include list-item(2rem);
-        @include nb_flex();
-        @include nb_flex_wrap();
+        @include flexbox();
+        @include flex_wrap();
         margin-top: $_padding;
 
         .list-item {

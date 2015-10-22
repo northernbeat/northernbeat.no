@@ -3,13 +3,13 @@
     @include list-item(1.5rem);
 
     .list-item {
-        @include nb_flex();
-        @include nb_flex-align-items(flex-start);
-        @include nb_flex_wrap(wrap);
+        @include flexbox();
+        @include align-items(flex-start);
+        @include flex_wrap(wrap);
         @include scale("font-size", $font-size-base);
 
         @include media-breakpoint-up(md) {
-            @include nb_flex_wrap(nowrap);
+            @include flex_wrap(nowrap);
         }
         
         .time {

@@ -14,15 +14,15 @@
 
         > div {
             height: 100%;
-            @include nb_flex();
-            @include nb_flex-align-items(center);
+            @include flexbox();
+            @include align-items(center);
 
             .container {
                 width: 100%;
                 
                 > div {
-                    @include nb_flex();
-                    @include nb_flex-align-items(center);
+                    @include flexbox();
+                    @include align-items(center);
                     
                     .left, .right {
                         width: 50%;

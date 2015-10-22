@@ -13,16 +13,16 @@
     }
     
     .container {
-        @include nb_flex();
-        @include nb_flex_align_items(center);
+        @include flexbox();
+        @include align_items(center);
         height: 100%;
 
         > div {
             width: 100%;
-            @include nb_flex();
-            @include nb_flex_justify_content();
-            @include nb_flex_wrap();
-            @include nb_flex_align_items(center);
+            @include flexbox();
+            @include justify_content(space-between);
+            @include flex_wrap(wrap);
+            @include align_items(center);
             position: relative;
 
             > * {
@@ -47,20 +47,21 @@
 
     .info {
         width: 100%;
-        @include nb_flex();
-        @include nb_flex_justify_content(flex-start);
+        @include flexbox();
+        @include justify_content(flex-start);
         @include scale("font-size", $font-size-base);
-        @include nb_flex_wrap();
+        @include flex_wrap(wrap);
         margin-bottom: 0;
+        @include flex_direction(row);
         
         @include media-breakpoint-up(md) {
             margin-bottom: 1rem;
-            @include nb_flex_wrap(nowrap);
+            @include flex_wrap(nowrap);
         }
         
         @include media-breakpoint-up(lg) {
             width: auto;
-            @include nb_flex_justify_content(flex-end);
+            @include justify_content(flex-end);
         }
 
         @include media-breakpoint-up(xl) {
@@ -69,8 +70,8 @@
 
         .col {
             a {
-                @include nb_flex();
-                @include nb_flex_align_items();
+                @include flexbox();
+                @include align_items();
 
                 &:hover {
                     text-decoration: none;
@@ -130,8 +131,8 @@
         }
 
         .social {
-            @include nb_flex();
-            @include nb_flex_direction(column);
+            @include flexbox();
+            @include flex_direction(column);
             position: absolute;
             right: 0;
             top: 0;
@@ -146,7 +147,7 @@
             
             @include media-breakpoint-up(lg) {
                 position: relative;
-                @include nb_flex_direction(row);
+                @include flex_direction(row);
 
                 a {
                     margin-bottom: 0;

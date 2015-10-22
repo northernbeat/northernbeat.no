@@ -4,7 +4,7 @@
     margin: 0 auto;
     padding: 0;
     list-style-type: none;
-    @include nb_flex();
-    @include nb_flex_wrap();
-    @include nb_flex_justify_content(flex-start);
+    @include flexbox();
+    @include flex_wrap(wrap);
+    @include justify_content(flex-start);
 }
