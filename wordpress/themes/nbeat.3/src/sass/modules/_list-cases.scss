@@ -18,7 +18,8 @@
             // @include scale("padding-left", $no-nbeat-cases-content-padding, "", $_scale2);
             // @include scale("padding-right", $no-nbeat-cases-content-padding, "", $_scale2);
             // @include scale("padding-bottom", $no-nbeat-cases-content-padding, "", $_scale2);
-            @include scale("padding", 5vmin, "", (), ("lg": 7.5vmin, "xl": 4rem));
+            @include scale("padding", 5vmin);
+            @include scale("padding-top", 7vmin);
 
             position: absolute;
             bottom: 0;
@@ -45,8 +46,8 @@
                 color: inherit;
                 margin-bottom: 0;
                 width: 100%;
-                @include scale("font-size", $no-nbeat-cases-title-size, "", $_scale-case);
                 line-height: 1.0;
+                @include scale("font-size", $no-nbeat-cases-title-size);
                 
                 @include media-breakpoint-up(md) {
                     line-height: 1.3;
@@ -57,8 +58,11 @@
             .byline {
                 width: 100%;
                 @include scale("font-size", $font-size-h6);
-                @include scale("margin-top", round(0.3 * $no-nbeat-cases-byline-margin), "", $_scale-case);
-                @include scale("margin-bottom", $no-nbeat-cases-byline-margin, "", $_scale-case, ("base": 0, "sm": 0, "md": 1.2rem, "lg": 1.5rem));
+                @include scale("margin-top", round(0.3 * $no-nbeat-cases-byline-margin));
+                    
+                @include media-breakpoint-up(md) {
+                    @include scale("margin-bottom", $no-nbeat-cases-byline-margin);
+                }
             }
 
             .text {

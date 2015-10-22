@@ -7,7 +7,8 @@
     }
     
     .ingress {
-        @include scale("font-size", $no-nbeat-article-header-ingress-size);
         line-height: 1.4;
+        @include scale("font-size", $no-nbeat-article-header-ingress-size, "sm");
+        @include scale("margin-bottom", $no-nbeat-article-header-ingress-margin);
     }
 }

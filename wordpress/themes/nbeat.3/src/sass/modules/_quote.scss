@@ -6,20 +6,20 @@
         border-left: 0;
         
         p {
-            @include scale("font-size", $no-nbeat-quote-size, "", $_scale-lg);
+            @include scale("font-size", $no-nbeat-quote-size);
             position: relative;
             color: inherit;
             margin-bottom: $_padding;
 
             &:before {
                 position: absolute;
-                left: -3rem;
                 content: "\2014 \00A0";
+                @include scale("left", -3rem);
             }
         }
 
         footer {
-            @include scale("font-size", $no-nbeat-quote-footer-size, "", $_scale-md);
+            @include scale("font-size", $no-nbeat-quote-footer-size);
             color: inherit;
             font-weight: light;
 

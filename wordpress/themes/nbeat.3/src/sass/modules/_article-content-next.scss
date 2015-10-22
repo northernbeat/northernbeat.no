@@ -29,25 +29,23 @@
                     }
                     
                     .left {
-                        @include scale("font-size", $font-size-base, "", $_scale-sm);
+                        @include scale("font-size", $font-size-base, "sm");
                         text-align: center;
 
                         .arrow {
-                            @include scale("font-size", $no-nbeat-article-next-arrow-size, "",
-                                           $_scale-md);
+                            @include scale("font-size", $no-nbeat-article-next-arrow-size);
                             line-height: 1;
                         }
                     }
                     
                     h2.title {
                         color: inherit;
-                        @include scale("font-size", $no-nbeat-article-next-title-size,
-                                      "", $_scale-lg);
-                        @include scale("margin-bottom", 1.5rem, "", $_scale-xl);
+                        @include scale("font-size", $no-nbeat-article-next-title-size);
+                        @include scale("margin-bottom", 1.5rem);
                     }
 
                     .customer {
-                        @include scale("font-size", $font-size-base, "", $_scale-sm);
+                        @include scale("font-size", $font-size-base, "sm");
                         margin-bottom: 0;
                     }                        
                 }

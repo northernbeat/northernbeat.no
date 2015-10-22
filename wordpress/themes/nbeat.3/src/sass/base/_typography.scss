@@ -1,25 +1,25 @@
 h1 {
-    @include scale("font-size", $font-size-h1, "", $_scale);
+    @include scale("font-size", $font-size-h1, "sm");
     font-weight: bold;
 }
 
 h2 {
-    @include scale("font-size", $font-size-h2, "", $_scale);
+    @include scale("font-size", $font-size-h2, "sm");
     font-weight: bold;
 }
 
 h3 {
-    @include scale("font-size", $font-size-h3, "", $_scale);
+    @include scale("font-size", $font-size-h3, "sm");
 }
 
 h4 {
-    @include scale("font-size", $font-size-h4, "", $_scale);
+    @include scale("font-size", $font-size-h4, "sm");
 }
 
 h5 {
-    @include scale("font-size", $font-size-h5, "", $_scale);
+    @include scale("font-size", $font-size-h5, "sm");
 }
 
 h6 {
-    @include scale("font-size", $font-size-h6, "", $_scale);
+    @include scale("font-size", $font-size-h6, "sm");
 }

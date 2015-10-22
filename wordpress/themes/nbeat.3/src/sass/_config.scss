@@ -56,62 +56,6 @@ $container-max-widths: (
     xl: 60rem  // 1200
 );
 
-$_scale: (
-    "base": 0.7,
-    "sm": 0.7,
-    "md": 0.8,
-    "lg": 0.9,
-    "xl": 1
-);
-$_scale-aggr: (
-    "base": 0.25,
-    "sm": 0.25,
-    "md": 0.5,
-    "lg": 0.75,
-    "xl": 1
-);
-$_scale-case: (
-    "base": 0.35,
-    "sm": 0.35,
-    "md": 0.5,
-    "lg": 0.7,
-    "xl": 1
-);
-$_scale-xl: (
-    "base": 0.25,
-    "sm": 0.25,
-    "md": 0.5,
-    "lg": 0.75,
-    "xl": 1
-);
-$_scale-lg: (
-    "base": 0.4,
-    "sm": 0.4,
-    "md": 0.6,
-    "lg": 0.8,
-    "xl": 1
-);
-$_scale-md: (
-    "base": 0.5,
-    "sm": 0.5,
-    "md": 0.65,
-    "lg": 0.8,
-    "xl": 1
-);
-$_scale-sm: (
-    "base": 0.7,
-    "sm": 0.7,
-    "md": 0.8,
-    "lg": 0.9,
-    "xl": 1
-);
-$_scale-xs: (
-    "base": 0.75,
-    "sm": 0.75,
-    "md": 0.83,
-    "lg": 0.92,
-    "xl": 1
-);
 $html-color: color(white);
 $body-color: color(gray-darkest);
 

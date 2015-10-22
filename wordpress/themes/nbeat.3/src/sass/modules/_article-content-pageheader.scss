@@ -1,8 +1,8 @@
 .content-pageheader {
     .customers {
         display: inline-block;
-        @include scale("font-size", $no-nbeat-article-pageheader-customers-size);
-        @include scale("margin-bottom", $no-nbeat-article-pageheader-margin);
+        @include scale("font-size", $no-nbeat-article-pageheader-customers-size, "sm");
+        @include scale("margin-bottom", 1.5rem, "sm");
         padding: 0.3rem 0.6rem;
 
         @include media-breakpoint-up(md) {
@@ -11,13 +11,14 @@
     }
     
     h1 {
-        @include scale("margin-top", $no-nbeat-article-pageheader-margin);
+        // @include scale("margin-top", $no-nbeat-article-pageheader-margin);
+        margin-top: 0;
         @include scale("margin-bottom", 2 * $no-nbeat-article-pageheader-margin);
         // color: $body-color;
     }
 
     .ingress {
-        @include scale("font-size", $no-nbeat-article-pageheader-ingress-size);
+        @include scale("font-size", $no-nbeat-article-pageheader-ingress-size, "sm");
         line-height: 1.4
     }
 }

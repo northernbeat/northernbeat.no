@@ -12,7 +12,7 @@
         }
 
         .title {
-            @include scale("font-size", $font-size-h5, "", $_scale_sm);
+            @include scale("font-size", $font-size-h5, "xs");
             font-weight: bold;
             margin: 0;
             margin-left: 20%;
@@ -25,8 +25,8 @@
         }
         
         .text { 
-            @include scale("margin-top", 0.6rem, "", $_scale_sm);
-            @include scale("font-size", $font-size-sm, "", $_scale_sm);
+            @include scale("margin-top", 0.6rem);
+            @include scale("font-size", $font-size-sm, "xs");
             color: $body-color;
             margin-left: 20%;
 

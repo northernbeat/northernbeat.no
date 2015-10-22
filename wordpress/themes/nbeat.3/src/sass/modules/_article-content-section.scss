@@ -16,8 +16,8 @@
     }
     
     .content-subsection {
-        @include scale("margin-top", $no-nbeat-article-section-subcontent-margin, "", $_scale-aggr);
-        @include scale("margin-bottom", $no-nbeat-article-section-subcontent-margin, "", $_scale-aggr);
+        // @include scale("margin-top", $no-nbeat-article-section-subcontent-margin);
+        // @include scale("margin-bottom", $no-nbeat-article-section-subcontent-margin);
 
         &:first-child {
             margin-top: 0;

@@ -1,0 +1,58 @@
+@mixin scale($key, $inSize, $vals: "md")
+{
+    $sizes: "base" "sm" "md" "lg" "xl";
+
+    @if ("xl" == $vals) {
+        $factors: (
+        "base": 0.25,
+        "sm": 0.25,
+        "md": 0.5,
+        "lg": 0.75,
+        "xl": 1
+    );
+    } @else if ("lg" == $vals) {
+        $factors: (
+        "base": 0.4,
+        "sm": 0.4,
+        "md": 0.6,
+        "lg": 0.8,
+        "xl": 1
+    );
+    } @else if ("md" == $vals) {
+        $factors: (
+        "base": 0.5,
+        "sm": 0.5,
+        "md": 0.65,
+        "lg": 0.8,
+        "xl": 1
+    );
+    } @else if ("sm" == $vals) {
+        $factors: (
+        "base": 0.7,
+        "sm": 0.7,
+        "md": 0.8,
+        "lg": 0.9,
+        "xl": 1
+    );
+    } @else if ("xs" == $vals) {
+        $factors: (
+        "base": 0.75,
+        "sm": 0.75,
+        "md": 0.83,
+        "lg": 0.92,
+        "xl": 1
+    );
+    }
+
+    @each $s in $sizes {
+        @include media-breakpoint-up($s) {
+            @if (map-has-key($factors, $s)) {
+                $factor: map-get($factors, $s);
+            } @else {
+                $factor: 1.0;
+            }
+            
+            #{$key}: ($inSize * $factor)
+        }
+    }
+}
