@@ -31,4 +31,18 @@ class Employee extends \NorthernBeat\Theme\Post
         return $prepend . $this->getProp("phone");
     }
 
+
+
+    public function getModalId()
+    {
+        // print_pre_r($this);
+        return "modal-" . md5($this->getFirstname() . $this->getLastname());
+    }
+
+
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }

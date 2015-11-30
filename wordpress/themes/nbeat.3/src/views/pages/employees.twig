@@ -1,12 +1,13 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
+
   <article>
 
     <section class="content-section content-pageheader content-text">
       <div class="container">
         <div class="row">
-          <div class="col-lg-10 col-lg-offset-1 two-thirds">
+          <div class="col-lg-10 col-lg-offset-1 content-two-thirds">
             <h1 class="has-branding">Menneskene</h1>
 
             <div class="ingress">
@@ -26,6 +27,9 @@
         {% include "modules/list-employees.twig" with {"listClasses": classes} %}
       </div>
     </section>
-    
+
+    {% if autoopen %}
+    <span id="modal-autoopen" data-slug="{{autoopen}}"></span>
+    {% endif %}
   </article>
 {% endblock %}

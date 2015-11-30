@@ -25,5 +25,8 @@ module.exports = function(gulp, plugins)
 
         gulp.src("node_modules/jquery/dist/jquery.min.js")
             .pipe(gulp.dest("build/NorthernBeat3/js"));
+
+        gulp.src("/Users/eirik.refsdal/github/other/bootstrap/dist/js/bootstrap.min.js")
+            .pipe(gulp.dest("build/NorthernBeat3/js"));
     };
 };

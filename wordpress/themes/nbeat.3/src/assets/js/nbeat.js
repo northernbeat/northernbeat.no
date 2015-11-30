@@ -1,13 +1,15 @@
 $(document).ready(function() {
 
     var footer = $("#footer");
-
+    var prevLocation;
+    
     handleHamburgerEvents();
     setCaseColors();
     // showContentDebug();
     // drawLogo();
     initFooter();
     handleScroll();
+    initEmployeeModal();
 
     
 
@@ -153,4 +155,61 @@ $(document).ready(function() {
             D.body.clientHeight, D.documentElement.clientHeight
         );
     }
+
+
+
+    function initEmployeeModal()
+    {
+        var el;
+        var slug;
+        
+        $("#empModal").on("show.bs.modal", function(e) {
+            if ($("#modal-autoopen").length) {
+                slug = $("#modal-autoopen").data("slug");
+                $("#modal-autoopen").remove();
+            } else {
+                el   = $(e.relatedTarget);
+                slug = el.data("slug");
+            }
+
+            populateEmpModal(slug);
+            prevLocation = window.location.pathname;
+            window.history.pushState({}, "", "/menneskene/" + slug + "/");
+        });
+        
+        $("#empModal").on("hide.bs.modal", function(e) {
+            if ("/menneskene/" + slug + "/" == prevLocation) {
+                window.history.pushState({}, "Menneskene", "/menneskene/");
+            } else {
+                window.history.pushState({}, "", prevLocation);
+            }
+        });
+
+        if ($("#modal-autoopen").length) {
+            $("#empModal").modal("show");
+        }
+    }
+
+
+    
+    function populateEmpModal(slug)
+    {
+        var id    = "modal-" + slug;
+        var img   = $("#" + id + " .photo img").first().attr("src");
+        var name  = $("#" + id + " .name").first().html();
+        var role  = $("#" + id + " .role").first().text();
+        var phone = $("#" + id + " .phone").first().text();
+        var email = $("#" + id + " .email").first().text();
+        var desc  = $("#" + id + " .text").first().text();
+
+        $("#empModal .name").html(name);
+        $("#empModal .role").text(role);
+        $("#empModal .phone").text(phone);
+        $("#empModal .email a").text(email);
+        $("#empModal .email a").attr("href", "mailto:" + email);
+        $("#empModal .photo img").attr("src", img);
+        $("#empModal .text").text(desc);
+    }
+
+
 });

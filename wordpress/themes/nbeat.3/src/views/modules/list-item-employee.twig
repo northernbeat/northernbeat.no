@@ -1,13 +1,26 @@
-<li class="list-item employee">
+<li id="modal-{{post.getSlug()}}" class="list-item employee">
   <div class="photo">
-    <a href="{{post.link}}">
+    <a href="/menneskene/{{post.getSlug()}}"
+       data-toggle="modal"
+       data-target="#empModal"
+       data-slug="{{post.getSlug()}}"
+       >
       <img src="{{post.getPhoto()|default("/wp-content/themes/NorthernBeat3/img/person.svg")}}" alt="{{post.getFirstname()}} {{post.getLastname()}}" />
     </a>
   </div>
-  <div class="details">
-    <h2 class="name"><a href="{{post.link}}">{{post.getFirstname()}}<br />{{post.getLastname()}}</a></h2>
-    <div class="role">{{post.getTitle()}}</div>
-    <div class="email"><a href="mailto:{{post.getEmail()}}">{{post.getEmail()}}</a></div>
-    <div class="phone">{{post.getPhone()}}</div>
-  </div>
+    
+    <div class="details">
+      <a href="/menneskene/{{post.getSlug()}}"
+         data-toggle="modal"
+         data-target="#empModal"
+         data-slug="{{post.getSlug()}}"
+         >
+        <h2 class="name">{{post.getFirstname()}}<br />{{post.getLastname()}}</h2>
+      </a>
+      <div class="role">{{post.getTitle()}}</div>
+      <div class="email"><a href="mailto:{{post.getEmail()}}">{{post.getEmail()}}</a></div>
+      <div class="phone">{{post.getPhone()}}</div>
+      <div class="text">{{post.getDescription()}}</div>
+    </div>
+  
 </li>
