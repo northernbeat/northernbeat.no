@@ -8,6 +8,28 @@
         max-height: 10rem;
         height: 10rem;
         
+        a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            
+            &:hover {
+                .bg-img {
+                    transform: scale(1.025);
+                    -webkit-transform: scale(1.025);
+                    @include ease-out(2s);
+                }
+            }
+            
+            .bg-img {
+                background-size: cover;
+                background-position: center center;
+                height: 100%;
+                width: 100%;
+                @include ease-out(1s);
+            }
+        }
+    
         @include media-breakpoint-up(sm) {
             max-height: 14rem;
             height: 14rem;
@@ -28,28 +50,6 @@
             height: 28rem;
         }
         
-        a {
-            display: block;
-            height: 100%;
-            width: 100%;
-
-            &:hover {
-                .bg-img {
-                    transform: scale(1.025);
-                    -webkit-transform: scale(1.025);
-                    @include ease-out(2s);
-                }
-            }
-        }
-
-        .bg-img {
-            background-size: cover;
-            background-position: center center;
-            height: 100%;
-            width: 100%;
-            @include ease-out(1s);
-        }
-
         .content {
             // @include scale("padding-top", $no-nbeat-cases-content-padding, "", $_scale2);
             // @include scale("padding-left", $no-nbeat-cases-content-padding, "", $_scale2);
@@ -114,6 +114,27 @@
                 @include media-breakpoint-up(lg) {
                     @include scale("font-size", $font-size-h6);
                 }
+            }
+        }
+    }
+
+    &.list-cases-columns {
+        @include flexbox();
+
+        .list-item {
+            max-width: 50%;
+            max-height: 14rem;
+            height: 14rem;
+
+            &:nth-child(2n) {
+                margin-top: 0;
+            }
+            
+            .content {
+                @include flexbox();
+                @include align_items(center);
+                @include flex_direction(column);
+                @include justify_content(center);
             }
         }
     }

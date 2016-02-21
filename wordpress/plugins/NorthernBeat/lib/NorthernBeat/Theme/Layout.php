@@ -41,10 +41,15 @@ class Layout
 
         $tmp = $this->data[$field];
         $ret = "";
-        
+
         foreach (explode("\n", $tmp) as $line) {
-            if (trim($line)) {
+            // var_dump("|" . $line . "|");
+            $line = trim($line);
+        
+            if (strlen($line) > 0 && substr($line, 0, 1) != "<") {
                 $ret .= "<p>" . $line . "</p>";
+            } else {
+                $ret .= $line;
             }
         }
         

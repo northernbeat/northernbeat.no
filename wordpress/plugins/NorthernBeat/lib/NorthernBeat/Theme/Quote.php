@@ -55,4 +55,19 @@ class Quote extends \NorthernBeat\Theme\Post
             return $this->customer->getName();
         }
     }
+
+
+
+    public function hasFooter()
+    {
+        $customer = $this->getCustomer();
+        $name     = $this->getName();
+        
+        if (isset($customer) && strlen($customer) > 0 && isset($name) && strlen($name) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

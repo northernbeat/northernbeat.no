@@ -10,7 +10,6 @@
             @include scale("font-size", $no-nbeat-quote-size);
             position: relative;
             color: inherit;
-            margin-bottom: $_padding;
             margin-left: 2rem;
 
             @include media-breakpoint-up(md) {
@@ -29,6 +28,7 @@
             color: inherit;
             font-weight: light;
             margin-left: 2rem;
+            margin-top: $_padding;
 
             @include media-breakpoint-up(md) {
                 margin-left: 0;
@@ -38,5 +38,11 @@
                 content: "";
             }
         }
+    }
+}
+
+.no-nbeat-bg-blue {
+    .no-nbeat-quote {
+        padding: round(2 * $_padding) 0;
     }
 }

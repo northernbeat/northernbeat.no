@@ -38,6 +38,7 @@ class NorthernBeat
         add_action("admin_enqueue_scripts", array($this, "addAdminCss"));
         add_action("login_enqueue_scripts", array($this, "addAdminCss"));
         add_filter("upload_size_limit", array($this, "setUploadSize"));
+        remove_filter('the_content', 'wpautop');
     }
     
 

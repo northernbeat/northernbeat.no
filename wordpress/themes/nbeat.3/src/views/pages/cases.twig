@@ -3,7 +3,7 @@
 {% block content %}
   <article class="container">
     <section class="content-section">
-      {% include "modules/list-cases.twig" %}
+      {% include "modules/list-cases.twig" with {"classes": "list-cases-columns"} %}
     </section>
   </article>
 {% endblock %}
