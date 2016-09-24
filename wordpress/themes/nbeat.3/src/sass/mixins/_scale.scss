@@ -1,6 +1,13 @@
 @mixin scale($key, $inSize, $vals: "md")
 {
     $sizes: "base" "sm" "md" "lg" "xl";
+    $factors: (
+        "base": 0.5,
+        "sm": 0.5,
+        "md": 0.65,
+        "lg": 0.8,
+        "xl": 1
+    );
 
     @if ("xl" == $vals) {
         $factors: (
@@ -46,10 +53,10 @@
 
     @each $s in $sizes {
         @include media-breakpoint-up($s) {
+            $factor: 1.0;
+
             @if (map-has-key($factors, $s)) {
                 $factor: map-get($factors, $s);
-            } @else {
-                $factor: 1.0;
             }
             
             #{$key}: ($inSize * $factor)

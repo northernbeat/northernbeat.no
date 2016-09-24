@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="description" content="{{ site.description|e('html_attr') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ wp_title }}</title>
-
+    <title>{{post.title}} - {{site.title}}</title>
+    <meta name="keywords" content="interaksjonsdesign, grafisk design, design, nettbutikk, intranett, oslo, norge, responsiv, innholdsrådgiving, digital rådgiver, brukertesting, konseptutvikling" />
+    <meta name="robots" content="index, follow" />
     <link rel="stylesheet" media="all" href="{{ site.theme.link }}/style.css" />
 
     {{ function('wp_head') }}

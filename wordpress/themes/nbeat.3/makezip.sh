@@ -1,3 +1,3 @@
 #!/bin/bash
 cd build
-zip -r ../NorthernBeatTheme3.zip NorthernBeat3
+zip -r ../dist/NorthernBeatTheme3.zip NorthernBeat3

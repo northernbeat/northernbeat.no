@@ -20,6 +20,6 @@ if (class_exists("TimberSite") && class_exists("\NorthernBeat\Theme\Site")) {
     error_log("*** Missing plugins: Timber and/or NorthernBeat");
 }
 
-$timberCacheTime = 0;
-$loader = new TimberLoader();
-$loader->clear_cache_timber();
+$timberCacheTime = 86400;
+// $loader = new TimberLoader();
+// $loader->clear_cache_timber();

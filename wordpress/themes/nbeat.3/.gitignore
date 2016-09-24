@@ -3,3 +3,4 @@ build/
 composer.lock
 vendor/
 src/assets/img/content
+dist/*.zip

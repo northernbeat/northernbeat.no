@@ -3,7 +3,7 @@ module.exports = function(gulp, plugins)
     var es       = require("event-stream");
     var header   = plugins.wpstylecss();
     var sassOpts = { includePaths: ["./node_modules",
-                                    "/Users/eirik.refsdal/github/other/bootstrap/scss"
+                                    "/Users/eirikref/github/other/bootstrap/scss"
                                     // "./node_modules/bootstrap-sass/assets/stylesheets",
                                     // "./node_modules/compass-mixins/lib"
                                    ]
