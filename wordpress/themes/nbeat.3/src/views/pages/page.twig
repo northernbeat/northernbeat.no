@@ -1,14 +1,14 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
-  <article>
+  <div class="article">
 
     {% if page.noHeader %}
     {% else %}
-      <section class="content-section content-pageheader content-text">
+      <div class="section content-section content-pageheader content-text">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-lg-10 offset-lg-1 two-thirds">
+            <div class="col-xs-12 col-lg-10 offset-lg-1 content-two-thirds">
               <h1 class="has-branding">{{post.post_title}}</h1>
               
               {% if post.getIngress() %}
@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </div>
     {% endif %}
 
 
@@ -27,16 +27,16 @@
     {% for field in post.getContent() %}
       {{ include("modules/content-field-#{field.getType()}.twig") }}
     {% else %}
-      <section class="content-section content-text">
+      <div class="content-section content-text">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-lg-10 offset-lg-1 two-thirds">
+            <div class="col-xs-12 col-lg-10 offset-lg-1 content-two-thirds">
               <em>Denne siden mangler innhold.</em>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     {% endfor %}
 
-  </article>
+  </div>
 {% endblock %}

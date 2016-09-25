@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     function handleHamburgerEvents()
     {
-        $(".no-nbeat-hamburger").on("click", function() {
+        $(".no-nbeat-hamburger").on("click touchend", function() {
             var toggle = $(this).attr("data-toggle");
 
             if (typeof toggle !== typeof undefined && toggle !== false) {

@@ -1,13 +1,13 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
-  <article>
-    <section class="content-coverimage" style="background-image: url({{post.getCoverImage()}})">
-    </section>
+  <div class="article">
+    <div class="section content-coverimage" style="background-image: url({{post.getCoverImage()}})">
+    </div>
 
 
     
-    <section class="content-section content-pageheader content-text">
+    <div class="section content-section content-pageheader content-text">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-lg-10 offset-lg-1 content-two-thirds">
@@ -24,14 +24,14 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
 
     
     {% for field in post.getContent() %}
       {{ include("modules/content-field-#{field.getType()}.twig") }}
     {% else %}
-      <section class="content-section content-text">
+      <div class="section content-section content-text">
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-lg-10 offset-lg-1 content-two-thirds">
@@ -39,12 +39,12 @@
             </div>
           </div>
         </div>
-      </section>
+      </div>
     {% endfor %}
 
     
     {% if post.getLink() %}
-      <section class="content-section content-link">
+      <div class="section content-section content-link">
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-lg-10 offset-lg-1 content-two-thirds">
@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </div>
     {% endif %}
 
 
@@ -61,5 +61,5 @@
       {% include "modules/content-field-next.twig" with { "next": post.getNext() } %}
     {% endif %}
   
-  </article>
+  </div>
 {% endblock %}

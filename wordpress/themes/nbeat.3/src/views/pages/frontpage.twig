@@ -1,15 +1,15 @@
 {% extends "layout/default.twig" %}
 
 {% block content %}
-  <article>
+  <div class="article">
   
-    <section class="content-section">
+    <div class="section content-section">
       <div class="container">
         {% include "modules/list-cases.twig" with {"posts": cases} %}
       </div>
-    </section>
+    </div>
     
-    <section class="content-section">
+    <div class="section content-section">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-lg-10 offset-lg-1">
@@ -26,9 +26,9 @@
             </div>
         </div>
       </div>
-    </section>
+    </div>
     
-    <section class="content-section no-nbeat-bg-blue">
+    <div class="section content-section no-nbeat-bg-blue">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-lg-10 offset-lg-1">
@@ -36,9 +36,9 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-  </article>
+  </div>
   
 {% endblock %}
 

@@ -2,9 +2,9 @@
 
 {% block content %}
 
-  <article>
+  <div class="article">
 
-    <section class="content-section content-pageheader content-text">
+    <div class="section content-section content-pageheader content-text">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-lg-10 offset-lg-1 content-two-thirds">
@@ -20,16 +20,16 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="content-section content-list">
+    <div class="section content-section content-list">
       <div class="container">
         {% include "modules/list-employees.twig" with {"listClasses": classes} %}
       </div>
-    </section>
+    </div>
 
     {% if autoopen %}
     <span id="modal-autoopen" data-slug="{{autoopen}}"></span>
     {% endif %}
-  </article>
+  </div>
 {% endblock %}
