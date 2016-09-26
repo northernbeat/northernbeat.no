@@ -1,13 +1,12 @@
 <header id="header" class="{{header.classes}}">
   {% include "layout/mainmenu.twig" %}
-
+  
   <div class="container">
 	<div class="no-nbeat-menubar">
 	  <a id="toplogo" href="/" class="no-nbeat-logo {{header.logo}}">
         <img id="svglogo"
              src="{{site.theme.link}}/img/{{header.logo|default("logo")}}.svg"
              alt="Logo, Northern Beat" />
-        <canvas id="no-nbeat-logo-canvas"></canvas>
       </a>
 	  <button class="no-nbeat-hamburger"
               data-toggle="header"
