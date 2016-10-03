@@ -8,11 +8,17 @@
           
           {% set contact = post.getContactUs() %}
           <div class="content-header content-subsection content-half">
-            <h2>{{field.getHeading()}}</h2>
-            
-            <div class="ingress">
-              {{field.getIngress()}}
-            </div>
+            {% if field.getHeading() %}
+              <h2>{{field.getHeading()}}</h2>
+            {% else %}
+              <h2 class="sr-only">Kontakt oss for mer informasjon</h2>
+            {% endif %}
+
+            {% if field.getIngress() %}
+              <div class="ingress">
+                {{field.getIngress()}}
+              </div>
+            {% endif %}
           </div>
           
           <div class="content-list content-subsection">
