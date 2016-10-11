@@ -87,11 +87,11 @@
 .list-employees {
     .employee {
         @include flexbox();
-        @include flex_wrap(wrap);
+        @include flex-wrap(wrap);
         
         @include media-breakpoint-up(xl) {
             @include flex_direction(column);
-            @include justify_content(flex-start);
+            @include justify-content(flex-start);
         }
 
         &:hover {
