@@ -5,7 +5,7 @@
     <div class="content-section content-photo">
       <div class="list-photos {{field.getNumPhotosClass()}}">
         {% for img in field.getPhotos() %}
-          <div><img src="{{img.src}}" /></div>
+          <div><img src="{{img.src}}" alt="Illustrasjonsbilde" /></div>
         {% endfor %}
       </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="row">
           <div class="list-photos {{field.getNumPhotosClass()}}">
             {% for img in field.getPhotos() %}
-              <div><img src="{{img.src}}" /></div>
+              <div><img src="{{img.src}}" alt="Illustrasjonsbilde" /></div>
             {% endfor %}
           </div>
         </div>
@@ -28,7 +28,7 @@
           <div class="col-xs-12 col-lg-10 offset-lg-1">
             <div class="list-photos {{field.getNumPhotosClass()}}">
               {% for img in field.getPhotos() %}
-                <div><img src="{{img.src}}" /></div>
+                <div><img src="{{img.src}}" alt="Illustrasjonsbilde" /></div>
               {% endfor %}
             </div>
           </div>
