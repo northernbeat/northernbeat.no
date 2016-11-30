@@ -21,5 +21,5 @@ if (class_exists("TimberSite") && class_exists("\NorthernBeat\Theme\Site")) {
 }
 
 $timberCacheTime = 86400;
-// $loader = new TimberLoader();
-// $loader->clear_cache_timber();
+$loader = new TimberLoader();
+$loader->clear_cache_timber();
