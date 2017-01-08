@@ -1,6 +1,0 @@
-.content-agenda {
-    h2 {
-        @include scale("font-size", $font-size-h3);
-        @include scale("margin-bottom", 2rem);
-    }
-}

@@ -1,9 +1,0 @@
-<h2 class="sr-only">Menneskene</h2>
-
-<ul class="list list-archive list-employees {{classes}}">
-  {% for post in posts %}
-    {{ include("modules/list-item-employee.twig") }}
-  {% else %}
-    <li>Ingen ansatte lagt inn.</li>
-  {% endfor %}
-</ul>
