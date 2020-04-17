@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Export MySQL data from container
+
+this_dir=$(cd `dirname $0` && pwd)
+file="$this_dir/../data/dump.sql"
+
+# Create dump file
+cmd='/usr/bin/mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE"'
+docker-compose exec mysql sh -c "$cmd" > $file
+
+sed -i '.bak' 1,1d $file && rm "$file.bak"
