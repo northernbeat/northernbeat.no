@@ -37,5 +37,7 @@ services:
                 define("FS_METHOD", "direct");
                 define("WP_DEBUG", true);
         volumes:
-            - ./src/wordpress-nbeat-plugin:/var/www/html/wp-content/plugins/wordpress-nbeat-plugin
-            - ./src/wordpress-nbeat-theme:/var/www/html/wp-content/themes/wordpress-nbeat-theme
+            - ./var/plugins:/var/www/html/wp-content/plugins
+            - ./var/upload:/var/www/html/wp-content/uploads
+            - ./src/NorthernBeatPlugin:/var/www/html/wp-content/plugins/NorthernBeatPlugin
+            - ./src/NorthernBeatTheme:/var/www/html/wp-content/themes/NorthernBeatTheme

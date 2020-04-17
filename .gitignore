@@ -1,6 +1,2 @@
-app/wp-content/plugins/akismet
-app/wp-content/plugins/hello.php
-app/wp-content/themes/twentysixteen
-app/wp-content/themes/twentyseventeen
-app/wp-content/themes/twentynineteen
-app/wp-content/themes/twentytwenty
+build/
+var/upload/
