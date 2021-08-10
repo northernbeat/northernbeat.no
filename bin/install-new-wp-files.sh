@@ -22,7 +22,8 @@ readonly NBEAT_PLUGIN_PATH=$WP_PLUGINS_PATH"NorthernBeatPlugin"
 readonly NBEAT_THEME_ZIP=$HOME"/NorthernBeatTheme.zip"
 readonly NBEAT_THEME_PATH=$WP_THEMES_PATH"NorthernBeatTheme"
 
-init() {
+init()
+{
     if [ ! -f "${NBEAT_PLUGIN_ZIP}" ]; then
         echo "Plugin zip file does not exist. Exiting."
         exit 1
@@ -44,21 +45,24 @@ init() {
     echo "${TEXT_SUCCESS}done${TEXT_DEFAULT}"
 }
 
-backup_current_code() {
+backup_current_code()
+{
     echo -n "Backing up current code...   "
     cp -a ${NBEAT_PLUGIN_PATH} ${BACKUP_PATH}
     cp -a ${NBEAT_THEME_PATH} ${BACKUP_PATH}
     echo "${TEXT_SUCCESS}done${TEXT_DEFAULT}"
 }
 
-remove_current_code() {
+remove_current_code()
+{
     echo -n "Removing current code...     "
     rm -rf ${NBEAT_PLUGIN_PATH}
     rm -rf ${NBEAT_THEME_PATH}
     echo "${TEXT_SUCCESS}done${TEXT_DEFAULT}"
 }
 
-install_new_code() {
+install_new_code()
+{
     echo -n "Installing new code...       "
     unzip -qq ${NBEAT_PLUGIN_ZIP} -d ${WP_PLUGINS_PATH}
     unzip -qq ${NBEAT_THEME_ZIP} -d ${WP_THEMES_PATH}
