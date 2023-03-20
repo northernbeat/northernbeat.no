@@ -74,12 +74,12 @@ abstract class Module {
 		}
 
 		// Check if on dashboard page.
-		if ( $dashboard && preg_match( '/^(toplevel_page_wphb)/', $page ) ) {
-			return true;
+		if ( $dashboard ) {
+			return preg_match( '/^(toplevel_page_wphb)/', $page );
 		}
 
 		// Check if on module page.
-		if ( preg_match( "/(wphb-{$slug})/", $page ) ) {
+		if ( preg_match( "/(wphb-$slug)/", $page ) ) {
 			return true;
 		}
 

@@ -1,5 +1,5 @@
 build/
-var/upload/
+var/uploads/
 var/mysql
 var/dump
 data/

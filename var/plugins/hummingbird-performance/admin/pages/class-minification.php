@@ -9,7 +9,6 @@ namespace Hummingbird\Admin\Pages;
 
 use Hummingbird\Admin\Page;
 use Hummingbird\Core\Modules\Minify;
-use Hummingbird\Core\Modules\Minify\Minify_Group;
 use Hummingbird\Core\Settings;
 use Hummingbird\Core\Utils;
 use Hummingbird\WP_Hummingbird;
@@ -27,7 +26,7 @@ class Minification extends Page {
 	 * Display mode.
 	 *
 	 * @since 1.7.1
-	 * @var string $mode  Default: 'basic'. Possible: 'advanced', 'basic.
+	 * @var string $mode  Default: 'basic'. Possible: 'advanced', 'basic'.
 	 */
 	public $mode = 'basic';
 
@@ -35,6 +34,8 @@ class Minification extends Page {
 	 * Function triggered when the page is loaded before render any content.
 	 */
 	public function on_load() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_react_scripts' ) );
+
 		$this->setup_navigation();
 
 		$minify_module = Utils::get_module( 'minify' );
@@ -47,14 +48,7 @@ class Minification extends Page {
 			return;
 		}
 
-		$options = $minify_module->get_options();
-		// If backed up settings exist apply to the files that are still present.
-		if ( isset( $options['backed_up_settings'] ) && ! $minify_module->scanner->is_scanning() ) {
-			$minify_module->merge_backed_up_settings();
-		}
-
-		$redirect     = false;
-		$redirect_url = Utils::get_admin_menu_url( 'minification' );
+		$redirect = false;
 
 		// We are here from a performance report - enable advanced mode.
 		if ( isset( $_GET['enable-advanced-settings'] ) ) {
@@ -62,35 +56,34 @@ class Minification extends Page {
 			$redirect = true;
 		}
 
+		$options = $minify_module->get_options();
+
 		// CDN should be disabled.
 		if ( isset( $options['use_cdn'] ) && true === $options['use_cdn'] && ! Utils::is_member() ) {
 			$minify_module->toggle_cdn( false );
-			$minify_module->clear_cache( false );
+			if ( ! $minify_module->scanner->is_scanning() ) {
+				$minify_module->clear_cache( false );
+			}
 		}
 
 		// Re-check files button clicked.
 		if ( isset( $_POST['recheck-files'] ) || isset( $_GET['recheck-files'] ) ) { // Input var ok.
-			// We want to backup the current settings.
-			$minify_module->backup_settings();
+			$minify_module->clear_cache( false );
 
-			$minify_module->clear_cache();
-			// Activate minification if is not.
-			$minify_module->toggle_service( true );
+			$collector = $minify_module->sources_collector;
+			$collector::clear_collection();
+
 			$minify_module->scanner->init_scan();
 			$redirect = true;
 		}
 
-		// Clear cache button clicked.
-		if ( isset( $_POST['clear-cache'] ) ) { // Input var okay.
-			Utils::get_module( 'minify' )->clear_cache( false );
-		}
-
-		// Reset to defaults button clicked on settings page.
+		// Reset to default button clicked on settings page.
 		if ( isset( $_GET['reset'] ) ) { // Input var okay.
 			check_admin_referer( 'wphb-reset-minification' );
+			$minify_module->reset_minification_settings();
 			$minify_module->clear_cache();
-			$redirect_url = add_query_arg( 'recheck-files', true, $redirect_url );
-			$redirect     = true;
+			$minify_module->scanner->init_scan();
+			$redirect = true;
 		}
 
 		// Disable clicked on settings page.
@@ -101,13 +94,51 @@ class Minification extends Page {
 		}
 
 		if ( $redirect ) {
-			wp_safe_redirect( $redirect_url );
+			wp_safe_redirect( Utils::get_admin_menu_url( 'minification' ) );
 			exit;
 		}
 	}
 
 	/**
-	 * Set up naviagation for module.
+	 * Enqueue scripts and styles for React.
+	 */
+	public function enqueue_react_scripts() {
+		wp_enqueue_style( 'wphb-react-minify-styles', WPHB_DIR_URL . 'admin/assets/css/wphb-react-minify.min.css', array(), WPHB_VERSION );
+		wp_enqueue_script( 'wphb-react-minify', WPHB_DIR_URL . 'admin/assets/js/wphb-react-minify.min.js', array( 'wp-i18n', 'lodash', 'wphb-react-lib', 'wp-api-fetch' ), WPHB_VERSION, true );
+
+		wp_localize_script(
+			'wphb-react-minify',
+			'wphbReact',
+			array(
+				'isMember'          => Utils::is_member(),
+				'isMultisite'       => is_multisite(),
+				'brandingHeroImage' => apply_filters( 'wpmudev_branding_hero_image', '' ),
+				'hideBranding'      => apply_filters( 'wpmudev_branding_hide_branding', false ),
+				'filters'           => $this->get_selector_filters(),
+				'mode'              => $this->mode,
+				'showModal'         => (bool) get_option( 'wphb-minification-show-advanced_modal' ),
+				'links'             => array(
+					'site'      => site_url(),
+					'images'    => WPHB_DIR_URL . 'admin/assets/image/',
+					'support'   => array(
+						'chat'  => Utils::get_link( 'chat' ),
+						'forum' => Utils::get_link( 'support' ),
+					),
+					'cdnUpsell' => Utils::get_link( 'plugin', 'hummingbird_topsummary_cdnbutton' ),
+					'safeMode'  => site_url() . '?minify-safe=true',
+				),
+			)
+		);
+
+		wp_add_inline_script(
+			'wphb-react-minify',
+			'wp.i18n.setLocaleData( ' . wp_json_encode( Utils::get_locale_data() ) . ', "wphb" );',
+			'before'
+		);
+	}
+
+	/**
+	 * Set up navigation for module.
 	 *
 	 * @since 1.8.2
 	 */
@@ -122,63 +153,208 @@ class Minification extends Page {
 			'settings' => __( 'Settings', 'wphb' ),
 		);
 
-		// Remove modules that are not used on subsites in a network.
-		if ( is_multisite() && ! is_network_admin() ) {
-			unset( $this->tabs['tools'] );
+		$minify = Settings::get_setting( 'enabled', 'minify' );
+		if ( is_multisite() && ( ( 'super-admins' === $minify && is_super_admin() ) || ( true === $minify ) ) ) {
+			$this->tabs['import'] = __( 'Import / Export', 'wphb' );
 		}
 
 		add_filter( 'wphb_admin_after_tab_' . $this->get_slug(), array( $this, 'after_tab' ) );
 	}
 
 	/**
-	 * Render the template header.
+	 * Render upgrade modal.
+	 *
+	 * @since 2.6.0
 	 */
-	public function render_header() {
-		// Asset Optimization publish changes.
-		if ( isset( $_POST['submit'] ) ) { // Input var okay.
-			check_admin_referer( 'wphb-enqueued-files' );
+	public function render_modals() {
+		if ( ! apply_filters( 'wp_hummingbird_is_active_module_minify', false ) || is_network_admin() ) {
+			return;
+		}
 
-			$minify_module = Utils::get_module( 'minify' );
-			$options       = $minify_module->get_options();
+		if ( ! get_option( 'wphb_do_minification_upgrade' ) ) {
+			return;
+		}
 
-			$options = $this->_sanitize_type( 'styles', $options );
-			$options = $this->_sanitize_type( 'scripts', $options );
+		$this->modal( 'upgrade-minification' );
+		?>
+		<script>
+			window.addEventListener("load", function(){
+				window.SUI.openModal( 'wphb-upgrade-minification-modal', 'wpbody-content', undefined, false );
+			});
+		</script>
+		<?php
+	}
 
-			$minify_module->update_options( $options );
-
-			// Remove notice.
-			delete_site_option( 'wphb-notice-minification-optimized-show' );
-
-			$this->admin_notices->show(
-				'updated',
-				__( '<strong>Your changes have been published.</strong> Note: Files queued for compression will generate once someone visits your homepage.', 'wphb' ),
-				'success'
-			);
+	/**
+	 * Asset optimization orphaned data notice.
+	 *
+	 * @since 3.1.2
+	 */
+	public function notices() {
+		if ( ! apply_filters( 'wp_hummingbird_is_active_module_minify', false ) ) {
+			return;
 		}
 
 		// Clear cache show notice (from clear cache button and clear cache notice).
-		if ( isset( $_POST['clear-cache'] ) ) { // Input var ok.
-			$this->admin_notices->show(
-				'updated',
-				__( 'Your cache has been successfully cleared. Your assets will regenerate the next time someone visits your website.', 'wphb' ),
-				'success'
-			);
+		if ( filter_input( INPUT_POST, 'clear-cache', FILTER_UNSAFE_RAW ) ) { // Input var ok.
+			$this->admin_notices->show_floating( __( 'Your cache has been successfully cleared. Your assets will regenerate the next time someone visits your website.', 'wphb' ) );
 		}
 
-		if ( isset( $_GET['wphb-cache-cleared-with-cloudflare'] ) ) { // Input var ok.
-			$this->admin_notices->show(
-				'updated',
-				__( 'Your local and Cloudflare caches have been successfully cleared. Your assets will regenerate the next time someone visits your website.', 'wphb' ),
-				'success'
-			);
+		if ( filter_input( INPUT_GET, 'wphb-cache-cleared-with-cloudflare', FILTER_UNSAFE_RAW ) ) { // Input var ok.
+			$this->admin_notices->show_floating( __( 'Your local and Cloudflare caches have been successfully cleared. Your assets will regenerate the next time someone visits your website.', 'wphb' ) );
+		}
+
+		add_action( 'wphb_sui_header_sui_actions_right', array( $this, 'add_header_actions' ) );
+		add_action( 'wphb_asset_optimization_notice', array( $this, 'render_http2_notice' ) );
+
+		$this->infinite_loop_notice();
+		$this->server_error_notice();
+		$this->orphaned_notice();
+	}
+
+	/**
+	 * Add content to the header.
+	 *
+	 * @since 2.5.0
+	 */
+	public function add_header_actions() {
+		if ( ! apply_filters( 'wp_hummingbird_is_active_module_minify', false ) || is_network_admin() ) {
+			return;
+		}
+
+		if ( ! isset( $this->mode ) || 'advanced' !== $this->mode ) {
+			return;
 		}
 		?>
-		<div class="sui-notice-top sui-notice-success sui-hidden" id="wphb-notice-minification-advanced-settings-updated">
-			<p><?php esc_html_e( 'Settings updated', 'wphb' ); ?></p>
-		</div>
-
+		<a class="sui-button sui-button-ghost" data-modal-open="wphb-tour-minification-modal" data-modal-open-focus="dialog-close-div" data-modal-mask="true">
+			<span class="sui-icon-web-globe-world" aria-hidden="true"></span>
+			<?php esc_html_e( 'Take a Tour', 'wphb' ); ?>
+		</a>
 		<?php
-		parent::render_header();
+	}
+
+	/**
+	 * Show HTTP/2 notice.
+	 *
+	 * @since 2.6.0
+	 */
+	public function render_http2_notice() {
+		if ( apply_filters( 'wpmudev_branding_hide_branding', false ) ) {
+			return;
+		}
+
+		if ( ! $this->admin_notices->can_show_notice( 'http2-info' ) ) {
+			return;
+		}
+
+		if ( Utils::get_module( 'minify' )->scanner->is_scanning() ) {
+			return;
+		}
+		?>
+		<div role="alert" class="sui-box sui-summary sui-summary-sm wphb-box-notice <?php echo isset( $_SERVER['WPMUDEV_HOSTED'] ) ? '' : 'wphb-notice-upsell'; ?>" aria-live="assertive">
+			<?php $branded_image = apply_filters( 'wpmudev_branding_hero_image', '' ); ?>
+			<?php if ( $branded_image ) : ?>
+				<div class="sui-summary-image-space" aria-hidden="true" style="background-image: url('<?php echo esc_url( $branded_image ); ?>')"></div>
+			<?php else : ?>
+				<div class="sui-summary-image-space" aria-hidden="true"></div>
+			<?php endif; ?>
+			<div class="sui-summary-segment">
+				<div class="sui-summary-details sui-no-padding-left">
+					<span class="sui-summary-sub sui-no-margin-bottom">
+						<?php
+						if ( isset( $_SERVER['WPMUDEV_HOSTED'] ) ) {
+							esc_attr_e( 'Your server is running the HTTP/2 protocol which automatically optimizes the delivery of your assets for you. You can still combine, and move your files, though this may not always improve performance.', 'wphb' );
+						} else {
+							printf(
+								/* translators: %1$s - opening <a> tag, %2$s - closing </a> tag */
+								esc_html__( 'Did you know WPMU DEV Hosting runs the HTTP/2 protocol, which automatically optimizes the delivery of your assets for you? Improve your site speed and performance by hosting your site with WPMU DEV. You can learn more about WPMU DEV Hosting %1$shere%2$s.', 'wphb' ),
+								'<a href="' . esc_url( Utils::get_link( 'hosting', 'AO_hosting_upsell' ) ) . '" target="_blank">',
+								'</a>'
+							);
+						}
+						?>
+					</span>
+					<?php if ( ! isset( $_SERVER['WPMUDEV_HOSTED'] ) ) : ?>
+						<a href="<?php echo esc_url( Utils::get_link( 'hosting', 'AO_hosting_upsell' ) ); ?>" target="_blank" class="sui-button sui-button-purple" style="margin-top: 10px;">
+							<?php esc_html_e( 'Host with us', 'wphb' ); ?>
+						</a>
+					<?php endif; ?>
+				</div>
+			</div>
+			<div class="wphb-dismiss-icon">
+				<a id="wphb-floating-http2-info" class="dismiss" href="#" aria-label="<?php esc_attr_e( 'Dismiss', 'wphb' ); ?>">
+					<span class="sui-icon-close" aria-hidden="true"></span>
+				</a>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Show notice if infinite loop detected.
+	 *
+	 * @since 3.4.0 Moved out to a 'wphb_asset_optimization_notice' action.
+	 *
+	 * @return void
+	 */
+	private function infinite_loop_notice() {
+		if ( ! get_transient( 'wphb_infinite_loop_warning' ) ) {
+			return;
+		}
+
+		$text = esc_html__( 'Issues processing queue. Hummingbird performance can be degraded.', 'wphb' );
+		$this->admin_notices->show_floating( $text, 'error' );
+	}
+
+	/**
+	 * Server error notice.
+	 *
+	 * @since 3.4.0 Moved out to a 'wphb_asset_optimization_notice' action.
+	 *
+	 * @return void
+	 */
+	private function server_error_notice() {
+		$module = Utils::get_module( 'minify' );
+
+		if ( ! $module->errors_controller->is_server_error() ) {
+			return;
+		}
+
+		$server_errors = $module->errors_controller->get_server_errors();
+
+		$message = sprintf( /* translators: %d: Time left before another retry. */
+			__( 'It seems that we are having problems in our servers. Asset optimization will be turned off for %d minutes', 'wphb' ),
+			$module->errors_controller->server_error_time_left()
+		) . '<br>' . $server_errors[0]->get_error_message();
+
+		$this->admin_notices->show_floating( $message, 'error' );
+	}
+
+	/**
+	 * Orphaned data notice.
+	 *
+	 * @return void
+	 */
+	private function orphaned_notice() {
+		$orphaned_metas = Utils::get_module( 'advanced' )->get_orphaned_ao_complex();
+		if ( $orphaned_metas < 100 ) {
+			return;
+		}
+		?>
+		<div class="notice notice-warning is-dismissible">
+			<span class="hidden" id="count-ao-orphaned"><?php echo esc_html( $orphaned_metas ); ?></span>
+			<p>
+				<?php
+				printf(
+					esc_html__( "We've detected some orphaned asset optimization metadata, which exceeded the acceptable limit. To avoid unnecessary database bloating and performance issues, click %1\$shere%2\$s to delete all the orphaned data. For more information check the %3\$sPlugins Health%2\$s page.", 'wphb' ),
+					'<a href="#" onclick="WPHB_Admin.minification.purgeOrphanedData()">',
+					'</a>',
+					'<a href="' . esc_url( Utils::get_admin_menu_url( 'advanced' ) . '&view=health' ) . '">'
+				)
+				?>
+			</p>
+		</div>
+		<?php
 	}
 
 	/**
@@ -189,10 +365,7 @@ class Minification extends Page {
 			$this->add_meta_box(
 				'minification/network-settings',
 				__( 'Settings', 'wphb' ),
-				array( $this, 'network_settings_meta_box' ),
-				null,
-				null,
-				'main'
+				array( $this, 'network_settings_meta_box' )
 			);
 
 			return;
@@ -218,39 +391,11 @@ class Minification extends Page {
 			return;
 		}
 
-		// Move it here from __construct so we don't make an extra db call if minification is disabled.
+		// Move it here from __construct, so we don't make an extra db call if minification is disabled.
 		$this->mode = Settings::get_setting( 'view', 'minify' );
 
-		/**
-		 * Summary meta box.
-		 */
-		$this->add_meta_box(
-			'minification/summary-meta-box',
-			null,
-			array( $this, 'summary_metabox' ),
-			null,
-			null,
-			'summary',
-			array(
-				'box_content_class' => 'sui-box sui-summary',
-			)
-		);
-
-		/**
-		 * Files meta box.
-		 */
-		$this->add_meta_box(
-			'minification/enqueued-files',
-			__( 'Files', 'wphb' ),
-			array( $this, 'enqueued_files_metabox' ),
-			null,
-			null,
-			'main',
-			array(
-				'box_header_class'  => 'sui-box-header box-title-' . $this->mode,
-				'box_content_class' => 'no-padding',
-			)
-		);
+		$this->add_meta_box( 'minification/react/summary', null, null, null, null, 'summary' );
+		$this->add_meta_box( 'minification/react/files', null, null, null, null, 'minify' );
 
 		/**
 		 * Tools meta box.
@@ -278,118 +423,28 @@ class Minification extends Page {
 				'box_content_class' => Utils::is_member() ? 'sui-box-body' : 'sui-box-body sui-upsell-items',
 			)
 		);
-	}
 
-	/**
-	 * *************************
-	 * Summary and empty states
-	 ***************************/
-
-	/**
-	 * Summary meta box.
-	 */
-	public function summary_metabox() {
-		$minify_module = Utils::get_module( 'minify' );
-		$collection    = $minify_module->get_resources_collection();
-
-		// Remove those assets that we don't want to display.
-		foreach ( $collection['styles'] as $key => $item ) {
-			if ( ! apply_filters( 'wphb_minification_display_enqueued_file', true, $item, 'styles' ) ) {
-				unset( $collection['styles'][ $key ] );
-			}
-		}
-		foreach ( $collection['scripts'] as $key => $item ) {
-			if ( ! apply_filters( 'wphb_minification_display_enqueued_file', true, $item, 'scripts' ) ) {
-				unset( $collection['scripts'][ $key ] );
-			}
-		}
-
-		$enqueued_files = count( $collection['scripts'] ) + count( $collection['styles'] );
-
-		$original_size_styles  = Utils::calculate_sum( @wp_list_pluck( $collection['styles'], 'original_size' ) );
-		$original_size_scripts = Utils::calculate_sum( @wp_list_pluck( $collection['scripts'], 'original_size' ) );
-		$original_size         = $original_size_scripts + $original_size_styles;
-
-		$compressed_size_styles  = Utils::calculate_sum( @wp_list_pluck( $collection['styles'], 'compressed_size' ) );
-		$compressed_size_scripts = Utils::calculate_sum( @wp_list_pluck( $collection['scripts'], 'compressed_size' ) );
-		$compressed_size         = $compressed_size_scripts + $compressed_size_styles;
-
-		if ( (int) $original_size <= 0 ) {
-			$percentage = 0;
-		} else {
-			$percentage = 100 - (int) $compressed_size * 100 / (int) $original_size;
-		}
-		$percentage      = number_format_i18n( $percentage, 1 );
-		$compressed_size = number_format( (float) $original_size - (float) $compressed_size, 0 );
-
-		$use_cdn   = $minify_module->get_cdn_status();
-		$is_member = Utils::is_member();
-
-		$args = compact( 'enqueued_files', 'compressed_size', 'percentage', 'use_cdn', 'is_member' );
-		$this->view( 'minification/summary-meta-box', $args );
-	}
-
-	/**
-	 * *************************
-	 * Asset Optimization basic/advanced
-	 ***************************/
-
-	/**
-	 * Enqueued files meta box.
-	 *
-	 * @since 1.7.1
-	 */
-	public function enqueued_files_metabox() {
-		$module     = Utils::get_module( 'minify' );
-		$collection = $module->get_resources_collection();
-
-		// Prepare filters.
-		$active_plugins = get_option( 'active_plugins', array() );
-		if ( is_multisite() ) {
-			foreach ( get_site_option( 'active_sitewide_plugins', array() ) as $plugin => $item ) {
-				$active_plugins[] = $plugin;
-			}
-		}
-		$theme      = wp_get_theme();
-		$theme_name = $theme->get( 'Name' );
-
-		$selector_filter                = array();
-		$selector_filter[ $theme_name ] = $theme_name;
-		foreach ( $active_plugins as $plugin ) {
-			if ( ! is_file( WP_PLUGIN_DIR . '/' . $plugin ) ) {
-				continue;
-			}
-			$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
-			if ( $plugin_data['Name'] ) {
-				// Found plugin, add it as a filter.
-				$selector_filter[ $plugin_data['Name'] ] = $plugin_data['Name'];
-			}
-		}
-		$styles_rows  = $this->_collection_rows( $collection['styles'], 'styles', $this->mode );
-		$scripts_rows = $this->_collection_rows( $collection['scripts'], 'scripts', $this->mode );
-		$others_rows  = $styles_rows['other'];
-		$others_rows .= $scripts_rows['other'];
-
-		if ( isset( $_GET['view-export-form'] ) ) { // Input var ok.
-			$this->view( 'minification/export-form' );
-		}
-
-		$this->view(
-			'minification/enqueued-files-meta-box',
-			array(
-				'type'            => $this->mode,
-				'styles_rows'     => $styles_rows['content'],
-				'scripts_rows'    => $scripts_rows['content'],
-				'others_rows'     => $others_rows,
-				'selector_filter' => $selector_filter,
-				'is_server_error' => $module->errors_controller->is_server_error(),
-				'server_errors'   => $module->errors_controller->get_server_errors(),
-				'error_time_left' => $module->errors_controller->server_error_time_left(),
-				'is_http2'        => is_ssl() && $module->is_http2(),
-				'tour'            => Settings::get( 'wphb-new-user-tour' ),
-			)
+		/**
+		 * Import/export meta box.
+		 *
+		 * @since 3.1.1
+		 */
+		$this->add_meta_box(
+			'minification/import',
+			__( 'Import / Export', 'wphb' ),
+			array( $this, 'import_meta_box' ),
+			null,
+			null,
+			'import'
 		);
 	}
+
+	/**
+	 * *************************
+	 * Asset Optimization manual
+	 *
+	 * @since 2.6.0
+	 ***************************/
 
 	/**
 	 * Tools meta box.
@@ -440,6 +495,7 @@ class Minification extends Page {
 					'wphb-log-action'
 				),
 				'path_url'     => $path_url,
+				'safe_mode'    => Minify::get_safe_mode_status(),
 			)
 		);
 	}
@@ -453,325 +509,6 @@ class Minification extends Page {
 		if ( 'files' === $tab ) {
 			echo ' <span class="sui-tag sui-tag-disabled">' . esc_html( Utils::minified_files_count() ) . '</span>';
 		}
-	}
-
-	/**
-	 * Parse settings update.
-	 *
-	 * @param string $type     Asset type. Accepts: 'scripts' and 'styles'.
-	 * @param array  $options  Current settings.
-	 *
-	 * @return mixed
-	 */
-	private function _sanitize_type( $type, $options ) {
-		$minify          = Utils::get_module( 'minify' );
-		$current_options = $minify->get_options();
-
-		// We'll save what groups have changed so we reset the cache for those groups.
-		$changed_groups = array();
-
-		if ( ! empty( $_POST[ $type ] ) ) { // Input var okay.
-			foreach ( wp_unslash( $_POST[ $type ] ) as $handle => $item ) { // Input var okay.
-				$key = array_search( $handle, $options['block'][ $type ], true );
-				if ( ! isset( $item['include'] ) ) {
-					$options['block'][ $type ][] = $handle;
-				} elseif ( false !== $key ) {
-					unset( $options['block'][ $type ][ $key ] );
-				}
-				$options['block'][ $type ] = array_unique( $options['block'][ $type ] );
-				$diff                      = array_merge(
-					array_diff( $current_options['block'][ $type ], $options['block'][ $type ] ),
-					array_diff( $options['block'][ $type ], $current_options['block'][ $type ] )
-				);
-				if ( $diff ) {
-					foreach ( $diff as $diff_handle ) {
-						$_groups = Minify_Group::get_groups_from_handle( $diff_handle, $type );
-						if ( $_groups ) {
-							$changed_groups = array_merge( $changed_groups, $_groups );
-						}
-					}
-				}
-
-				$key = array_search( $handle, $options['minify'][ $type ], true );
-				if ( ! isset( $item['minify'] ) && false !== $key ) {
-					unset( $options['minify'][ $type ][ $key ] );
-				} elseif ( isset( $item['minify'] ) ) {
-					$options['minify'][ $type ][] = $handle;
-				}
-				$options['minify'][ $type ] = array_unique( $options['minify'][ $type ] );
-				$diff                       = array_merge(
-					array_diff( $current_options['minify'][ $type ], $options['minify'][ $type ] ),
-					array_diff( $options['minify'][ $type ], $current_options['minify'][ $type ] )
-				);
-				if ( $diff ) {
-					foreach ( $diff as $diff_handle ) {
-						$_groups = Minify_Group::get_groups_from_handle( $diff_handle, $type );
-						if ( $_groups ) {
-							$changed_groups = array_merge( $changed_groups, $_groups );
-						}
-					}
-				}
-
-				$key = array_search( $handle, $options['combine'][ $type ], true );
-				if ( ! isset( $item['combine'] ) && false !== $key ) {
-					unset( $options['combine'][ $type ][ $key ] );
-				} elseif ( isset( $item['combine'] ) ) {
-					$options['combine'][ $type ][] = $handle;
-				}
-				$options['combine'][ $type ] = array_unique( $options['combine'][ $type ] );
-				$diff                        = array_merge(
-					array_diff( $current_options['combine'][ $type ], $options['combine'][ $type ] ),
-					array_diff( $options['combine'][ $type ], $current_options['combine'][ $type ] )
-				);
-
-				if ( $diff ) {
-					foreach ( $diff as $diff_handle ) {
-						$_groups = Minify_Group::get_groups_from_handle( $diff_handle, $type );
-						if ( $_groups ) {
-							$changed_groups = array_merge( $changed_groups, $_groups );
-						}
-					}
-				}
-
-				$key = array_search( $handle, $options['defer'][ $type ], true );
-				if ( ! isset( $item['defer'] ) && false !== $key ) {
-					unset( $options['defer'][ $type ][ $key ] );
-				} elseif ( isset( $item['defer'] ) ) {
-					$options['defer'][ $type ][] = $handle;
-				}
-				$options['defer'][ $type ] = array_unique( $options['defer'][ $type ] );
-				$diff                      = array_merge(
-					array_diff( $current_options['defer'][ $type ], $options['defer'][ $type ] ),
-					array_diff( $options['defer'][ $type ], $current_options['defer'][ $type ] )
-				);
-
-				if ( $diff ) {
-					foreach ( $diff as $diff_handle ) {
-						$_groups = Minify_Group::get_groups_from_handle( $diff_handle, $type );
-						if ( $_groups ) {
-							$changed_groups = array_merge( $changed_groups, $_groups );
-						}
-					}
-				}
-
-				$key = array_search( $handle, $options['inline'][ $type ], true );
-				if ( ! isset( $item['inline'] ) && false !== $key ) {
-					unset( $options['inline'][ $type ][ $key ] );
-				} elseif ( isset( $item['inline'] ) ) {
-					$options['inline'][ $type ][] = $handle;
-				}
-				$options['inline'][ $type ] = array_unique( $options['inline'][ $type ] );
-				$diff                       = array_merge(
-					array_diff( $current_options['inline'][ $type ], $options['inline'][ $type ] ),
-					array_diff( $options['inline'][ $type ], $current_options['inline'][ $type ] )
-				);
-
-				if ( $diff ) {
-					foreach ( $diff as $diff_handle ) {
-						$_groups = Minify_Group::get_groups_from_handle( $diff_handle, $type );
-						if ( $_groups ) {
-							$changed_groups = array_merge( $changed_groups, $_groups );
-						}
-					}
-				}
-
-				if ( empty( $item['position'] ) ) {
-					$item['position'] = 'header';
-				}
-				$key_exists = array_key_exists( $handle, $options['position'][ $type ] );
-				if ( 'footer' === $item['position'] ) {
-					$options['position'][ $type ][ $handle ] = $item['position'];
-				} elseif ( $key_exists ) {
-					unset( $options['position'][ $type ][ $handle ] );
-				}
-				if ( $diff = array_diff_key( $current_options['position'][ $type ], $options['position'][ $type ] ) ) {
-					foreach ( $diff as $diff_handle ) {
-						$_groups = Minify_Group::get_groups_from_handle( $diff_handle, $type );
-						if ( $_groups ) {
-							$changed_groups = array_merge( $changed_groups, $_groups );
-						}
-					}
-				}
-				$diff = array_merge(
-					array_diff_key( $current_options['position'][ $type ], $options['position'][ $type ] ),
-					array_diff_key( $options['position'][ $type ], $current_options['position'][ $type ] )
-				);
-				if ( $diff ) {
-					foreach ( $diff as $diff_handle => $position ) {
-						$_groups = Minify_Group::get_groups_from_handle( $diff_handle, $type );
-						if ( $_groups ) {
-							$changed_groups = array_merge( $changed_groups, $_groups );
-						}
-					}
-				}
-			}
-		}
-
-		foreach ( $changed_groups as $group ) {
-			/**
-			 * Delete those groups.
-			 *
-			 * @var Minify_Group $group
-			 */
-			$group->delete_file();
-		}
-
-		return $options;
-	}
-
-	/**
-	 * Populate minification table with enqueued files.
-	 *
-	 * @param array  $collection  Array of files.
-	 * @param string $type        Collection type. Accepts: scripts, styles.
-	 * @param string $view        View type. Accepts: basic, advanced.
-	 *
-	 * @return array
-	 */
-	private function _collection_rows( $collection, $type, $view ) {
-		$minification_module = Utils::get_module( 'minify' );
-
-		$options = $minification_module->get_options();
-
-		// This will be used for filtering.
-		$theme          = wp_get_theme();
-		$active_plugins = get_option( 'active_plugins', array() );
-		if ( is_multisite() ) {
-			foreach ( get_site_option( 'active_sitewide_plugins', array() ) as $plugin => $item ) {
-				$active_plugins[] = $plugin;
-			}
-		}
-
-		$content = array(
-			'content' => '',
-			'other'   => '',
-		);
-
-		foreach ( $collection as $item ) {
-			/**
-			 * Filter minification enqueued files items displaying
-			 *
-			 * @param bool $display If set to true, display the item. Default false
-			 * @param array $item Item data
-			 * @param string $type Type of the current item (scripts|styles)
-			 */
-			if ( ! apply_filters( 'wphb_minification_display_enqueued_file', true, $item, $type ) ) {
-				continue;
-			}
-
-			$position = '';
-			if ( ! empty( $options['position'][ $type ][ $item['handle'] ] ) && in_array(
-				$options['position'][ $type ][ $item['handle'] ],
-				array(
-					'header',
-					'footer',
-				),
-				true
-			) ) {
-				$position = $options['position'][ $type ][ $item['handle'] ];
-			}
-
-			$base_name       = $type . '[' . $item['handle'] . ']';
-			$compressed_size = isset( $item['compressed_size'] ) ? $item['compressed_size'] : false;
-			$original_size   = false;
-
-			if ( isset( $item['original_size'] ) ) {
-				$original_size = $item['original_size'];
-			} elseif ( file_exists( Utils::src_to_path( $item['src'] ) ) ) {
-				// Get original file size for local files that don't have it set for some reason.
-				$original_size = number_format_i18n( filesize( Utils::src_to_path( $item['src'] ) ) / 1000, 1 );
-			}
-
-			$processed  = ( false !== $original_size ) && ( false !== $compressed_size );
-			$compressed = $processed && ( $compressed_size < $original_size );
-
-			$site_url = str_replace( array( 'http://', 'https://' ), '', get_option( 'siteurl' ) );
-			$rel_src  = str_replace( array( 'http://', 'https://', $site_url ), '', $item['src'] );
-			$rel_src  = ltrim( $rel_src, '/' );
-			$full_src = $item['src'];
-
-			$info = pathinfo( $full_src );
-
-			$ext = 'OTHER';
-			if ( isset( $info['extension'] ) && preg_match( '/(css)\??[a-zA-Z=0-9]*/', $info['extension'] ) ) {
-				$ext = 'CSS';
-			} elseif ( isset( $info['extension'] ) && preg_match( '/(js)\??[a-zA-Z=0-9]*/', $info['extension'] ) ) {
-				$ext = 'JS';
-			}
-
-			$row_error         = $minification_module->errors_controller->get_handle_error( $item['handle'], $type );
-			$disable_switchers = $row_error ? $row_error['disable'] : array();
-
-			$filter = '';
-			if ( preg_match( '/wp-content\/themes\/(.*)\//', $full_src, $matches ) ) {
-				$filter = $theme->get( 'Name' );
-			} elseif ( preg_match( '/wp-content\/plugins\/([\w\-_]*)\//', $full_src, $matches ) ) {
-				// The source comes from a plugin.
-				foreach ( $active_plugins as $active_plugin ) {
-					if ( stristr( $active_plugin, $matches[1] ) ) {
-						// It seems that we found the plguin but let's double check.
-						$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $active_plugin );
-						if ( $plugin_data['Name'] ) {
-							// Found plugin, add it as a filter.
-							$filter = $plugin_data['Name'];
-						}
-						break;
-					}
-				}
-			}
-
-			$minified_file = preg_match( '/\.min\.(css|js)/', wp_basename( $rel_src ) );
-
-			/**
-			 * Allows to enable/disable switchers in minification page
-			 *
-			 * @param array $disable_switchers List of switchers disabled for an item ( include, minify, combine)
-			 * @param array $item Info about the current item
-			 * @param string $type Type of the current item (scripts|styles)
-			 */
-			$disable_switchers = apply_filters( 'wphb_minification_disable_switchers', $disable_switchers, $item, $type );
-
-			// Disabled state filter.
-			$disabled = in_array( $item['handle'], $options['block'][ $type ], true );
-
-			// Check if file has had changes made to it (don't need to check minify).
-			$file_changed = false;
-			if ( in_array( $item['handle'], $options['combine'][ $type ], true )
-				|| 'footer' === $position
-				|| in_array( $item['handle'], $options['defer'][ $type ], true )
-				|| in_array( $item['handle'], $options['inline'][ $type ], true )
-			) {
-				$file_changed = true;
-			}
-
-			$args = compact(
-				'item',
-				'options',
-				'type',
-				'position',
-				'base_name',
-				'original_size',
-				'compressed_size',
-				'rel_src',
-				'full_src',
-				'ext',
-				'row_error',
-				'disable_switchers',
-				'filter',
-				'minified_file',
-				'disabled',
-				'processed',
-				'compressed',
-				'file_changed'
-			);
-			if ( 'OTHER' !== $ext ) {
-				$content['content'] .= $this->view( "minification/{$view}-files-rows", $args, false );
-			} else {
-				$content['other'] .= $this->view( "minification/{$view}-files-rows", $args, false );
-			}
-		}
-
-		return $content;
 	}
 
 	/**
@@ -805,7 +542,56 @@ class Minification extends Page {
 				'type'             => $enabled ? $options['enabled'] : 'super-admins',
 				'use_cdn'          => $minify->get_cdn_status(),
 				'use_cdn_disabled' => ! $is_member || ! $options['enabled'],
+				'file_path'        => $options['file_path'],
 			)
 		);
 	}
+
+	/**
+	 * Import/export meta box. Shown on subsites.
+	 *
+	 * @since 3.1.1
+	 */
+	public function import_meta_box() {
+		$this->view( 'settings/import-export-meta-box' );
+	}
+
+	/**
+	 * Get plugins and themes to use as search filters for assets.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @return array
+	 */
+	private function get_selector_filters() {
+		$active_plugins = get_option( 'active_plugins', array() );
+
+		if ( is_multisite() ) {
+			foreach ( get_site_option( 'active_sitewide_plugins', array() ) as $plugin => $item ) {
+				$active_plugins[] = $plugin;
+			}
+		}
+
+		$selector_filter = array();
+
+		$theme_name = wp_get_theme()->get( 'Name' );
+
+		$selector_filter[ $theme_name ] = $theme_name;
+
+		foreach ( $active_plugins as $plugin ) {
+			if ( ! is_file( WP_PLUGIN_DIR . '/' . $plugin ) ) {
+				continue;
+			}
+
+			$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
+
+			// Found plugin, add it as a filter.
+			if ( $plugin_data['Name'] ) {
+				$selector_filter[ $plugin_data['Name'] ] = $plugin_data['Name'];
+			}
+		}
+
+		return $selector_filter;
+	}
+
 }

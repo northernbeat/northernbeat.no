@@ -7,18 +7,17 @@ import classNames from 'classnames';
 /**
  * Tooltip component.
  *
- * @param {string}          text     Tooltip text.
- * @param {React.Component} data     Should the tooltip wrap around a component.
- * @param {Array}           classes  Tooltip classes.
+ * @param {Object} props          Component props.
+ * @param {string} props.text     Tooltip text.
+ * @param {Array}  props.classes  Tooltip classes.
+ * @param {Object} props.children Component child elements.
  * @return {*} Tooltip component.
- * @constructor
+ * @class
  */
-export default function Tooltip( { text, data, classes } ) {
-	const combinedClasses = classNames( 'sui-tooltip', classes );
-
+export default function Tooltip( { text, classes, children } ) {
 	return (
-		<span className={ combinedClasses } data-tooltip={ text }>
-			{ data }
+		<span className={ classNames( 'sui-tooltip', classes ) } data-tooltip={ text }>
+			{ children }
 		</span>
 	);
 }

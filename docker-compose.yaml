@@ -43,7 +43,7 @@ services:
                 define("WP_DEBUG", true);
         volumes:
             - ./var/plugins:/var/www/html/wp-content/plugins
-            - ./var/upload:/var/www/html/wp-content/uploads
+            - ./var/uploads:/var/www/html/wp-content/uploads
             - ./src/NorthernBeatPlugin:/var/www/html/wp-content/plugins/NorthernBeatPlugin
             - ./src/NorthernBeatTheme:/var/www/html/wp-content/themes/NorthernBeatTheme
         networks:

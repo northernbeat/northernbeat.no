@@ -9,6 +9,7 @@ namespace Hummingbird\Core\Modules;
 
 use Hummingbird\Core\Module;
 use Hummingbird\Core\Settings;
+use Hummingbird\Core\Traits\Module as ModuleContract;
 use Hummingbird\Core\Utils;
 use WP_Error;
 
@@ -21,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Performance extends Module {
 
+	use ModuleContract;
+
 	/**
 	 * Initializes the module. Always executed even if the module is deactivated.
 	 *
@@ -31,19 +34,14 @@ class Performance extends Module {
 	}
 
 	/**
-	 * Execute the module actions. It must be defined in subclasses.
-	 */
-	public function run() {}
-
-	/**
 	 * Implement abstract parent method for clearing cache.
 	 *
 	 * @since 1.7.1
 	 */
 	public function clear_cache() {
 		Settings::delete( 'wphb-last-report' );
-		Settings::delete( 'wphb-doing-report' );
 		Settings::delete( 'wphb-stop-report' );
+		delete_transient( 'wphb-doing-report' );
 	}
 
 	/**
@@ -56,16 +54,14 @@ class Performance extends Module {
 		$this->clear_cache();
 
 		// Start the test.
-		self::set_doing_report( true );
-		$api = Utils::get_api();
-		$api->performance->ping();
+		self::set_doing_report();
+		Utils::get_api()->performance->ping();
 
 		// Clear dismissed report.
 		if ( self::report_dismissed() ) {
 			self::dismiss_report( false );
 		}
 
-		// TODO: this creates a duplicate task from cron.
 		do_action( 'wphb_init_performance_scan' );
 	}
 
@@ -76,7 +72,7 @@ class Performance extends Module {
 	 */
 	public static function cron_scan() {
 		// Start the test.
-		self::set_doing_report( true );
+		self::set_doing_report();
 		$api    = Utils::get_api();
 		$report = $api->performance->check();
 		// Stop the test.
@@ -102,17 +98,7 @@ class Performance extends Module {
 	 * @return false|int Timestamp when the report started, false if there's no report being executed
 	 */
 	public static function is_doing_report() {
-		$stopped = Settings::get( 'wphb-stop-report' );
-		return $stopped ? false : Settings::get( 'wphb-doing-report' );
-	}
-
-	/**
-	 * Check if Performance Scan is currently halted
-	 *
-	 * @return bool
-	 */
-	public static function stopped_report() {
-		return (bool) Settings::get( 'wphb-stop-report' );
+		return (bool) Settings::get( 'wphb-stop-report' ) ? false : get_transient( 'wphb-doing-report' );
 	}
 
 	/**
@@ -124,41 +110,36 @@ class Performance extends Module {
 	 */
 	public static function set_doing_report( $status = true ) {
 		if ( ! $status ) {
-			Settings::delete( 'wphb-doing-report' );
-			Settings::update( 'wphb-stop-report', true );
-		} else {
-			// Set time when we started the report.
-			Settings::update( 'wphb-doing-report', current_time( 'timestamp' ) );
-			Settings::delete( 'wphb-stop-report' );
+			delete_transient( 'wphb-doing-report' );
+			Settings::update( 'wphb-stop-report', true, false );
+			return;
 		}
+
+		// Set time when we started the report.
+		set_transient( 'wphb-doing-report', time(), 300 ); // save for 5 minutes.
+		Settings::delete( 'wphb-stop-report' );
 	}
 
 	/**
-	 * Get latest report from server
+	 * Get the latest report from server
 	 *
-	 * @return array|WP_Error
+	 * @return void
 	 */
 	public static function refresh_report() {
 		self::set_doing_report( false );
 		self::dismiss_report( false );
-		$api     = Utils::get_api();
-		$results = $api->performance->results();
+		$results = Utils::get_api()->performance->results();
 
-		$skip_db_save = false;
+		$skip_db = false;
 
 		if ( is_wp_error( $results ) ) {
 			$error_message = $results->get_error_message();
 
 			if ( 200 === $results->get_error_code() && 'Performance Results not found' === $error_message ) {
-				$skip_db_save = true;
-				$message      = __( 'Whoops, looks like we were unable to grab your test results this time round. Please wait a few moments and try again...', 'wphb' );
+				$skip_db = true;
+				$message = __( 'Whoops, looks like we were unable to grab your test results this time round. Please wait a few moments and try again...', 'wphb' );
 			} else {
-				$message = __(
-					"The performance test didn't return any results. This could be because you're on a local website
-					(which we can't access) or something went wrong trying to connect with the testing API. Give it
-					another go and if the problem persists, please open a ticket with our support team.",
-					'wphb'
-				);
+				$message = __( "The performance test didn't return any results. This could be because you're on a local website (which we can't access) or something went wrong trying to connect with the testing API. Give it another go and if the problem persists, please open a ticket with our support team.", 'wphb' );
 			}
 
 			// It's an actual error.
@@ -178,12 +159,12 @@ class Performance extends Module {
 			do_action( 'wphb_get_performance_report', $results->data );
 		}
 
-		if ( $skip_db_save ) {
-			return $results;
+		if ( $skip_db ) {
+			return;
 		}
 
 		// Only save reports from Performance module.
-		Settings::update( 'wphb-last-report', $results );
+		Settings::update( 'wphb-last-report', $results, false );
 	}
 
 	/**
@@ -198,7 +179,7 @@ class Performance extends Module {
 			$last_report = self::get_last_report();
 		}
 
-		$current_gmt_time = current_time( 'timestamp', true );
+		$current_gmt_time = time();
 		if ( $last_report && ! is_wp_error( $last_report ) ) {
 			$data_time = $last_report->data->time;
 			if ( ( $data_time + 300 ) < $current_gmt_time ) {
@@ -333,11 +314,91 @@ class Performance extends Module {
 			return;
 		}
 
-		$performance        = Utils::get_module( 'performance' );
-		$options            = $performance->get_options();
+		$options            = $this->get_options();
 		$options['reports'] = false;
 
-		$performance->update_options( $options );
+		$this->update_options( $options );
+	}
+
+	/**
+	 * Return audits mapped to metrics that they affect.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return array
+	 */
+	public static function get_maps() {
+		return array(
+			'fcp' => array(
+				'server-response-time',
+				'render-blocking-resources',
+				'redirects',
+				'critical-request-chains',
+				'uses-text-compression',
+				'uses-rel-preconnect',
+				'uses-rel-preload',
+				'font-display',
+				'unminified-javascript',
+				'unminified-css',
+				'unused-css-rules',
+			),
+			'lcp' => array(
+				'server-response-time',
+				'render-blocking-resources',
+				'redirects',
+				'critical-request-chains',
+				'uses-text-compression',
+				'uses-rel-preconnect',
+				'uses-rel-preload',
+				'font-display',
+				'unminified-javascript',
+				'unminified-css',
+				'unused-css-rules',
+				'largest-contentful-paint-element',
+				'preload-lcp-image',
+				'unused-javascript',
+				'efficient-animated-content',
+				'total-byte-weight',
+			),
+			'tbt' => array(
+				'long-tasks',
+				'third-party-summary',
+				'third-party-facades',
+				'bootup-time',
+				'mainthread-work-breakdown',
+				'dom-size',
+				'duplicated-javascript',
+				'legacy-javascript',
+			),
+			'cls' => array(
+				'layout-shift-elements',
+				'non-composited-animations',
+				'unsized-images',
+			),
+		);
+	}
+
+	/**
+	 * Return relevant metric IDs based on audit ID.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $audit  Audit ID.
+	 *
+	 * @return string  Metric IDs, separated with a space.
+	 */
+	public static function get_relevant_metrics( $audit ) {
+		$metrics = array();
+
+		foreach ( self::get_maps() as $metric => $audits ) {
+			if ( ! in_array( $audit, $audits, true ) ) {
+				continue;
+			}
+
+			$metrics[] = $metric;
+		}
+
+		return implode( ' ', $metrics );
 	}
 
 }

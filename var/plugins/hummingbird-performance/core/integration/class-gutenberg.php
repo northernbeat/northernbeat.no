@@ -8,9 +8,6 @@
 
 namespace Hummingbird\Core\Integration;
 
-use Hummingbird\Core\Settings;
-use Hummingbird\Core\Utils;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -35,10 +32,15 @@ class Gutenberg {
 	 * @since 1.9.4
 	 */
 	public function __construct() {
-		if ( ! is_admin() ) {
-			return;
-		}
+		add_action( 'admin_init', array( $this, 'init' ) );
+	}
 
+	/**
+	 * Detect page caching and gutenberg, and initialize block editor components
+	 *
+	 * @since 2.5.0
+	 */
+	public function init() {
 		// Page caching is not enabled.
 		if ( ! apply_filters( 'wp_hummingbird_is_active_module_page_cache', false ) ) {
 			return;
@@ -61,7 +63,6 @@ class Gutenberg {
 		global $wp_version;
 
 		if ( ! function_exists( 'is_plugin_active' ) ) {
-			/* @noinspection PhpIncludeInspection */
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
@@ -93,13 +94,15 @@ class Gutenberg {
 			WPHB_VERSION,
 			true
 		);
+		
+		$button_label = ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) ? esc_html__( 'HB', 'wphb' ) : '';
 
 		wp_localize_script(
 			'wphb-gutenberg',
 			'wphb',
 			array(
 				'strings' => array(
-					'button' => esc_html__( 'Clear HB post cache', 'wphb' ),
+					'button' => sprintf( esc_html__( 'Clear %s post cache', 'wphb' ), $button_label ),
 					'notice' => esc_html__( 'Cache for post has been cleared.', 'wphb' ),
 				),
 				'nonces'  => array(

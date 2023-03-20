@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <a href="<?php echo esc_url( $url ); ?>" class="sui-button sui-button-ghost">
-	<i class="sui-icon-wrench-tool" aria-hidden="true"></i>
+	<span class="sui-icon-wrench-tool" aria-hidden="true"></span>
 	<?php esc_html_e( 'Configure', 'wphb' ); ?>
 </a>
 
-<?php if ( ! is_multisite() ) : ?>
+<?php if ( ! is_multisite() && \Hummingbird\Core\Utils::is_member() ) : ?>
 	<div class="sui-actions-right">
 		<span class="status-text">
 			<?php $cdn_status ? esc_html_e( 'WPMU DEV CDN is active', 'wphb' ) : esc_html_e( 'WPMU DEV CDN is disabled', 'wphb' ); ?>
