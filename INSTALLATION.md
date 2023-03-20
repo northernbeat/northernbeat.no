@@ -2,7 +2,7 @@
 - Node 14 / NPM 6 (higher and lower versions will fail)
 - Git
 - Composer 2
-- PHP 7
+- PHP 8.0
 - Docker Desktop 4
 
 ## Installation guide
