@@ -6,17 +6,17 @@
  */
 import { fetch } from 'whatwg-fetch';
 
-const methods = [
-	'get',
-	'post',
-	'put',
-	'delete',
-];
+const methods = [ 'get', 'post', 'put', 'delete' ];
 
 /**
  * HB API class.
  *
  * Uses jQuery.ajax().
+ *
+ * @property {Function} get    GET request.
+ * @property {Function} post   POST request.
+ * @property {Function} put    PUT request.
+ * @property {Function} delete DELETE request.
  */
 export default class HBAPIFetch {
 	/**
@@ -32,7 +32,7 @@ export default class HBAPIFetch {
 	 * Setup AJAX endpoints.
 	 *
 	 * @param {string} method
-	 * @return {function(*=, *=): *} Response.
+	 * @return {function(*=, *=): Promise<*>} Response.
 	 * @private
 	 */
 	_setupAjaxAPI( method ) {
@@ -46,17 +46,25 @@ export default class HBAPIFetch {
 				credentials: 'same-origin',
 				method,
 				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+					'Content-Type':
+						'application/x-www-form-urlencoded; charset=utf-8',
 				},
-				body: 'action=wphb_react_' + endpoint + '&_wpnonce=' + wphb.nonces.HBFetchNonce + '&data=' + JSON.stringify( data ),
+				body:
+					'action=wphb_react_' +
+					endpoint +
+					'&_wpnonce=' +
+					wphb.nonces.HBFetchNonce +
+					'&data=' +
+					JSON.stringify( data ),
 			};
 
-			return fetch( ajaxurl, fetchObject )
-				.then( ( response ) => {
-					return response.json().then( ( json ) => {
-						return response.ok ? json.data : Promise.reject( json.data );
-					} );
+			return fetch( ajaxurl, fetchObject ).then( ( response ) => {
+				return response.json().then( ( json ) => {
+					return response.ok
+						? json.data
+						: Promise.reject( json.data );
 				} );
+			} );
 		};
 	}
 }

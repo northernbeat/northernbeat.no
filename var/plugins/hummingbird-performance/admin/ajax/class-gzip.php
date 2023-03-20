@@ -36,7 +36,12 @@ class Gzip {
 	public function status() {
 		check_ajax_referer( 'wphb-fetch' );
 
-		$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
+		$params = filter_input( INPUT_POST, 'data', FILTER_UNSAFE_RAW );
 		$params = json_decode( html_entity_decode( $params ), true );
 
 		if ( 'refresh' === $params ) {
@@ -54,7 +59,12 @@ class Gzip {
 	public function apply_rules() {
 		check_ajax_referer( 'wphb-fetch' );
 
-		$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
+		$params = filter_input( INPUT_POST, 'data', FILTER_UNSAFE_RAW );
 		$params = json_decode( html_entity_decode( $params ), true );
 
 		if ( 'add' === $params ) {
