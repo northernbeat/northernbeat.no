@@ -58,6 +58,20 @@ ln -s ../../wordpress-nbeat-theme/build/NorthernBeatTheme ./src
 ln -s ../../wordpress-nbeat-plugin/build/NorthernBeatPlugin ./src
 ```
 
+*For Apple Silicon users*/
+7.1. Add to the `docker-compose.yml` file the platfomr for the mysql service:
+```
+mysql:
+    platform: linux/x86_64
+```
+
+7.2. In case PHPMyAdmin is not working, add the networks to the `docker-compose.yml` file, for the phpmyadmins ervice:
+```
+phpmyadmin:
+    networks:
+      - default
+```
+
 8. Create a Docker app to run the local development environment.
 
 ```
